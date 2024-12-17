@@ -1,6 +1,7 @@
 import React from "react";
 import Signup from "./pages/Signup";
 import Identification from "./pages/Identification";
+import VisualDescription from "./pages/VisualDescription";
 
 // Testing the prototype components
 // TODO: Add router that navigages between pages but keeps app as SPA
@@ -9,6 +10,7 @@ function App() {
     <div>
       <Signup />
       <Identification />
+      <VisualDescription />
     </div>
   );
 }
