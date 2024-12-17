@@ -1,22 +1,11 @@
-import React, { useState } from 'react'
-import './App.css'
+import React from "react";
+import Signup from "./pages/signup";
 
-function App () {
-  const [name, setName] = useState('')
-
-  const handleName = (e: any) => {
-    e.preventDefault()
-  }
-
+function App() {
   return (
     <div>
-      <h2>Login plz</h2>
-      <form onSubmit={handleName}>
-        <input type="email" placeholder="Enter name" value={name} onChange={(e) => { setName(e.target.value) }} required />
-      </form>
-
+      <Signup />
     </div>
-  )
+  );
 }
-
-export default App
+export default App;
