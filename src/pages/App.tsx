@@ -1,5 +1,9 @@
 import React from "react";
 
+function App() {
+  return <RockPaperScissors />;
+}
+
 function RockPaperScissors() {
   return (
     <div className="flex h-screen flex-col items-center justify-center">
@@ -30,4 +34,4 @@ function RockPaperScissors() {
     </div>
   );
 }
-export default RockPaperScissors;
+export default App;

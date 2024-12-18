@@ -1,5 +1,6 @@
 import Input from "../components/Input";
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Signup() {
   return (
@@ -9,7 +10,9 @@ function Signup() {
         <Input title="Name" />
         <Input title="Student ID" />
       </div>
+      <Link to="/create-id">test</Link>
     </div>
   );
 }
+
 export default Signup;
