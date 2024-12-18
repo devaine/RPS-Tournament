@@ -3,6 +3,9 @@ import Signup from "./pages/Signup";
 import Identification from "./pages/Identification";
 import VisualDescription from "./pages/VisualDescription";
 import Locate from "./pages/Locate";
+import Waiting from "./pages/Waiting";
+import RockPaperScissors from "./pages/RockPaperScissors";
+import Decision from "./pages/Decision";
 
 // Testing the prototype components
 // TODO: Add router that navigages between pages but keeps app as SPA
@@ -13,6 +16,9 @@ function App() {
       <Identification />
       <VisualDescription />
       <Locate />
+      <Waiting />
+      <RockPaperScissors />
+      <Decision />
     </div>
   );
 }
