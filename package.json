@@ -23,6 +23,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.20"
+    "@vitejs/plugin-react": "^4.3.4",
+    "autoprefixer": "^10.4.20",
+    "vite-tsconfig-paths": "^5.1.4"
   }
 }

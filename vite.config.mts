@@ -1,11 +1,14 @@
 import { defineConfig } from "vite"
 import dotenv from 'dotenv'
+import tsconfigPaths from 'vite-tsconfig-paths';
+import react from '@vitejs/plugin-react'
 
-dotenv.config({ path: ['./src/config/.env']})
+dotenv.config({ path: ['./src/config/.env'] })
 
 export default defineConfig({
-	server: {
+	"plugins": [tsconfigPaths(), react()],
+	"server": {
 		//port: Number(process.env.VITE_PORT) // Converted into a number
 		port: Number(process.env.VITE_PORT)
-	}
+	},
 })
