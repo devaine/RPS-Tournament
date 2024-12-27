@@ -1,5 +1,5 @@
 import React from "react";
-import Input from "@/components/Input";
+import Input from "@/components/input";
 
 export default function CreateId() {
   return (

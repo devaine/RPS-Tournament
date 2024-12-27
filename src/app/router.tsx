@@ -1,24 +1,26 @@
 import React from "react";
-import Signup from "@/app/routes/Signup";
-import CreateId from "@/app/routes/CreateID";
-import NotFound from "@/app/routes/NotFound";
-import App from "@/app/routes/RockPaperScissors";
+import Login from "./routes/auth/login";
+import Register from "./routes/auth/register";
+import NotFound from "./routes/not-found";
+import App from "./routes/app/game";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Signup />,
-    errorElement: <NotFound />,
+    element: <Login />,
   },
   {
     path: "/create-id",
-    element: <CreateId />,
+    element: <Register />,
   },
   {
     path: "/app",
     element: <App />,
+  },
+  {
+    path: "*",
+    element: <NotFound />,
   },
 ]);
 
