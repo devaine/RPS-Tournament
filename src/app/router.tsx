@@ -11,7 +11,7 @@ export const router = createBrowserRouter([
     element: <Login />,
   },
   {
-    path: "/create-id",
+    path: "/register",
     element: <Register />,
   },
   {

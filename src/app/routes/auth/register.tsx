@@ -1,5 +1,6 @@
 import React from "react";
-import Input from "@/components/input";
+import Input from "@/components/ui/input";
+import Button from "@/components/ui/button";
 
 export default function CreateId() {
   return (
@@ -11,6 +12,7 @@ export default function CreateId() {
         <div>Provide Visual Description</div>
         <Input title="Visual Description" />
       </div>
+      <Button title="Submit" link="/app"></Button>
     </div>
   );
 }

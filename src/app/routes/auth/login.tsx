@@ -1,5 +1,6 @@
-import Input from "@/components/input";
+import Input from "@/components/ui/input";
 import React from "react";
+import Button from "@/components/ui/button";
 
 function Signup() {
   return (
@@ -9,6 +10,7 @@ function Signup() {
         <Input title="Name" />
         <Input title="Student ID" />
       </div>
+      <Button title="Submit" link="/register"></Button>
     </div>
   );
 }
