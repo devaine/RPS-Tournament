@@ -7,6 +7,7 @@ dotenv.config({ path: ["./src/config/.env"] });
 
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
+	base: "https://rps.devdoes.work",
   server: {
     //port: Number(process.env.VITE_PORT) // Converted into a number
     port: Number(process.env.VITE_PORT),
