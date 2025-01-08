@@ -20,7 +20,7 @@
   "scripts": {
     "dev": "export NODE_OPTIONS=--disable-warning=ExperimentalWarning && vite",
     "build": "vite build",
-    "preview": "vite preview",
+    "preview": "vite preview"
   },
   "dependencies": {
     "@vitejs/plugin-react": "^4.3.4",
