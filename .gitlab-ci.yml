@@ -10,6 +10,9 @@ deploy:
     - apt install openssh-client -y
     - install -m 600 -D /dev/null ~/.ssh/cicd
     - echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/cicd
-    - ssh-keyscan -H $SSH_HOST > ~/.ssh/known_hosts
+    - ssh-keyscan -H -p $SSH_PORT $SSH_HOST > ~/.ssh/known_hosts
   script:
-    - ssh $SSH_USER@$SSH_HOST "cd /scripts && bash ./restart-testprod.sh"
+    - ssh $SSH_USER@$SSH_HOST "cd /scripts && (&>/dev/null bash ./restart-testprod.sh &) && exit"
+
+  after_script:
+    - rm -rf ~/.ssh
