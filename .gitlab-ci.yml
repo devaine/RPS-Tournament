@@ -2,8 +2,14 @@ stages:
   - deploy
 
 deploy:
-  image: node:lts-slim
+  image: ubuntu:latest
   stage: deploy
+  before_script:
+    - apt update
+    - apt upgrade
+    - apt install openssh-client -y
+    - install -m 600 -D /dev/null ~/.ssh/cicd
+    - echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/cicd
+    - ssh-keyscan -H $SSH_HOST > ~/.ssh/known_hosts
   script:
-    - npm i
-    - npm run dev
+    - ssh $SSH_USER@$SSH_HOST "cd /scripts && bash ./restart-testprod.sh"
