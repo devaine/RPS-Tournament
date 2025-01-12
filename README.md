@@ -1,5 +1,8 @@
-# RPS-Tournament
-Rock Paper Scissors Tournament - Hopefully Hosting on Cy-Fair Campus
+# Lance's test code
 
-# Layout
-Inspired by the [bulletproof-react](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md) project structure.
+## uses a temporary UI for testing purposes
+
+### To run the backend, go into the backend folder and run the command `nodemon server.js`
+
+### To run frontend, open a second terminal and run comand `npm run start`
+
