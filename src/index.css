@@ -2,11 +2,31 @@
 @tailwind components;
 @tailwind utilities;
 
+.light {
+  --paragraph: 255, 255, 255;
+  --shadow: 0, 0, 0;
+  --background: 109, 234, 214;
+  --red: 236, 39, 63;
+  --green: 157, 230, 78;
+  --orange: 243, 168, 51;
+  background: rgba(var(--background));
+}
+
+.dark {
+  --paragraph: 255, 255, 255;
+  --shadow: 0, 0, 0;
+  --background: 44, 30, 49; /* Only difference between light and dark*/
+  --red: 236, 39, 63;
+  --green: 157, 230, 78;
+  --orange: 243, 168, 51;
+  background: rgba(var(--background));
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+    "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
