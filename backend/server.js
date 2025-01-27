@@ -28,29 +28,41 @@ const io = new Server(server, {
   },
 });
 
+const evaluateWinner = (playerOneChoice,playerTwoChoice)=>{
+
+}
+
 
 
 io.on("connection", (socket) => {
   console.log(`User Connected: ${socket.id}`);
 
-
-
-  socket.on("join_room", (data) => {
+  socket.on('create-room',(data)=>{
     socket.join(data.room);
-    console.log(`room ${data.room} joined`)
-    pool.query(`INSERT INTO game(name,ID) VALUES(${data.name},${socket.id})`,(error,res)=>{
-      if(error){console.log(error)}
-      else{
-        res.status(201).send("CREATED TABLE");
-      }
-    })
+    pool.query("INSERT INTO games(id) VALUES ($1)",[data.room]);
+
+    console.log(`Created Game with id ${data.room}`);
   });
 
-  socket.on("create_match",(data)=>{
-    
-
-    
+  socket.on("join_room", async (data) => {
+    const validRoom = await pool.query("SELECT g FROM games g WHERE g.id=$1  ",[data.room]);
+    if(validRoom.rows.length){
+      pool.query("INSERT INTO players(name,game_id,socket) VALUES($1,$2,$3)",[data.name,data.room,data.socket]);
+      console.log(`Player ${data.name} joined game ${data.room}`)
+    }else{
+      console.log("Not a Valid Game");
+    }
   });
+
+  socket.on('send_choice',async (data)=>{
+    await pool.query("UPDATE players SET lastchoice = $1 WHERE socket = $2",[data.choice,data.id]);
+  })
+
+  socket.on('create_matches', async ()=>{
+    const players  = (await pool.query("SELECT name,socket,lastchoice FROM players WHERE ")).rows;
+
+    console.log(players);
+  })
 
   
   
