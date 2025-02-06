@@ -1,10 +1,11 @@
 import React from "react";
+import { Text } from "@/components/ui/text";
 import Button from "@/components/ui/button";
 
 function Signup() {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div>404 Not Found</div>
+    <div className="flex h-screen flex-col items-center justify-center ">
+      <Text text="404 Not Found" />
       <Button title="Home" link="/"></Button>
     </div>
   );

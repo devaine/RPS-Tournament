@@ -5,7 +5,6 @@ import ThemeToggle from "@/components/ui/theme-toggle";
 // Testing the prototype components
 // TODO: Add router that navigages between routes but keeps app as SPA
 function App() {
-
   ThemeToggle();
 
   return (

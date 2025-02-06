@@ -6,9 +6,18 @@ export default {
       colors: {
         background: "rgba(var(--background))",
         paragraph: "rgba(var(--paragraph))",
-        primary: "rgba(var(--primary))",
-        secondary: "rgba(var(--secondary))",
-        accent: "rgba(var(--accent))",
+        red: "rgba(var(--red))",
+        green: "rgba(var(--green))",
+        blue: "rgba(var(--blue))",
+      },
+      fontFamily: {
+        pixelify: ["Pixelify Sans", "sans-serif"],
+      },
+      boxShadow: {
+        shadow: "var(--shadow)",
+      },
+      dropShadow: {
+        shadow: "var(--shadow)",
       },
     },
   },
