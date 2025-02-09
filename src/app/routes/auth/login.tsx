@@ -12,8 +12,8 @@ function Signup() {
       <Title text="SCISSORS" />
       <Title text="TOURNAMENT" />
       <div className="flex flex-col">
-        <Input title="Name" />
-        <Input title="Student ID" />
+        <Input label="Name" placeholder="Bogos Binted" />
+        <Input label="Student ID" placeholder="1234567" />
       </div>
       <Button text="Submit" link="/register"></Button>
     </AuthLayout>

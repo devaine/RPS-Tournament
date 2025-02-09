@@ -37,7 +37,7 @@ export function Title({ text }: { text: string }) {
 
 export function Text({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-3xl text-stroke drop-shadow-lg stroke-black jersey-10">
+    <p className="text-paragraph text-3xl text-stroke stroke-black jersey-10">
       {text}
     </p>
   );

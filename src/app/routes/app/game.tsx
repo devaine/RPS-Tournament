@@ -1,4 +1,7 @@
 import React from "react";
+import paper from "@/assets/icons/paper.svg"
+import scissors from "@/assets/icons/scissors.svg"
+import rock from "@/assets/icons/rock.svg"
 
 function RockPaperScissors() {
   return (
@@ -7,21 +10,21 @@ function RockPaperScissors() {
       <div>
         <button>
           <img
-            src="https://clipart-library.com/img/1603206.png"
+            src={paper}
             alt="rock"
             className="w-48 h-48"
           ></img>
         </button>
         <button>
           <img
-            src="https://webstockreview.net/images/paper-icon-png-3.png"
+            src={rock}
             alt="rock"
             className="w-48 h-48"
           ></img>
         </button>
         <button>
           <img
-            src="https://static.vecteezy.com/system/resources/previews/009/664/151/original/scissor-icon-transparent-free-png.png"
+            src={scissors}
             alt="rock"
             className="w-48 h-48"
           ></img>

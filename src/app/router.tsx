@@ -1,8 +1,8 @@
 import React from "react";
 import Login from "./routes/auth/login";
 import Register from "./routes/auth/register";
-import Description from "./routes/auth/description";
-import Profile from "./routes/auth/profile";
+import CreateDescription from "./routes/auth/create-description";
+import CreateAvatar from "./routes/auth/create-avatar";
 import NotFound from "./routes/not-found";
 import App from "./routes/app/game";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
@@ -17,12 +17,12 @@ export const router = createBrowserRouter([
     element: <Register />,
   },
   {
-    path: "/description",
-    element: <Description />,
+    path: "/register/create-description",
+    element: <CreateDescription />,
   },
   {
-    path: "/profile",
-    element: <Profile />,
+    path: "/register/create-avatar",
+    element: <CreateAvatar />,
   },
   {
     path: "/app",

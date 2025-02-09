@@ -3,14 +3,14 @@ import { AuthLayout } from "@/components/layouts/auth-layout";
 import { Input } from "@/components/ui/input";
 import Button from "@/components/ui/button";
 
-const Description = () => {
+const CreateDescription = () => {
   return (
     <AuthLayout>
-      <Input title="Provide Visual Description" />
+      <Input label="Provide Visual Description" placeholder="I'm a boy / girl with -" />
 
       <Button link="/app" text="Submit" />
     </AuthLayout>
   );
 };
 
-export default Description;
+export default CreateDescription;

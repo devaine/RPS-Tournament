@@ -2,10 +2,10 @@ import React from "react";
 import { Title } from "@/components/ui/text";
 import Button from "@/components/ui/button";
 import { AuthLayout } from "@/components/layouts/auth-layout";
-import Picture from "@/components/ui/picture";
+import Picture from "@/components/ui/avatar";
 import player from "@/assets/img/players/player1.png"
 
-const Profile = () => {
+const CreateAvatar = () => {
 
   return (
     <AuthLayout>
@@ -19,4 +19,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default CreateAvatar;
