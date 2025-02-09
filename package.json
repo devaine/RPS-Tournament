@@ -24,8 +24,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@tailwindcss/postcss": "^4.0.5",
     "@vitejs/plugin-react": "^4.3.4",
     "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.1",
     "react-router": "^7.1.1",
     "vite-tsconfig-paths": "^5.1.4"
   }
