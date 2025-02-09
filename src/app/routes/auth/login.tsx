@@ -1,4 +1,4 @@
-import { Title, Text } from "@/components/ui/text";
+import { Title } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import React from "react";
 import Button from "@/components/ui/button";
