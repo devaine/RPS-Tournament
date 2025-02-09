@@ -1,18 +1,17 @@
 import React from "react";
-import { Input } from "@/components/ui/input";
+import { Title } from "@/components/ui/text";
+import { AuthLayout } from "@/components/layouts/auth-layout";
 import Button from "@/components/ui/button";
 
-export default function CreateId() {
+const CreateId = () => {
   return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <div>To help people identify you, would you rather...</div>
-      <button>Take a photo</button>
-      <button>Select from Camera Roll</button>
-      <div>
-        <div>Provide Visual Description</div>
-        <Input title="Visual Description" />
-      </div>
-      <Button title="Submit" link="/app"></Button>
-    </div>
+    <AuthLayout>
+      <Title text="To help people identify you, would you rather..." />
+      <Button link="" text="Take a photo" />
+      <Button link="" text="Select from Camera Roll" />
+      <Button link="/description" text="Provide Visual Description" />
+    </AuthLayout>
   );
-}
+};
+
+export default CreateId;

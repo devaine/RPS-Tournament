@@ -19,6 +19,7 @@
   },
   "scripts": {
     "dev": "export NODE_OPTIONS=--disable-warning=ExperimentalWarning && vite",
+    "host": "export NODE_OPTIONS=--disable-warning=ExperimentalWarning && vite -- --host",
     "build": "vite build",
     "preview": "vite preview"
   },
