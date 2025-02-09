@@ -11,7 +11,8 @@ export default {
         blue: "rgba(var(--blue))",
       },
       fontFamily: {
-        pixelify: ["Pixelify Sans", "sans-serif"],
+        jersey15: ["Jersey 15", "serif"],
+        jersey10: ["Jersey 10", "serif"],
       },
       boxShadow: {
         shadow: "var(--shadow)",

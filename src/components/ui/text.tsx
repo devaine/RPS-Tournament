@@ -21,7 +21,7 @@ export function Versus({ text1, text2 }: { text1: string; text2: string }) {
 
 export function Announce({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-4xl drop-shadow-lg stroke-black font-pixelify">
+    <p className="text-paragraph text-4xl drop-shadow-lg stroke-black jersey-15">
       {text}
     </p>
   );
@@ -29,7 +29,7 @@ export function Announce({ text }: { text: string }) {
 
 export function Title({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-6xl text-stroke-xl  stroke-black font-pixelify">
+    <p className="text-paragraph text-6xl text-stroke-xl  stroke-black jersey-15">
       {text}
     </p>
   );
@@ -37,7 +37,7 @@ export function Title({ text }: { text: string }) {
 
 export function Text({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-3xl text-stroke drop-shadow-lg stroke-black font-pixelify">
+    <p className="text-paragraph text-3xl text-stroke drop-shadow-lg stroke-black jersey-10">
       {text}
     </p>
   );
