@@ -2,13 +2,13 @@ import React from "react";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 
-export function TextButton({
+export const TextButton = ({
   text,
   link,
 }: {
   text: string;
   link: string;
-}) {
+}) => {
   return (
     <div>
       <Link to={link}>
@@ -18,6 +18,22 @@ export function TextButton({
       </Link>
     </div>
   );
+}
+
+export function ProgressButtons({
+  forward,
+  back,
+}: {
+  forward: string;
+  back: string;
+}) {
+  return (
+    <div className="flex gap-4">
+      <TextButton text="Back" link={back}></TextButton>
+      <TextButton text="Continue" link={forward}></TextButton>
+    </div>
+  )
+
 }
 
 export const IconButton = ({ src }: { src: string }) => ({

@@ -7,8 +7,8 @@ const Register = () => {
   return (
     <RegisterLayout>
       <Title text="To help people identify you, would you rather..." />
-      <TextButton link="" text="Take a photo" />
-      <TextButton link="" text="Select from Camera Roll" />
+      <TextButton link="/register/confirm-avatar" text="Take a photo" />
+      <TextButton link="/register/confirm-avatar" text="Select from Camera Roll" />
       <TextButton link="/register/create-description" text="Provide Visual Description" />
     </RegisterLayout>
   );
