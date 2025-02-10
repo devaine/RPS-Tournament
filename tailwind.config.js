@@ -6,9 +6,7 @@ export default {
       colors: {
         background: "rgba(var(--background))",
         paragraph: "rgba(var(--paragraph))",
-        red: "rgba(var(--red))",
-        green: "rgba(var(--green))",
-        blue: "rgba(var(--blue))",
+        transparent: "rgba(var(--transparent))",
       },
       fontFamily: {
         jersey15: ["Jersey 15", "serif"],

@@ -6,10 +6,8 @@
 .light {
   --paragraph: 255, 255, 255;
   --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
-  --background: 109, 234, 214;
-  --red: 236, 39, 63;
-  --green: 157, 230, 78;
-  --orange: 243, 168, 51;
+  --background: 233, 133, 55;
+
   background: rgba(var(--background));
 }
 
@@ -17,9 +15,6 @@
   --paragraph: 255, 255, 255;
   --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
   --background: 44, 30, 49; /* Only difference between light and dark*/
-  --red: 236, 39, 63;
-  --green: 157, 230, 78;
-  --orange: 243, 168, 51;
   background: rgba(var(--background));
 }
 

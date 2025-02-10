@@ -12,7 +12,7 @@ export function TextButton({
   return (
     <div>
       <Link to={link}>
-        <button className="bg-green p-2 shadow-shadow stroke-black">
+        <button className="bg-black/25 p-2">
           <Text text={text} />
         </button>
       </Link>
