@@ -14,12 +14,12 @@
 }
 
 .dark {
-  --paragraph: var(--paragraph);
-  --shadow: var(--shadow);
+  --paragraph: 255, 255, 255;
+  --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
   --background: 44, 30, 49; /* Only difference between light and dark*/
-  --red: var(--red);
-  --green: var(--green);
-  --orange: var(--orange);
+  --red: 236, 39, 63;
+  --green: 157, 230, 78;
+  --orange: 243, 168, 51;
   background: rgba(var(--background));
 }
 
