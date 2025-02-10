@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 
-export default function Button({
+export function TextButton({
   text,
   link,
 }: {
@@ -12,10 +12,14 @@ export default function Button({
   return (
     <div>
       <Link to={link}>
-        <button className="bg-green p-4 shadow-shadow stroke-black">
+        <button className="bg-green p-2 shadow-shadow stroke-black">
           <Text text={text} />
         </button>
       </Link>
     </div>
   );
 }
+
+export const IconButton = ({ src }: { src: string }) => ({
+
+})

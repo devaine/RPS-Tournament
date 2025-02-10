@@ -1,21 +1,21 @@
 import React from "react";
 import { Title } from "@/components/ui/text";
-import Button from "@/components/ui/button";
-import { AuthLayout } from "@/components/layouts/auth-layout";
+import { TextButton } from "@/components/ui/button";
+import { RegisterLayout } from "@/components/layouts/register-layout";
 import Picture from "@/components/ui/avatar";
 import player from "@/assets/img/players/player1.png"
 
 const CreateAvatar = () => {
 
   return (
-    <AuthLayout>
+    <RegisterLayout>
       <Title text="Do you want to use this picture?" />
       <Picture src={player} />
       <div className="flex gap-4">
-        <Button text="Yes" link="/app"></Button>
-        <Button text="No" link="/register"></Button>
+        <TextButton text="Yes" link="/app"></TextButton>
+        <TextButton text="No" link="/register"></TextButton>
       </div>
-    </AuthLayout>
+    </RegisterLayout>
   );
 };
 

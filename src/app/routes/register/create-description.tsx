@@ -1,15 +1,15 @@
 import React from "react";
-import { AuthLayout } from "@/components/layouts/auth-layout";
+import { RegisterLayout } from "@/components/layouts/register-layout";
 import { Input } from "@/components/ui/input";
-import Button from "@/components/ui/button";
+import { TextButton } from "@/components/ui/button";
 
 const CreateDescription = () => {
   return (
-    <AuthLayout>
+    <RegisterLayout>
       <Input label="Provide Visual Description" placeholder="I'm a boy / girl with -" />
 
-      <Button link="/app" text="Submit" />
-    </AuthLayout>
+      <TextButton link="/app" text="Submit" />
+    </RegisterLayout>
   );
 };
 

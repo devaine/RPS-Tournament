@@ -1,12 +1,12 @@
 import { Title } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import Button from "@/components/ui/button";
-import { AuthLayout } from "@/components/layouts/auth-layout";
+import { TextButton } from "@/components/ui/button";
+import { RegisterLayout } from "@/components/layouts/register-layout";
 
 function Signup() {
   return (
-    <AuthLayout>
+    <RegisterLayout>
       <Title text="ROCK" />
       <Title text="PAPER" />
       <Title text="SCISSORS" />
@@ -15,8 +15,8 @@ function Signup() {
         <Input label="Name" placeholder="Bogos Binted" />
         <Input label="Student ID" placeholder="1234567" />
       </div>
-      <Button text="Submit" link="/register"></Button>
-    </AuthLayout>
+      <TextButton text="Submit" link="/register"></TextButton>
+    </RegisterLayout>
   );
 }
 export default Signup;
