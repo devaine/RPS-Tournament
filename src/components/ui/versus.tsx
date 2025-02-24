@@ -11,4 +11,3 @@ export default function Versus({ player1, player2 }: { player1: string, player2:
     </div>
   )
 }
-

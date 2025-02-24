@@ -29,7 +29,15 @@ export function Announce({ text }: { text: string }) {
 
 export function Title({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-6xl text-stroke-xl  stroke-black jersey-15">
+    <p className="text-paragraph text-7xl text-stroke-xl  stroke-black jersey-15">
+      {text}
+    </p>
+  );
+}
+
+export function Heading({ text }: { text: string }) {
+  return (
+    <p className="text-paragraph text-5xl text-stroke stroke-black jersey-10">
       {text}
     </p>
   );

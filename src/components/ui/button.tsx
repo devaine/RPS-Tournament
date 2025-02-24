@@ -2,23 +2,29 @@ import React from "react";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 
-export const TextButton = ({
+export const ActionButton = ({
   text,
-  link,
+  onclick,
 }: {
   text: string;
-  link: string;
+  onclick: () => void;
 }) => {
+  return (
+    <button className="bg-accent p-2 border-box" onClick={onclick}>
+      <Text text={text} />
+    </button>
+  );
+};
+
+export const RouteButton = ({ text, link }: { text: string; link: string }) => {
   return (
     <div>
       <Link to={link}>
-        <button className="bg-black/25 p-2">
-          <Text text={text} />
-        </button>
+        <ActionButton text={text} onclick={() => { }} />
       </Link>
     </div>
   );
-}
+};
 
 export function ProgressButtons({
   forward,
@@ -29,13 +35,10 @@ export function ProgressButtons({
 }) {
   return (
     <div className="flex gap-4">
-      <TextButton text="Back" link={back}></TextButton>
-      <TextButton text="Continue" link={forward}></TextButton>
+      <RouteButton text="Back" link={back}></RouteButton>
+      <RouteButton text="Continue" link={forward}></RouteButton>
     </div>
-  )
-
+  );
 }
 
-export const IconButton = ({ src }: { src: string }) => ({
-
-})
+// export const IconButton = ({ src }: { src: string }) => ({});

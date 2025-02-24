@@ -1,11 +1,10 @@
 import React from "react";
 import Router from "./router";
-import ThemeToggle from "@/components/ui/theme-toggle";
 
 // Testing the prototype components
 // TODO: Add router that navigages between routes but keeps app as SPA
 const App = () => {
-  ThemeToggle();
+  document.body.classList.add("light");
 
   return (
     <div>

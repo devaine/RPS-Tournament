@@ -5,17 +5,14 @@
 
 .light {
   --paragraph: 255, 255, 255;
-  --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
-  --background: 233, 133, 55;
+  --accent: 249, 137, 3;
+  --secondary: 76, 50, 50;
+  --shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-trans: 4px 4px 0px 0px rgba(0, 0, 0, 0.25);
+  --background: 198, 39, 39;
 
-  background: rgba(var(--background));
-}
-
-.dark {
-  --paragraph: 255, 255, 255;
-  --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
-  --background: 44, 30, 49; /* Only difference between light and dark*/
-  background: rgba(var(--background));
+  background-color: rgba(var(--background));
+  background-image: url("./assets/img/background/Rock_Paper_Scissors_Red2.gif");
 }
 
 .jersey-15 {
@@ -31,15 +28,25 @@
 }
 
 .text-stroke {
-  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-width: 4px;
   -webkit-text-stroke-color: black;
   paint-order: stroke fill;
 }
 
 .text-stroke-xl {
-  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-width: 8px;
   -webkit-text-stroke-color: black;
   paint-order: stroke fill;
+}
+
+.border-box {
+  border: 4px solid black;
+  box-shadow: var(--shadow);
+}
+
+.box-trans {
+  background-color: rgba(var(--secondary), 0.75);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 0.75);
 }
 
 body {
