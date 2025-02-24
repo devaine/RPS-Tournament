@@ -8,7 +8,7 @@ export const Form = ({ label, placeholder, maxLength }: { label: string, placeho
         id={label}
         type="text"
         placeholder={placeholder}
-        className="text-paragraph text-3xl p-2 box-trans placeholder-paragraph/25 jersey-10 "
+        className="text-paragraph text-3xl px-4 py-2 box-trans placeholder-paragraph/25 jersey-10 "
         maxLength={maxLength}
       />
     </div>
@@ -17,13 +17,13 @@ export const Form = ({ label, placeholder, maxLength }: { label: string, placeho
 
 export const TextBox = ({ label, placeholder }: { label: string, placeholder: string }) => {
   return (
-    <div className="flex flex-col gap-4">
-      <label htmlFor={label} className="text-paragraph text-5xl text-stroke jersey-10">{label}</label>
+    <div className="flex flex-col gap-4 m-4">
+      <label htmlFor={label} className="text-paragraph text-5xl text-stroke-lg jersey-10">{label}</label>
       <textarea
         id={label}
         placeholder={placeholder}
         rows={4}
-        className="text-paragraph text-3xl p-2 box-trans placeholder-paragraph/25 jersey-10"></textarea>
+        className="text-paragraph text-3xl px-4 py-2 box-trans placeholder-paragraph/25 jersey-10"></textarea>
     </div >
   );
 }

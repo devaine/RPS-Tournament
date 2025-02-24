@@ -10,7 +10,7 @@ export const ActionButton = ({
   onclick: () => void;
 }) => {
   return (
-    <button className="bg-accent p-2 border-box" onClick={onclick}>
+    <button className="bg-accent py-2 px-4 border-box" onClick={onclick}>
       <Text text={text} />
     </button>
   );
@@ -35,7 +35,7 @@ export const BackButton = ({
 }) => {
   return (
     <Link to={link}>
-      <button className="bg-background p-2 border-box">
+      <button className="bg-background py-2 px-4 border-box">
         <Text text={text} />
       </button>
     </Link>
