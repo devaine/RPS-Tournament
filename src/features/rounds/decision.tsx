@@ -1,9 +1,12 @@
 import React from "react";
+import { Announce } from "@/components/ui/text";
 
 function Decision() {
+  const decision = ["YOU WON", "YOU LOST", "DRAW"];
+
   return (
     <div className="flex h-screen flex-col items-center justify-center">
-      <div>YOU WON!!! </div>
+      <Announce text={decision[0]} />
     </div>
   );
 }

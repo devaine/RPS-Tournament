@@ -1,11 +1,17 @@
 import React from "react";
 
-const Avatar = ({ src }: { src: string }) => {
+export const Avatar = ({ src }: { src: string }) => {
   return (
-    <div className="flex justify-center items-center size-52 bg-black">
-      <img src={src} className="size-48" />;
+    <div className="flex justify-center items-center size-48 bg-black">
+      <img src={src} className="size-40" />;
     </div>
   );
 };
 
-export default Avatar;
+export const SmallAvatar = ({ src }: { src: string }) => {
+  return (
+    <div className="flex justify-center items-center size-14 bg-black">
+      <img src={src} className="size-12" />;
+    </div>
+  );
+};

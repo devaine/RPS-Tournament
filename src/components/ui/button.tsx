@@ -67,4 +67,10 @@ export function ProgressButtons({
   );
 }
 
-// export const IconButton = ({ src }: { src: string }) => ({});
+export const IconButton = ({ src, onclick }: { src: string, onclick: () => void }) => {
+  return (
+    <button className="bg-accent border-box-xl" onClick={onclick}>
+      <img src={src} alt="rock" className="size-40"></img>
+    </button>
+  )
+};
