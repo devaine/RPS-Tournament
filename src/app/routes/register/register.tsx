@@ -1,7 +1,7 @@
 import React from "react";
 import { Heading } from "@/components/ui/text";
 import { RegisterLayout } from "@/components/layouts/register-layout";
-import { RouteButton } from "@/components/ui/button";
+import { RouteButton, BackButton } from "@/components/ui/button";
 
 const Register = () => {
   return (
@@ -15,6 +15,10 @@ const Register = () => {
       <RouteButton
         link="/register/create-description"
         text="Provide Visual Description"
+      />
+      <BackButton
+        text="Back"
+        link="/"
       />
     </RegisterLayout>
   );

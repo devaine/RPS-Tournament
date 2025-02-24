@@ -26,6 +26,32 @@ export const RouteButton = ({ text, link }: { text: string; link: string }) => {
   );
 };
 
+export const BackButton = ({
+  text,
+  link,
+}: {
+  text: string;
+  link: string;
+}) => {
+  return (
+    <Link to={link}>
+      <button className="bg-background p-2 border-box">
+        <Text text={text} />
+      </button>
+    </Link>
+  );
+};
+
+export const Button = ({ text, link }: { text: string; link: string }) => {
+  return (
+    <div>
+      <Link to={link}>
+        <ActionButton text={text} onclick={() => { }} />
+      </Link>
+    </div>
+  );
+};
+
 export function ProgressButtons({
   forward,
   back,
