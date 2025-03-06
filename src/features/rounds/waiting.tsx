@@ -1,13 +1,11 @@
 import React from "react";
 import { Heading } from "@/components/ui/text";
+import { ActionButton } from "@/components/ui/button";
 
 function Waiting() {
   const name = "justink";
+  const text = "Waiting for " + { name } + "...";
 
-  return (
-    <div className="flex h-screen flex-col items-center justify-center">
-      <Heading text={"Waiting for " + { name } + "..."} />
-    </div>
-  );
+  return <Heading text={`${text}`} />;
 }
 export default Waiting;

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 
@@ -9,10 +10,22 @@ export const ActionButton = ({
   text: string;
   onclick: () => void;
 }) => {
+  // const [onHover, setOnHover] = React.useState(false);
+
   return (
-    <button className="bg-accent py-2 px-4 border-box" onClick={onclick}>
+    <motion.button
+      className="bg-accent py-2 px-4 border-box"
+      layout
+      // style={{
+      //   border: onHover ? "8px solid black" : "4px solid black",
+      //   boxShadow: onHover ? "0px" : "4px 4px 0px 0px black",
+      // }}
+      // onTapStart={() => setOnHover(true)}
+      // onTapCancel={() => setOnHover(false)}
+      onClick={onclick}
+    >
       <Text text={text} />
-    </button>
+    </motion.button>
   );
 };
 
@@ -26,13 +39,7 @@ export const RouteButton = ({ text, link }: { text: string; link: string }) => {
   );
 };
 
-export const BackButton = ({
-  text,
-  link,
-}: {
-  text: string;
-  link: string;
-}) => {
+export const BackButton = ({ text, link }: { text: string; link: string }) => {
   return (
     <Link to={link}>
       <button className="bg-background py-2 px-4 border-box">
@@ -67,10 +74,16 @@ export function ProgressButtons({
   );
 }
 
-export const IconButton = ({ src, onclick }: { src: string, onclick: () => void }) => {
+export const IconButton = ({
+  src,
+  onclick,
+}: {
+  src: string;
+  onclick: () => void;
+}) => {
   return (
     <button className="bg-accent border-box-xl" onClick={onclick}>
       <img src={src} alt="rock" className="size-40"></img>
     </button>
-  )
+  );
 };

@@ -21,7 +21,7 @@ export function Versus({ text1, text2 }: { text1: string; text2: string }) {
 
 export function Announce({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-4xl drop-shadow-lg stroke-black jersey-15">
+    <p className="text-paragraph text-9xl text-stroke-xl stroke-black jersey-20">
       {text}
     </p>
   );

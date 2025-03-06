@@ -37,7 +37,7 @@ const Dashboard = () => {
         </div>
       </div>
     </TextLayout>
-  )
-}
+  );
+};
 
 export default Dashboard;
