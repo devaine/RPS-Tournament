@@ -28,7 +28,10 @@ const Play = ({
   return (
     <AnimatePresence>
       {showBattle === false && <Countdown />}
-      {showBattle === true && <Battle />}
+      {showBattle === true && <Battle
+        rockOnClick={rockOnClick}
+        paperOnClick={paperOnClick}
+        scissorsOnClick={scissorsOnClick} />}
     </AnimatePresence>
 
   );
@@ -45,16 +48,11 @@ const Battle = ({
 }) => {
   return (
     <GameLayout>
-      <div className="text-center">
-        <Title text="CHOOSE YOUR WEAPON" />
-      </div>
-      <div className="flex flex-col gap-8 items-center">
-        <IconButton src={rock} onclick={rockOnClick} />
+      <IconButton src={rock} onclick={rockOnClick} />
 
-        <div className="flex gap-8">
-          <IconButton src={paper} onclick={paperOnClick} />
-          <IconButton src={scissors} onclick={scissorsOnClick} />
-        </div>
+      <div className="flex gap-8">
+        <IconButton src={paper} onclick={paperOnClick} />
+        <IconButton src={scissors} onclick={scissorsOnClick} />
       </div>
     </GameLayout >
   );
@@ -84,10 +82,27 @@ const Countdown = () => {
     <AnimatePresence>
       {announce && (
         <GameLayout>
-          <SplashAnnounce text={announce} key={announce} />
+          <motion.div key="Battle" className="grayscale"
+            animate={{
+              scale: [0, 0.8, 1],
+              transition: {
+                times: [0, 0.1, 1],
+                duration: 3
+              }
+            }}>
+            <Battle
+              rockOnClick={() => { }}
+              paperOnClick={() => { }}
+              scissorsOnClick={() => { }} />
+          </motion.div>
+          <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+
+            <SplashAnnounce text={announce} key={announce} />
+          </div>
         </GameLayout>
-      )}
-    </AnimatePresence>
+      )
+      }
+    </AnimatePresence >
 
 
   );
