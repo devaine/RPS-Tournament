@@ -1,7 +1,7 @@
 import React from "react";
 import Landing from "./routes/landing";
 import Register from "./routes/register/register";
-import CreateDescription from "./routes/register/create-description";
+// import CreateDescription from "./routes/register/create-description";
 import ConfirmAvatar from "./routes/register/confirm-avatar";
 import NotFound from "./routes/not-found";
 import Game from "./routes/game/game";
@@ -19,10 +19,10 @@ export const router = createBrowserRouter([
     path: "/register",
     element: <Register />,
   },
-  {
-    path: "/register/create-description",
-    element: <CreateDescription />,
-  },
+  // {
+  //   path: "/register/create-description",
+  //   element: <CreateDescription />,
+  // },
   {
     path: "/register/confirm-avatar",
     element: <ConfirmAvatar />,

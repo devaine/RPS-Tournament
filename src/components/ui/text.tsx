@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, animate, easeIn } from "framer-motion";
 
 export function Statistic({ text1, text2 }: { text1: string; text2: string }) {
   return (
@@ -24,6 +25,22 @@ export function Announce({ text }: { text: string }) {
     <p className="text-paragraph text-9xl text-stroke-xl stroke-black jersey-20">
       {text}
     </p>
+  );
+}
+
+export function SplashAnnounce({ text }: { text: string }) {
+  return (
+    <motion.div
+      key={text}
+      animate={{
+        scale: [10, 1.25, 1],
+        transition: { times: [0, 0.2, 1], duration: 1 }
+      }}
+    >
+      <p className="text-paragraph text-9xl text-stroke-xl stroke-black jersey-20">
+        {text}
+      </p>
+    </motion.div >
   );
 }
 

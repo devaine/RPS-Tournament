@@ -14,7 +14,7 @@ const Landing = () => {
         <Title text="TOURNAMENT" />
       </div>
       <div className="flex flex-col gap-4">
-        <Form label="Name" placeholder="Bogos Binted" maxLength={30} />
+        <Form label="Name (First and Last)" placeholder="Bogus Binted" maxLength={30} />
         <Form label="Student ID" placeholder="1234567" maxLength={7} />
       </div>
       <RouteButton text="Submit" link="/register"></RouteButton>

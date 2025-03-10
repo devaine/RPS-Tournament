@@ -83,7 +83,7 @@ export const IconButton = ({
 }) => {
   return (
     <button className="bg-accent border-box-xl" onClick={onclick}>
-      <img src={src} alt="rock" className="size-40"></img>
+      <img src={src} alt="rock" className="size-32"></img>
     </button>
   );
 };
