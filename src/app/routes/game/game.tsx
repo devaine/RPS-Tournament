@@ -5,7 +5,7 @@ import Play from "@/features/rounds/play";
 import Waiting from "@/features/rounds/waiting";
 import Decision from "@/features/rounds/decision";
 import { GameLayout } from "@/components/layouts/game-layout";
-import { ActionButton } from "@/components/ui/button";
+import { ActionButton, RouteButton } from "@/components/ui/button";
 
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState("Waiting");
@@ -14,28 +14,16 @@ const Game = () => {
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
-        <motion.div
-          key="Waiting"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <GameLayout>
-            <Waiting />
-            <ActionButton
-              text="Ready?"
-              onclick={() => setCurrentScreen("Play")}
-            />
-          </GameLayout>
-        </motion.div>
+        <GameLayout key="Waiting">
+          <Waiting />
+          <ActionButton
+            text="Ready?"
+            onclick={() => setCurrentScreen("Play")}
+          />
+        </GameLayout>
       )}
       {currentScreen === "Play" && (
-        <motion.div
-          key="Play"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
+        <GameLayout key="Play">
           <Play
             rockOnClick={() => {
               setCurrentScreen("Decision");
@@ -53,23 +41,20 @@ const Game = () => {
               console.log(currentDecision);
             }}
           />
-        </motion.div>
+        </GameLayout>
       )}
       {currentScreen === "Decision" && (
-        <motion.div
-          key="Decision"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <GameLayout>
-            <Decision decision={currentDecision} />
+        <GameLayout key="Decision">
+          <Decision decision={currentDecision} />
+          {currentDecision === "YOU LOSE !!!" ? (
+            <RouteButton text="Go to Dashboard" link="/game/dashboard" />
+          ) : (
             <ActionButton
               text="Ready?"
               onclick={() => setCurrentScreen("Play")}
             />
-          </GameLayout>
-        </motion.div>
+          )}
+        </GameLayout>
       )}
     </AnimatePresence>
   );

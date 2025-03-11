@@ -63,7 +63,7 @@ export function ProgressButtons({
 }) {
   return (
     <div className="flex gap-4">
-      <RouteButton text="Back" link={back}></RouteButton>
+      <BackButton text="Back" link={back}></BackButton>
       <RouteButton text="Continue" link={forward}></RouteButton>
     </div>
   );
@@ -77,8 +77,12 @@ export const IconButton = ({
   onclick: () => void;
 }) => {
   return (
-    <button className="bg-accent border-box-xl" onClick={onclick}>
+    <motion.button
+      className="bg-accent border-box-xl box-shadow-extend-xl"
+      whileTap={{ scale: 0.9 }}
+      onClick={onclick}
+    >
       <img src={src} alt="rock" className="size-32"></img>
-    </button>
+    </motion.button>
   );
 };

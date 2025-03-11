@@ -1,9 +1,15 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 export const TextBoxLayout = ({ children }: { children: React.ReactNode }) => {
   return (
-    <div className="flex flex-col gap-2 p-2 box-trans radius-none">
+    <motion.div
+      className="flex flex-col gap-2 p-2 box-trans radius-none"
+      drag
+      dragSnapToOrigin
+      dragTransition={{ bounceStiffness: 400, bounceDamping: 20 }}
+    >
       {children}
-    </div>
+    </motion.div>
   );
 };

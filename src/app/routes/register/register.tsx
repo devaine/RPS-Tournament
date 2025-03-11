@@ -12,14 +12,7 @@ const Register = () => {
         link="/register/confirm-avatar"
         text="Select from Camera Roll"
       />
-      {/* <RouteButton */}
-      {/*   link="/register/create-description" */}
-      {/*   text="Provide Visual Description" */}
-      {/* /> */}
-      <BackButton
-        text="Back"
-        link="/"
-      />
+      <BackButton text="Back" link="/" />
     </RegisterLayout>
   );
 };
