@@ -1,11 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&display=swap");
+@import "./styles/font.css";
+@import "./styles/box.css";
+@import "./styles/text.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-body {
-  margin: 0;
-}
 
 .light {
   --paragraph: 255, 255, 255;
@@ -19,82 +18,12 @@ body {
   background-image: url("./assets/img/background/Rock_Paper_Scissors_Red2.gif");
 }
 
-.jersey-20 {
-  font-family: "Jersey 20", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.jersey-15 {
-  font-family: "Jersey 15", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.jersey-10 {
-  font-family: "Jersey 10", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
 input:focus,
 select:focus,
 textarea:focus,
 button:focus {
   outline: none;
   caret-color: rgba(var(--accent));
-}
-
-.text-stroke {
-  -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: black;
-  paint-order: stroke fill;
-}
-
-.text-stroke-lg {
-  -webkit-text-stroke-width: 6px;
-  -webkit-text-stroke-color: black;
-  paint-order: stroke fill;
-}
-
-.text-stroke-xl {
-  -webkit-text-stroke-width: 8px;
-  -webkit-text-stroke-color: black;
-  paint-order: stroke fill;
-}
-
-.border-box {
-  border: 4px solid black;
-  border-radius: 0px;
-}
-
-.border-box-xl {
-  border: 8px solid black;
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.box-shadow-extend {
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-  transition: box-shadow ease-out 0.1s;
-}
-
-.box-shadow-extend:hover,
-.box-shadow-extend:focus,
-.box-shadow-extend:active {
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
-}
-
-.box-shadow-trans-retract {
-  background-color: rgba(var(--secondary), 0.75);
-  border-radius: 0px;
-  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.75);
-  transition: box-shadow ease-out 0.2s;
-}
-
-.box-shadow-trans-retract:focus,
-.box-shadow-trans-retract:active {
-  outline-width: 0px;
-  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
 }
 
 body {
