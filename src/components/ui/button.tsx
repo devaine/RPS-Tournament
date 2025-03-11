@@ -10,18 +10,10 @@ export const ActionButton = ({
   text: string;
   onclick: () => void;
 }) => {
-  // const [onHover, setOnHover] = React.useState(false);
-
   return (
     <motion.button
-      className="bg-accent py-2 px-4 border-box"
-      layout
-      // style={{
-      //   border: onHover ? "8px solid black" : "4px solid black",
-      //   boxShadow: onHover ? "0px" : "4px 4px 0px 0px black",
-      // }}
-      // onTapStart={() => setOnHover(true)}
-      // onTapCancel={() => setOnHover(false)}
+      className="bg-accent py-2 px-4 border-box box-shadow-extend"
+      whileTap={{ scale: 0.9 }}
       onClick={onclick}
     >
       <Text text={text} />
@@ -33,7 +25,7 @@ export const RouteButton = ({ text, link }: { text: string; link: string }) => {
   return (
     <div>
       <Link to={link}>
-        <ActionButton text={text} onclick={() => { }} />
+        <ActionButton text={text} onclick={() => {}} />
       </Link>
     </div>
   );
@@ -42,9 +34,12 @@ export const RouteButton = ({ text, link }: { text: string; link: string }) => {
 export const BackButton = ({ text, link }: { text: string; link: string }) => {
   return (
     <Link to={link}>
-      <button className="bg-background py-2 px-4 border-box">
+      <motion.button
+        className="bg-background py-2 px-4 border-box box-shadow-extend"
+        whileTap={{ scale: 0.9 }}
+      >
         <Text text={text} />
-      </button>
+      </motion.button>
     </Link>
   );
 };
@@ -53,7 +48,7 @@ export const Button = ({ text, link }: { text: string; link: string }) => {
   return (
     <div>
       <Link to={link}>
-        <ActionButton text={text} onclick={() => { }} />
+        <ActionButton text={text} onclick={() => {}} />
       </Link>
     </div>
   );

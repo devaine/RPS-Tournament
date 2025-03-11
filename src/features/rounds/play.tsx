@@ -33,7 +33,6 @@ const Play = ({
         paperOnClick={paperOnClick}
         scissorsOnClick={scissorsOnClick} />}
     </AnimatePresence>
-
   );
 };
 

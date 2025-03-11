@@ -34,19 +34,19 @@ export function SplashAnnounce({ text }: { text: string }) {
       key={text}
       animate={{
         scale: [10, 1.25, 1],
-        transition: { times: [0, 0.2, 1], duration: 1 }
+        transition: { times: [0, 0.2, 1], duration: 1 },
       }}
     >
       <p className="text-paragraph text-9xl text-stroke-xl stroke-black jersey-20">
         {text}
       </p>
-    </motion.div >
+    </motion.div>
   );
 }
 
 export function Title({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-7xl text-stroke-xl  stroke-black jersey-15">
+    <p className="text-paragraph text-7xl text-stroke-xl stroke-black jersey-15">
       {text}
     </p>
   );
