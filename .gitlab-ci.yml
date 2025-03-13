@@ -9,11 +9,8 @@ test:
     - echo apparently im needed!!
 
 build:
-  image: alpine:3.21
+  image: docker:28.0-dind-rootless
   before_script:
-    - apk update
-    - apk add openrc
-    - apk add docker docker-cli-buildx
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
@@ -27,8 +24,6 @@ build:
 push-image:
   needs: ["build"]
   before_script:
-    - apk update
-    - apk add docker docker-cli-buildx
     - printf "$PAT" | docker login $registry_server -u $PAT_user --password-stdin
   
   script:
