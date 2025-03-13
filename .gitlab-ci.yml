@@ -67,6 +67,7 @@ deploy:
 
 ### STAGES ###
 stages:
+  - test
   - build
   - push-image 
   - deploy
