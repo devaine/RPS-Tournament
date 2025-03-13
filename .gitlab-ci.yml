@@ -2,7 +2,7 @@
 
 ## TODO: Make sure to add a testing part for the build
 ##  Probably a `docker run <container> npm run test` for ease of use
-build-and-test:
+build:
   image: alpine:3.21
   before_script:
     - apk update
@@ -18,7 +18,7 @@ build-and-test:
 
 
 push-image:
-  needs: ["build-and-test"]
+  needs: ["build"]
   before_script:
     - apk update
     - apk add docker docker-cli-buildx
@@ -33,7 +33,7 @@ push-image:
 
 
 deploy:
-  needs: ["build-and-test"]
+  needs: ["build"]
   image: ubuntu:latest
   before_script:
     - unset HISTFILE
@@ -61,6 +61,6 @@ deploy:
 
 ### STAGES ###
 stages:
-  - build-and-test
+  - build
   - push-image 
   - deploy
