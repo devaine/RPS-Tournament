@@ -12,7 +12,10 @@ build:
   image: alpine:3.21
   before_script:
     - apk update
+    - apk add openrc
     - apk add docker docker-cli-buildx
+    - touch /run/openrc/softlevel
+    - rc-service docker start
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
