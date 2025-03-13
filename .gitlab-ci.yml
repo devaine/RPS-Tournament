@@ -18,7 +18,7 @@ build-and-test:
 
 
 push-image:
-  needs: build-and-test
+  needs: ["build-and-test"]
   before_script:
     - apk update
     - apk add docker docker-cli-buildx
@@ -33,7 +33,7 @@ push-image:
 
 
 deploy:
-  needs: build-and-test
+  needs: ["build-and-test"]
   image: ubuntu:latest
   before_script:
     - unset HISTFILE
