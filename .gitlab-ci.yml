@@ -2,6 +2,12 @@
 
 ## TODO: Make sure to add a testing part for the build
 ##  Probably a `docker run <container> npm run test` for ease of use
+
+test:
+  image: ubuntu:latest
+  script:
+    - echo apparently im needed!!
+
 build:
   image: alpine:3.21
   before_script:
