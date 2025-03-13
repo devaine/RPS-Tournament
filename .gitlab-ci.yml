@@ -16,6 +16,7 @@ build:
     - apk add docker docker-cli-buildx
     - touch /run/openrc/softlevel
     - rc-service docker start
+    - touch /run/openrc/softlevel
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
