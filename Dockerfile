@@ -4,6 +4,8 @@ RUN apt update -y && apt upgrade -y
 
 RUN apt install npm -y
 
+COPY . /rps-dev
+
 WORKDIR /rps-dev
 
 RUN npm i
