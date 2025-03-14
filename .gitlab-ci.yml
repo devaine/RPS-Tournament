@@ -22,7 +22,7 @@ build-and-push:
 
   script:
     - docker buildx build -t $registry_server/rps-developers/rps-tournament:dev .
-    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament
+    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
 
   after_script:
     - docker logout $registry_server

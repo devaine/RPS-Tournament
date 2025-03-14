@@ -1,8 +1,4 @@
-FROM ubuntu:latest
-
-RUN apt update -y && apt upgrade -y
-
-RUN apt install npm -y
+FROM node:23-alpine
 
 COPY . /rps-dev
 
