@@ -8,7 +8,7 @@ test:
   script:
     - echo apparently im needed!!
 
-build:
+build-and-push:
   image: docker:28.0
 
   services:
@@ -22,31 +22,6 @@ build:
 
   script:
     - docker buildx build -t $registry_server/rps-developers/rps-tournament:dev .
-  
-  after_script:
-    - docker logout $registry_server
-    - rm -rf ~/.docker/config.json
-    - rm -rf ~/.*history
-
-  allow_failure: false
-
-
-
-push-image:
-  needs: ["build"]
-
-  image: docker:28.0
-
-  services:
-    - docker:28.0-dind-rootless
-
-  variables:
-    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
-
-  before_script:
-    - printf "$PAT" | docker login $registry_server -u $PAT_user --password-stdin
-  
-  script:
     - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament
 
   after_script:
@@ -54,11 +29,11 @@ push-image:
     - rm -rf ~/.docker/config.json
     - rm -rf ~/.*history
 
-  allow_failure: false
-
+  rules:
+    allow_failure: false
 
 deploy:
-  needs: ["build"]
+  needs: ["build-and-push"]
   image: ubuntu:latest
   before_script:
     - unset HISTFILE
@@ -79,14 +54,12 @@ deploy:
 
   after_script:
     - docker context use default
-    - docker context rm rps-dev
+    - docker context rm rps
     - rm -rf ~/.ssh
     - rm -rf ~/.*history
-    
 
 ### STAGES ###
 stages:
   - test
-  - build
-  - push-image 
+  - build-and-push
   - deploy
