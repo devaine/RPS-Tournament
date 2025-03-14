@@ -4,7 +4,7 @@ COPY . /rps-dev
 
 WORKDIR /rps-dev
 
-RUN npm i
+RUN npm i --omit=dev
 
 EXPOSE 5173
 
