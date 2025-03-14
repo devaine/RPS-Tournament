@@ -13,7 +13,6 @@ build:
 
   before_script:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
-    - unset DOCKER_HOST
 
   script:
     - docker buildx build -t cicd-registry.devdoes.work/rps-developers/rps-tournament:dev .
