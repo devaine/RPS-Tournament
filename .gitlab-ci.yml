@@ -48,7 +48,7 @@ deploy:
     - docker context use rps
 
   script:
-    - docker stack deploy -c docker-stack.yml rps-dev
+    - docker stack deploy -c docker-stack.yml rps-dev --with-registry-auth
     - docker service scale rps-dev_frontend=3
 
   after_script:

@@ -9,7 +9,7 @@ services:
       VITE_PORT_FILE: /run/secrets/rps-port
 
     ports:
-      - 5173-5175:5174
+      - 5173-5175:5173
 
     deploy:
       update_config:
