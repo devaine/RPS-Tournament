@@ -9,7 +9,11 @@ test:
     - echo apparently im needed!!
 
 build:
-  image: docker:28.0-dind-rootless
+  image: docker:28.0
+  services:
+    - docker:28.0-dind-rootless
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
 
   before_script:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
