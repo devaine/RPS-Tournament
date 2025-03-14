@@ -10,8 +10,10 @@ test:
 
 build:
   image: docker:28.0
+
   services:
     - docker:28.0-dind-rootless
+
   variables:
     DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
 
@@ -26,12 +28,15 @@ build:
     - rm -rf ~/.docker/config.json
     - rm -rf ~/.*history
 
+  allow_failure: false
+
 
 
 push-image:
   needs: ["build"]
 
   image: docker:28.0
+
   services:
     - docker:28.0-dind-rootless
 
@@ -40,7 +45,6 @@ push-image:
 
   before_script:
     - printf "$PAT" | docker login $registry_server -u $PAT_user --password-stdin
-    - unset DOCKER_HOST
   
   script:
     - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament
@@ -50,13 +54,15 @@ push-image:
     - rm -rf ~/.docker/config.json
     - rm -rf ~/.*history
 
+  allow_failure: false
+
 
 deploy:
   needs: ["build"]
   image: ubuntu:latest
   before_script:
     - unset HISTFILE
-    - apt update -y && apt install openssh-client -y
+    - apt update -y && apt install openssh-client docker.io -y
     - mkdir ~/.ssh
     
     - install -m 600 -D /dev/null ~/.ssh/$SSH_USER
