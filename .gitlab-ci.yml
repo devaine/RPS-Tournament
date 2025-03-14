@@ -10,12 +10,14 @@ test:
 
 build:
   image: docker:28.0
-
+  stage: build
+  services:
+    - docker:28.0-dind
   before_script:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
-    - docker buildx build -t cicd-registry.devdoes.work/rps-developers/rps-tournament:dev .
+    - docker buildx build -t $registry_server/rps-developers/rps-tournament:dev .
   
   after_script:
     - docker logout $registry_server
