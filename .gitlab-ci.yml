@@ -10,8 +10,6 @@ test:
 
 build:
   image: docker:28.0
-  services: 
-  - name: docker:28.0-dind-rootless
 
   before_script:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
