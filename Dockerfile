@@ -6,6 +6,6 @@ WORKDIR /rps-dev
 
 RUN npm i #--omit=dev <- use that arg for production
 
-EXPOSE 5173
+EXPOSE 5176
 
-CMD ["npm", "run", "host"]
+CMD ["npm", "run", "dev"]
