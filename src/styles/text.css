@@ -1,0 +1,17 @@
+.text-stroke {
+  -webkit-text-stroke-width: 4px;
+  -webkit-text-stroke-color: black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-lg {
+  -webkit-text-stroke-width: 6px;
+  -webkit-text-stroke-color: black;
+  paint-order: stroke fill;
+}
+
+.text-stroke-xl {
+  -webkit-text-stroke-width: 8px;
+  -webkit-text-stroke-color: black;
+  paint-order: stroke fill;
+}

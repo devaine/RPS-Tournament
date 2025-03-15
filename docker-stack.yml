@@ -1,0 +1,20 @@
+services:
+  frontend:
+    image: cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
+
+    secrets:
+      - rps-port
+
+    environment:
+      VITE_PORT_FILE: /run/secrets/rps-port
+
+    ports:
+      - 5173:5173
+
+    deploy:
+      update_config:
+        order: start-first
+
+secrets:
+  rps-port:
+    external: true

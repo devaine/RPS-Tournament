@@ -1,19 +1,63 @@
-stages:
-  - deploy
+### JOBS ###
 
-deploy:
+## TODO: Make sure to add a testing part for the build
+##  Probably a `docker run <container> npm run test` for ease of use
+
+test:
   image: ubuntu:latest
-  stage: deploy
-  before_script:
-    - apt update
-    - apt upgrade
-    - apt install openssh-client -y
-    - install -m 600 -D /dev/null ~/.ssh/cicd
-    - echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/cicd
-    - ssh-keyscan -H -p $SSH_PORT $SSH_HOST > ~/.ssh/known_hosts
   script:
-    - ssh -i ~/.ssh/cicd -p $SSH_PORT $SSH_USER@$SSH_HOST '(&>/dev/null bash -s < /scripts/restart-testprod.sh &)'
+    - echo apparently im needed!!
+
+build-and-push:
+  image: docker:28.0
+
+  services:
+    - docker:28.0-dind-rootless
+
+  variables:
+    DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
+
+  before_script:
+    - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
+
+  script:
+    - docker buildx build -t $registry_server/rps-developers/rps-tournament:dev .
+    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
 
   after_script:
+    - docker logout $registry_server
+    - rm -rf ~/.docker/config.json
+    - rm -rf ~/.*history
+
+
+deploy:
+  when: on_success
+  needs: ["build-and-push"]
+  image: ubuntu:latest
+  before_script:
+    - unset HISTFILE
+    - apt update -y && apt install openssh-client docker.io -y
+    - mkdir ~/.ssh
+    
+    - install -m 600 -D /dev/null ~/.ssh/$SSH_USER
+    - echo "$SSH_PRIVATE_KEY" | base64 -d > ~/.ssh/$SSH_USER
+    - ssh-keyscan -H -p $SSH_PORT $SSH_HOST > ~/.ssh/known_hosts
+
+    - printf "Host deploy\nPort $SSH_PORT\nHostname $SSH_HOST\nIdentityFile ~/.ssh/$SSH_USER\nUser $SSH_USER" > ~/.ssh/config
+    - docker context create rps --docker "host=ssh://deploy"
+    - docker context use rps
+
+  script:
+    - docker stack deploy --prune -c docker-stack.yml rps-dev --with-registry-auth
+
+  after_script:
+    - docker context use default
+    - docker context rm rps
     - rm -rf ~/.ssh
-    - history -r
+    - rm -rf ~/.*history
+
+### STAGES ###
+stages:
+  - test
+  - build-and-push
+  - deploy

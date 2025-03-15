@@ -1,17 +1,41 @@
+@import "./styles/font.css";
+@import "./styles/box.css";
+@import "./styles/text.css";
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.light {
+  --paragraph: 255, 255, 255;
+  --accent: 249, 137, 3;
+  --secondary: 76, 50, 50;
+  --shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  --shadow-trans: 4px 4px 0px 0px rgba(0, 0, 0, 0.25);
+  --background: 198, 39, 39;
+
+  background-color: rgba(var(--background));
+  background-image: url("./assets/img/background/Rock_Paper_Scissors_Red2.gif");
+}
+
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  caret-color: rgba(var(--accent));
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

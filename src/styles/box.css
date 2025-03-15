@@ -1,0 +1,49 @@
+.border-box {
+  border: 4px solid black;
+  border-radius: 0px;
+}
+
+.border-box-xl {
+  border: 8px solid black;
+}
+
+.box-trans {
+  background-color: rgba(var(--secondary), 0.75);
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.75);
+}
+
+.box-shadow-extend {
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+  transition: box-shadow ease-out 0.1s;
+}
+
+.box-shadow-extend:hover,
+.box-shadow-extend:focus,
+.box-shadow-extend:active {
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.box-shadow-extend-xl {
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 1);
+  transition: box-shadow ease-out 0.1s;
+}
+
+.box-shadow-extend-xl:hover,
+.box-shadow-extend-xl:focus,
+.box-shadow-extend-xl:active {
+  box-shadow: 12px 12px 0px 0px rgba(0, 0, 0, 1);
+}
+
+.box-shadow-trans-retract {
+  background-color: rgba(var(--secondary), 0.75);
+  border-radius: 0px;
+  box-shadow: 8px 8px 0px 0px rgba(0, 0, 0, 0.75);
+  transition: box-shadow ease-out 0.2s;
+}
+
+.box-shadow-trans-retract:focus,
+.box-shadow-trans-retract:active {
+  outline-width: 0px;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
+}
