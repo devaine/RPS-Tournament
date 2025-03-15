@@ -1,0 +1,2 @@
+### TEST GET REQUEST
+GET http://localhost:3001/db HTTP/1.0

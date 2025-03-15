@@ -1,0 +1,10 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node16",
+		"allowImportingTsExtensions": true
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
