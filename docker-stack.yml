@@ -7,8 +7,6 @@ services:
 
     deploy:
       replicas: 3
-      update_config:
-        order: start-first
 
         #secrets:
         #  rps-port:
