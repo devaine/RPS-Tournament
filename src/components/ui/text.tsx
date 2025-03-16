@@ -13,9 +13,15 @@ export function Statistic({ text1, text2 }: { text1: string; text2: string }) {
 export function Versus({ text1, text2 }: { text1: string; text2: string }) {
   return (
     <div className="flex justify-between">
-      <Text text={text1} />
-      <Text text="VS" />
-      <Text text={text2} />
+      <div className="basis-1/2 text-left">
+        <Text text={text1} />
+      </div>
+      <div className="basis-0">
+        <Text text="VS" />
+      </div>
+      <div className="basis-1/2 text-right">
+        <Text text={text2} />
+      </div>
     </div>
   );
 }
