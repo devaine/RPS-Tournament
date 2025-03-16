@@ -22,7 +22,8 @@ build-and-push:
 
   script:
     - docker buildx build -t $registry_server/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA .
-    - docker push $registry_server/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA
+    - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
+    - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH-latest
 
   after_script:
     - docker logout $registry_server
@@ -47,13 +48,15 @@ deploy:
     - docker context create rps --docker "host=ssh://deploy"
     - docker context use rps
 
-  script:
+    - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
     - export CI_COMMIT_SHORT_SHA="$CI_COMMIT_SHORT_SHA"
-    - docker pull $registry_server/$CI_PROJECT_NAMESPACE/rps-tournament:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
 
+  script:
+    - docker pull $registry_server/$CI_PROJECT_NAMESPACE/rps-tournament:$CI_COMMIT_BRANCH-latest
     - docker stack deploy --prune -c docker-stack.yml rps-cicd --with-registry-auth
 
   after_script:
+    - docker logout $registry_server
     - docker context use default
     - docker context rm rps
     - rm -rf ~/.ssh
