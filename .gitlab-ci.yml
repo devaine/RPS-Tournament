@@ -49,7 +49,7 @@ deploy:
 
   script:
     - export CI_COMMIT_SHORT_SHA="$CI_COMMIT_SHORT_SHA"
-    - docker pull $registry_server/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
+    - docker pull $registry_server/$CI_PROJECT_NAMESPACE/rps-tournament:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
 
     - docker stack deploy --prune -c docker-stack.yml rps-cicd --with-registry-auth
 
