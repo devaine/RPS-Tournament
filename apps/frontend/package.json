@@ -3,7 +3,7 @@
 	"main": "src/main.tsx",
 	"private": true,
 	"scripts": {
-    "dev": "vite --host 0.0.0.0",
+    "dev": "vite",
     "host": "vite --host",
     "build": "vite build",
     "preview": "vite preview"

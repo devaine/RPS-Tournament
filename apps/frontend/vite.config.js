@@ -9,7 +9,6 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   server: {
 		host: true,
-		allowedHosts: [".localhost", "rps-cicd.devdoes.work"],
 		port: 5173,
   },
 });
