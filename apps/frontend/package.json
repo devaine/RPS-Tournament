@@ -1,6 +1,6 @@
 {
 	"name": "rps-frontend",
-	"main": "src/main.tsx",
+	"main": "./src/main.tsx",
 	"private": true,
 	"scripts": {
     "dev": "vite",
