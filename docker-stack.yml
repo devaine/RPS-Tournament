@@ -1,13 +1,25 @@
 services:
   fullstack-website:
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.fullstack-website.rule=Host('rps-cicd.devdoes.work')"
+      - "traefik.http.services.fullstack-website.loadbalancer.server.port=5173"
     image: cicd-registry.devdoes.work/rps-developers/rps-tournament:cicd-${CI_COMMIT_SHORT_SHA}
-
-    ports:
-      - 5176:5173
-
     deploy:
       replicas: 3
 
         #secrets:
         #  rps-port:
         #    external: true
+        
+  reverse-proxy:
+    image: traefik:v3.3
+    command:
+      - "--providers.docker"
+      - "--entrypoints.web.address=:80"
+    ports:
+      - "7413:80"    # http port - for the fullstack-website
+      - "8081:8080"  # web ui for reverse-proxy service
+
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
