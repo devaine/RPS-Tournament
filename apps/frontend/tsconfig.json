@@ -1,0 +1,15 @@
+{
+	"compilerOptions": {
+		"target": "es6",
+		"allowSyntheticDefaultImports": true,
+		"moduleResolution": "node16",
+		"allowImportingTsExtensions": true,
+		"jsx": "react",
+		"moduleResolution": "node",
+		"paths": {
+			 "@/*": [ "./src/*" ]
+    }
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules"]
+}
