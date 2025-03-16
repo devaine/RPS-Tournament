@@ -2,16 +2,16 @@ services:
   fullstack-website:
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.fullstack-website.rule=Host('rps-cicd.devdoes.work')"
+      - "traefik.http.routers.fullstack-website.rule=Host(`rps-cicd.devdoes.work`)"
       - "traefik.http.services.fullstack-website.loadbalancer.server.port=5173"
     image: cicd-registry.devdoes.work/rps-developers/rps-tournament:cicd-${CI_COMMIT_SHORT_SHA}
     deploy:
       replicas: 3
-
         #secrets:
         #  rps-port:
         #    external: true
         
+
   reverse-proxy:
     image: traefik:v3.3
     command:
