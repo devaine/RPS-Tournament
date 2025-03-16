@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState, useRef } from "react";
-import { SplashAnnounce, Title } from "@/components/ui/text";
+import { Announce, SplashAnnounce, Title } from "@/components/ui/text";
 import { IconButton } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import paper from "@/assets/icons/paper.svg";
@@ -23,15 +23,18 @@ const Play = ({
     setTimeout(() => {
       setShowBattle(true);
     }, 3000);
-  }, [showBattle])
+  }, [showBattle]);
 
   return (
     <AnimatePresence>
       {showBattle === false && <Countdown />}
-      {showBattle === true && <Battle
-        rockOnClick={rockOnClick}
-        paperOnClick={paperOnClick}
-        scissorsOnClick={scissorsOnClick} />}
+      {showBattle === true && (
+        <Battle
+          rockOnClick={rockOnClick}
+          paperOnClick={paperOnClick}
+          scissorsOnClick={scissorsOnClick}
+        />
+      )}
     </AnimatePresence>
   );
 };
@@ -53,16 +56,16 @@ const Battle = ({
         <IconButton src={paper} onclick={paperOnClick} />
         <IconButton src={scissors} onclick={scissorsOnClick} />
       </div>
-    </GameLayout >
+    </GameLayout>
   );
-}
+};
 
 const Countdown = () => {
   const announcements = ["ROCK", "PAPER", "SCISSORS"];
   const [announce, setAnnounce] = useState(announcements[0]);
 
   const intervalID = useRef(null);
-  const announcementsLength = announcements.length - 1
+  const announcementsLength = announcements.length - 1;
   useEffect(() => {
     if (announce != announcements[announcementsLength]) {
       intervalID.current = setInterval(() => {
@@ -81,30 +84,30 @@ const Countdown = () => {
     <AnimatePresence>
       {announce && (
         <GameLayout>
-          <motion.div key="Battle" className="grayscale"
+          <motion.div
+            key="Battle"
+            className="grayscale"
             animate={{
               scale: [0, 0.8, 1],
               transition: {
                 times: [0, 0.1, 1],
-                duration: 3
-              }
-            }}>
+                duration: 3,
+              },
+            }}
+          >
             <Battle
               rockOnClick={() => { }}
               paperOnClick={() => { }}
-              scissorsOnClick={() => { }} />
+              scissorsOnClick={() => { }}
+            />
           </motion.div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-
             <SplashAnnounce text={announce} key={announce} />
           </div>
         </GameLayout>
-      )
-      }
-    </AnimatePresence >
-
-
+      )}
+    </AnimatePresence>
   );
-}
+};
 
 export default Play;
