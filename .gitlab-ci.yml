@@ -22,7 +22,7 @@ build-and-push:
 
   script:
     - docker buildx build -t $registry_server/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA .
-    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA
+    - docker push $registry_server/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA
 
   after_script:
     - docker logout $registry_server
@@ -49,7 +49,8 @@ deploy:
 
   script:
     - export CI_COMMIT_SHORT_SHA="$CI_COMMIT_SHORT_SHA"
-    - export | grep CI_COMMIT_SHORT_SHA
+    - docker pull $registry_server/$CI_PROJECT_NAMESPACE/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
+
     - docker stack deploy --prune -c docker-stack.yml rps-cicd --with-registry-auth
 
   after_script:
