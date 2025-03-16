@@ -22,6 +22,7 @@ build-and-push:
 
   script:
     - docker buildx build -t $registry_server/rps-developers/rps-tournament:cicd-$CI_COMMIT_SHORT_SHA .
+    - docker buildx build -t $registry_server/rps-developers/rps-tournament:cicd-latest .
     - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH-$CI_COMMIT_SHORT_SHA
     - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH-latest
 
