@@ -8,6 +8,8 @@ import react from "@vitejs/plugin-react";
 export default defineConfig({
   plugins: [tsconfigPaths(), react()],
   server: {
-		allowedHosts: ["rps-cicd.devdoes.work"]
+		host: true,
+		allowedHosts: [".localhost", "rps-cicd.devdoes.work"],
+		port: 5173,
   },
 });
