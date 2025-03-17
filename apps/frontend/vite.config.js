@@ -6,6 +6,11 @@ import react from "@vitejs/plugin-react";
 // dotenv.config({ path: ["./src/config/.env"] });
 
 export default defineConfig({
+	build: {
+		rollupOptions: {
+			external: ["react", "react-dom"]
+		}
+	},
   plugins: [tsconfigPaths(), react()],
   server: {
 		port: 5173,
