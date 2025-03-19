@@ -1,22 +1,8 @@
-@import "./styles/font.css";
-@import "./styles/box.css";
-@import "./styles/text.css";
+@import "tailwindcss";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-.light {
-  --paragraph: 255, 255, 255;
-  --accent: 249, 137, 3;
-  --secondary: 76, 50, 50;
-  --shadow: 4px 4px 0px 0px rgba(0, 0, 0, 1);
-  --shadow-trans: 4px 4px 0px 0px rgba(0, 0, 0, 0.25);
-  --background: 198, 39, 39;
-
-  background-color: rgba(var(--background));
-  background-image: url("./assets/img/background/Rock_Paper_Scissors_Red2.gif");
-}
+@layer theme, components;
+@import "./styles/theme.css" layer(theme);
+@import "./styles/components.css" layer(components);
 
 input:focus,
 select:focus,

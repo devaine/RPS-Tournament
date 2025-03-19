@@ -1,15 +1,12 @@
 import React from "react";
 import Router from "./router";
 
-// Testing the prototype components
-// TODO: Add router that navigages between routes but keeps app as SPA
 const App = () => {
-  document.body.classList.add("light");
-
   return (
-    <div>
+    <div className="bg-background bg-[url('./assets/img/background/Rock_Paper_Scissors_Red2.gif')]">
       <Router />
     </div>
   );
 };
+
 export default App;

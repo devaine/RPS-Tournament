@@ -14,7 +14,7 @@ export const Form = ({
     <div className="flex flex-col text-left gap-2">
       <label
         htmlFor={label}
-        className="text-paragraph text-3xl text-stroke jersey-10"
+        className="text-paragraph text-3xl text-stroke font-jersey-10"
       >
         {label}
       </label>
@@ -23,7 +23,7 @@ export const Form = ({
         type="text"
         whileFocus={{ scale: 1.1 }}
         placeholder={placeholder}
-        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 jersey-10 "
+        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10 "
         maxLength={maxLength}
       />
     </div>
@@ -41,7 +41,7 @@ export const TextBox = ({
     <div className="flex flex-col gap-4 m-4">
       <label
         htmlFor={label}
-        className="text-paragraph text-5xl text-stroke-lg jersey-10"
+        className="text-paragraph text-5xl text-stroke-lg font-jersey-10"
       >
         {label}
       </label>
@@ -49,7 +49,7 @@ export const TextBox = ({
         id={label}
         placeholder={placeholder}
         rows={4}
-        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 jersey-10"
+        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10"
       ></textarea>
     </div>
   );
