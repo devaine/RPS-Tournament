@@ -1,12 +1,20 @@
 import React from "react";
 import { motion } from "framer-motion";
 
-export const Form = ({
+export const Input = ({
+  id,
+  type,
   label,
+  onChange,
+  value,
   placeholder,
   maxLength,
 }: {
+  id: string;
+  type: string;
   label: string;
+  onChange: () => void;
+  value: string;
   placeholder: string;
   maxLength: number;
 }) => {
@@ -19,8 +27,11 @@ export const Form = ({
         {label}
       </label>
       <motion.input
-        id={label}
-        type="text"
+        id={id}
+        name={id}
+        type={type}
+        onChange={onChange}
+        value={value}
         whileFocus={{ scale: 1.1 }}
         placeholder={placeholder}
         className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10 "

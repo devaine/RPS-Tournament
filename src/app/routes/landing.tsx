@@ -1,10 +1,32 @@
 import { Title } from "@/components/ui/text";
-import { Form } from "@/components/ui/input";
+import { Input } from "@/components/ui/input";
 import React from "react";
 import { RouteButton } from "@/components/ui/button";
 import { RegisterLayout } from "@/components/layouts/register-layout";
+import { Formik, useFormik } from "formik";
+
+interface FormValues {
+  name: string;
+  id: string;
+}
 
 const Landing = () => {
+  const placeHolderValues: FormValues = {
+    name: "Bogus Binted",
+    id: "1234567",
+  };
+
+  const formik = useFormik({
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      id: "",
+    },
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
   return (
     <RegisterLayout>
       <div className="flex flex-col">
@@ -13,15 +35,27 @@ const Landing = () => {
         <Title text="SCISSORS" />
         <Title text="TOURNAMENT" />
       </div>
-      <div className="flex flex-col gap-4">
-        <Form
-          label="Name (First and Last)"
-          placeholder="Bogus Binted"
+      <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4">
+        <Input
+          id="name"
+          type="text"
+          label="First and Last Name"
+          onChange={formik.handleChange}
+          value={formik.values.firstName}
+          placeholder={placeHolderValues.firstName}
           maxLength={30}
         />
-        <Form label="Student ID" placeholder="1234567" maxLength={7} />
-      </div>
-      <RouteButton text="Submit" link="/register"></RouteButton>
+        <Input
+          id="id"
+          type="number"
+          label="Student ID"
+          onChange={formik.handleChange}
+          value={formik.values.id}
+          placeholder={placeHolderValues.id}
+          maxLength={7}
+        />
+        <RouteButton type="submit" text="Submit" link="/register"></RouteButton>
+      </form>
     </RegisterLayout>
   );
 };
