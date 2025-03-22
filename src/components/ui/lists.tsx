@@ -9,6 +9,7 @@ export const PlayerList = ({
   header: string;
   players: object;
 }) => {
+
   return (
     <div className="flex flex-col gap-4">
       <div className="text-center">
@@ -16,13 +17,12 @@ export const PlayerList = ({
       </div>
       <div className="flex flex-wrap justify-center gap-4 w-full">
         {
-          players.map((player) => {
-            return (
-              <TextBoxLayout key={player.id}>
-                <Text text={player.name} />
-              </TextBoxLayout>
-            );
-          })
+          // Use parentheses for returning objects, brackets for functions
+          Object.entries(players).map(([key, player]) => (
+            <TextBoxLayout key={key}>
+              <Text text={player.name} />
+            </TextBoxLayout>
+          ))
         }
       </div>
     </div>

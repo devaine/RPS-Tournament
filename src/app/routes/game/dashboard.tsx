@@ -23,7 +23,7 @@ const Dashboard = () => {
       name: "Justin Kondratenko",
       id: "7800189",
     },
-  ]
+  ];
 
   return (
     <TextLayout>
@@ -35,7 +35,6 @@ const Dashboard = () => {
         <div className="flex flex-col gap-4">
           <PlayerList header="Players Remaining" players={test} />
           <PlayerList header="Players Lost" players={test} />
-
         </div>
       </div>
     </TextLayout>

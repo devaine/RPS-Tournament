@@ -3,9 +3,11 @@ import { useEffect, useState, useRef } from "react";
 import { Announce, SplashAnnounce, Title } from "@/components/ui/text";
 import { IconButton } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
-import paper from "@/assets/icons/paper.svg";
-import scissors from "@/assets/icons/scissors.svg";
-import rock from "@/assets/icons/rock.svg";
+import paper from "@/assets/icons/actions/paper.svg";
+import scissors from "@/assets/icons/actions/scissors.svg";
+import rock from "@/assets/icons/actions/rock.svg";
+// For testing
+// import rock from "@/assets/icons/players/player1.svg";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Play = ({
@@ -96,9 +98,9 @@ const Countdown = () => {
             }}
           >
             <Battle
-              rockOnClick={() => { }}
-              paperOnClick={() => { }}
-              scissorsOnClick={() => { }}
+              rockOnClick={() => {}}
+              paperOnClick={() => {}}
+              scissorsOnClick={() => {}}
             />
           </motion.div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
