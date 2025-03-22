@@ -18,8 +18,7 @@ const Landing = () => {
 
   const formik = useFormik({
     initialValues: {
-      firstName: "",
-      lastName: "",
+      name: "",
       id: "",
     },
     onSubmit: (values) => {
@@ -41,8 +40,8 @@ const Landing = () => {
           type="text"
           label="First and Last Name"
           onChange={formik.handleChange}
-          value={formik.values.firstName}
-          placeholder={placeHolderValues.firstName}
+          value={formik.values.name}
+          placeholder={placeHolderValues.name}
           maxLength={30}
         />
         <Input
