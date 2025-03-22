@@ -66,11 +66,11 @@ const Countdown = () => {
   const announcements = ["ROCK", "PAPER", "SCISSORS"];
   const [announce, setAnnounce] = useState(announcements[0]);
 
-  const intervalID = useRef(null);
+	let intervalID: undefined | ReturnType<typeof setTimeout>;
   const announcementsLength = announcements.length - 1;
   useEffect(() => {
     if (announce != announcements[announcementsLength]) {
-      intervalID.current = setInterval(() => {
+      intervalID = setInterval(() => {
         const index = announcements.indexOf(announce);
         if (index === announcementsLength) {
           setAnnounce(announcements[0]);
@@ -79,7 +79,7 @@ const Countdown = () => {
         }
       }, 1000);
     }
-    return () => clearInterval(intervalID.current);
+    return () => clearInterval(intervalID);
   }, [announce]);
 
   return (
