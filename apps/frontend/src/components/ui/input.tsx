@@ -1,11 +1,56 @@
 import React from "react";
+import { motion } from "framer-motion";
 
-export function Input({ title }: { title: string }) {
+export const Form = ({
+  label,
+  placeholder,
+  maxLength,
+}: {
+  label: string;
+  placeholder: string;
+  maxLength: number;
+}) => {
   return (
-    <input
-      type="text"
-      placeholder={title}
-      className="bg-gray-200/0 text-paragraph text-3xl border-b-2 border-primary placeholder-paragraph focus:outline-none text-stroke shadow-shadow font-pixelify"
-    />
+    <div className="flex flex-col text-left gap-2">
+      <label
+        htmlFor={label}
+        className="text-paragraph text-3xl text-stroke font-jersey-10"
+      >
+        {label}
+      </label>
+      <motion.input
+        id={label}
+        type="text"
+        whileFocus={{ scale: 1.1 }}
+        placeholder={placeholder}
+        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10 "
+        maxLength={maxLength}
+      />
+    </div>
   );
-}
+};
+
+export const TextBox = ({
+  label,
+  placeholder,
+}: {
+  label: string;
+  placeholder: string;
+}) => {
+  return (
+    <div className="flex flex-col gap-4 m-4">
+      <label
+        htmlFor={label}
+        className="text-paragraph text-5xl text-stroke-lg font-jersey-10"
+      >
+        {label}
+      </label>
+      <textarea
+        id={label}
+        placeholder={placeholder}
+        rows={4}
+        className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10"
+      ></textarea>
+    </div>
+  );
+};

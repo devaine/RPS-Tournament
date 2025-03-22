@@ -1,32 +1,47 @@
 import React from "react";
-import Login from "./routes/auth/login";
-import Register from "./routes/auth/register";
-import Description from "./routes/auth/description";
-import Profile from "./routes/auth/profile";
+import Landing from "./routes/landing";
+import Register from "./routes/register/register";
+// import CreateDescription from "./routes/register/create-description";
+import ConfirmAvatar from "./routes/register/confirm-avatar";
 import NotFound from "./routes/not-found";
-import App from "./routes/app/game";
+import Game from "./routes/game/game";
+import Dashboard from "./routes/game/dashboard";
+import Admin from "./routes/game/admin";
+import End from "./routes/game/end";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Login />,
+    element: <Landing />,
   },
   {
     path: "/register",
     element: <Register />,
   },
+  // {
+  //   path: "/register/create-description",
+  //   element: <CreateDescription />,
+  // },
   {
-    path: "/description",
-    element: <Description />,
+    path: "/register/confirm-avatar",
+    element: <ConfirmAvatar />,
   },
   {
-    path: "/profile",
-    element: <Profile />,
+    path: "/game",
+    element: <Game />,
   },
   {
-    path: "/app",
-    element: <App />,
+    path: "/game/dashboard",
+    element: <Dashboard />,
+  },
+  {
+    path: "/game/admin",
+    element: <Admin />,
+  },
+  {
+    path: "/game/end",
+    element: <End />,
   },
   {
     path: "*",

@@ -1,0 +1,12 @@
+@theme {
+  --color-paragraph: rgba(255, 255, 255);
+  --color-accent: rgba(249, 137, 3);
+  --color-secondary: rgba(76, 50, 50);
+  --color-background: rgba(198, 39, 39);
+
+  --shadow-box: 4px 4px 0px 0px rgba(0, 0, 0);
+  --shadow-box-trans: 4px 4px 0px 0px rgba(0, 0, 0, 0.75);
+
+  --font-jersey-15: "Jersey 15", serif;
+  --font-jersey-10: "Jersey 10", serif;
+}

@@ -1,4 +1,5 @@
 import React from "react";
+import { motion, animate, easeIn } from "framer-motion";
 
 export function Statistic({ text1, text2 }: { text1: string; text2: string }) {
   return (
@@ -12,24 +13,52 @@ export function Statistic({ text1, text2 }: { text1: string; text2: string }) {
 export function Versus({ text1, text2 }: { text1: string; text2: string }) {
   return (
     <div className="flex justify-between">
-      <Text text={text1} />
-      <Text text="VS" />
-      <Text text={text2} />
+      <div className="basis-1/2 text-left">
+        <Text text={text1} />
+      </div>
+      <div className="basis-0">
+        <Text text="VS" />
+      </div>
+      <div className="basis-1/2 text-right">
+        <Text text={text2} />
+      </div>
     </div>
   );
 }
 
 export function Announce({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-4xl drop-shadow-lg stroke-black font-pixelify">
+    <p className="text-paragraph text-9xl text-stroke-xl stroke-black font-jersey-15">
       {text}
     </p>
   );
 }
 
+export function SplashAnnounce({ text }: { text: string }) {
+  return (
+    <motion.div
+      key={text}
+      animate={{
+        scale: [10, 1.25, 1],
+        transition: { times: [0, 0.2, 1], duration: 1 },
+      }}
+    >
+      <Announce text={text} />
+    </motion.div>
+  );
+}
+
 export function Title({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-6xl text-stroke-xl  stroke-black font-pixelify">
+    <p className="text-paragraph text-7xl text-stroke-xl stroke-black font-jersey-15">
+      {text}
+    </p>
+  );
+}
+
+export function Heading({ text }: { text: string }) {
+  return (
+    <p className="text-paragraph text-5xl text-stroke-lg stroke-black font-jersey-10">
       {text}
     </p>
   );
@@ -37,7 +66,7 @@ export function Title({ text }: { text: string }) {
 
 export function Text({ text }: { text: string }) {
   return (
-    <p className="text-paragraph text-3xl text-stroke drop-shadow-lg stroke-black font-pixelify">
+    <p className="text-paragraph text-3xl text-stroke stroke-black font-jersey-10">
       {text}
     </p>
   );

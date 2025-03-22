@@ -1,57 +1,28 @@
-@import url("https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap");
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Jersey+10&family=Jersey+15&family=Jersey+20&display=swap");
+@import "tailwindcss";
 
-.light {
-  --paragraph: 255, 255, 255;
-  --shadow: 1px 1px 0px 0px rgba(0, 0, 0, 1);
-  --background: 109, 234, 214;
-  --red: 236, 39, 63;
-  --green: 157, 230, 78;
-  --orange: 243, 168, 51;
-  background: rgba(var(--background));
-}
+@layer theme, components;
+@import "./styles/theme.css" layer(theme);
+@import "./styles/components.css" layer(components);
 
-.dark {
-  --paragraph: var(--paragraph);
-  --shadow: var(--shadow);
-  --background: 44, 30, 49; /* Only difference between light and dark*/
-  --red: var(--red);
-  --green: var(--green);
-  --orange: var(--orange);
-  background: rgba(var(--background));
-}
-
-.pixelify-sans {
-  font-family: "Pixelify Sans", serif;
-  font-optical-sizing: auto;
-  font-weight: 400;
-  font-style: normal;
-}
-
-.text-stroke {
-  -webkit-text-stroke-width: 2px;
-  -webkit-text-stroke-color: black;
-  paint-order: stroke fill;
-}
-
-.text-stroke-xl {
-  -webkit-text-stroke-width: 4px;
-  -webkit-text-stroke-color: black;
-  paint-order: stroke fill;
+input:focus,
+select:focus,
+textarea:focus,
+button:focus {
+  outline: none;
+  caret-color: rgba(var(--accent));
 }
 
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-    "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
-    "Helvetica Neue", sans-serif;
+  font-family:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu",
+    "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+  font-family:
+    source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }

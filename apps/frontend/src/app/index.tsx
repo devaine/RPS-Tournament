@@ -1,16 +1,12 @@
 import React from "react";
 import Router from "./router";
-import ThemeToggle from "@/components/ui/theme-toggle";
 
-// Testing the prototype components
-// TODO: Add router that navigages between routes but keeps app as SPA
 const App = () => {
-  ThemeToggle();
-
   return (
-    <div>
+    <div className="bg-background bg-[url('./assets/img/background/Rock_Paper_Scissors_Red2.gif')]">
       <Router />
     </div>
   );
 };
+
 export default App;
