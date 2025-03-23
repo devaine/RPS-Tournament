@@ -1,42 +1,27 @@
 {
-  "name": "rps-rooms",
-  "version": "0.1.0",
+  "name": "rps-tournament",
   "private": true,
-  "dependencies": {
-    "cors": "^2.8.5",
-    "cra-template": "1.2.0",
-    "dotenv": "^16.4.7",
-    "express": "^4.21.2",
-    "nodemon": "^3.1.9",
-    "pg": "^8.13.1",
-    "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-scripts": "5.0.1",
-    "socket.io": "^4.8.1",
-    "socket.io-client": "^4.8.1"
-  },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "format": "prettier --write \"**/*.{ts,tsx,md}\""
   },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+  "license": "ISC",
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "devDependencies": {
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.13.0",
+    "prettier": "^3.4.2"
   },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  }
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "turbo": "^2.4.0",
+		"tsx": "^4.19.2",
+    "typescript": "^5.7.3"
+  },
+	"packageManager": ">=npm@10.9.0"
 }
