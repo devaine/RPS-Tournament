@@ -1,6 +1,6 @@
+import React from "react";
 import { Title } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
-import React from "react";
 import { Button } from "@/components/ui/button";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import { useFormik } from "formik";
@@ -23,6 +23,7 @@ const Landing = () => {
     },
     onSubmit: (values) => {
       alert(JSON.stringify(values, null, 2));
+      console.log(values);
     },
   });
 
@@ -53,7 +54,7 @@ const Landing = () => {
           placeholder={placeHolderValues.id}
           maxLength={7}
         />
-        <Button text="Submit" link="/register"></Button>
+        <Button type="submit" text="Submit" link="/register"></Button>
       </form>
     </RegisterLayout>
   );

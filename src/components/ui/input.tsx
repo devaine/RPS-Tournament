@@ -13,10 +13,10 @@ export const Input = ({
   id: string;
   type: string;
   label: string;
-  onChange: () => void;
+  onChange: (e: any) => void;
   value: string;
   placeholder: string;
-  maxLength: number;
+  maxLength?: number;
 }) => {
   return (
     <div className="flex flex-col text-left gap-2">
