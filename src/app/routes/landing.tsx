@@ -1,9 +1,9 @@
 import { Title } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import React from "react";
-import { RouteButton } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { RegisterLayout } from "@/components/layouts/register-layout";
-import { Formik, useFormik } from "formik";
+import { useFormik } from "formik";
 
 interface FormValues {
   name: string;
@@ -53,7 +53,7 @@ const Landing = () => {
           placeholder={placeHolderValues.id}
           maxLength={7}
         />
-        <RouteButton type="submit" text="Submit" link="/register"></RouteButton>
+        <Button text="Submit" link="/register"></Button>
       </form>
     </RegisterLayout>
   );

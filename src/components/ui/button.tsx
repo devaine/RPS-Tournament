@@ -3,71 +3,42 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 
-export const ActionButton = ({
-  text,
-  onclick,
-}: {
+interface ButtonParameters {
   text: string;
-  onclick: () => void;
-}) => {
-  return (
-    <motion.button
-      className="bg-accent py-2 px-4 border-box box-shadow-extend"
-      whileTap={{ scale: 0.9 }}
-      onClick={onclick}
-    >
-      <Text text={text} />
-    </motion.button>
-  );
-};
-
-export const RouteButton = ({ text, link }: { text: string; link: string }) => {
-  return (
-    <div>
-      <Link to={link}>
-        <ActionButton text={text} onclick={() => {}} />
-      </Link>
-    </div>
-  );
-};
-
-export const BackButton = ({ text, link }: { text: string; link: string }) => {
-  return (
-    <Link to={link}>
-      <motion.button
-        className="bg-background py-2 px-4 border-box box-shadow-extend"
-        whileTap={{ scale: 0.9 }}
-      >
-        <Text text={text} />
-      </motion.button>
-    </Link>
-  );
-};
-
-export const Button = ({ text, link }: { text: string; link: string }) => {
-  return (
-    <div>
-      <Link to={link}>
-        <ActionButton text={text} onclick={() => {}} />
-      </Link>
-    </div>
-  );
-};
-
-export function ProgressButtons({
-  forward,
-  back,
-}: {
-  forward: string;
-  back: string;
-}) {
-  return (
-    <div className="flex gap-4">
-      <BackButton text="Back" link={back}></BackButton>
-      <RouteButton text="Continue" link={forward}></RouteButton>
-    </div>
-  );
+  color?: string;
+  src?: string;
+  link?: string;
+  onclick?: () => void;
 }
+
+export const Button = (buttonParameters: ButtonParameters) => {
+  const defaults: Pick<ButtonParameters, "link" | "color"> = {
+    link: "",
+    color: "accent",
+  };
+
+  const buttonValues = {
+    ...defaults,
+    ...buttonParameters,
+  };
+
+  const style = `bg-${buttonValues.color} py-2 px-4 border-box box-shadow-extend`;
+
+  return (
+    <div>
+      {/* Require non-null assertion operator to declare link as never null */}
+      <Link to={buttonValues.link!}>
+        <motion.button
+          className={style}
+          whileTap={{ scale: 0.9 }}
+          onClick={buttonValues.onclick}
+        >
+          <Text text={buttonValues.text} />
+        </motion.button>
+      </Link>
+    </div>
+  );
+};
 
 export const IconButton = ({
   src,

@@ -1,7 +1,7 @@
 import React from "react";
 import { Title, Heading, Text, Statistic } from "@/components/ui/text";
-import { ActionButton } from "@/components/ui/button";
-import Dashboard from "@/app/routes/game/dashboard"
+import { Button } from "@/components/ui/button";
+import Dashboard from "@/app/routes/game/dashboard";
 import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 
 // NOTE: This is a placeholder
@@ -17,19 +17,18 @@ export const Admin = () => {
           <div className="flex flex-col gap-2">
             <Text text="Round" />
             <div className="flex gap-4">
-              <ActionButton text="Start Round" onclick={() => { }} />
-              <ActionButton text="Fix Tie(s)" onclick={() => { }} />
+              <Button text="Start Round" onclick={() => {}} />
+              <Button text="Fix Tie(s)" onclick={() => {}} />
             </div>
             <Text text="Game" />
             <div className="flex gap-4">
-              <ActionButton text="Start" onclick={() => { }} />
-              <ActionButton text="Pause" onclick={() => { }} />
-              <ActionButton text="End" onclick={() => { }} />
+              <Button text="Start" onclick={() => {}} />
+              <Button text="Pause" onclick={() => {}} />
+              <Button text="End" onclick={() => {}} />
             </div>
           </div>
           <Heading text="Statistics" />
           <TextBoxLayout>
-
             <Statistic text1="Round" text2="0" />
             <Statistic text1="Players in Winners's Bracket" text2="0" />
             <Statistic text1="Current Ties in Winner's Bracket" text2="0" />
@@ -39,13 +38,11 @@ export const Admin = () => {
           </TextBoxLayout>
         </div>
         <div className="basis-full">
-
           <Dashboard />
         </div>
       </div>
-
     </div>
-  )
-}
+  );
+};
 
 export default Admin;

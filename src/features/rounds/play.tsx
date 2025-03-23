@@ -1,6 +1,6 @@
 import React from "react";
-import { useEffect, useState, useRef } from "react";
-import { Announce, SplashAnnounce, Title } from "@/components/ui/text";
+import { useEffect, useState } from "react";
+import { SplashAnnounce } from "@/components/ui/text";
 import { IconButton } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import paper from "@/assets/icons/actions/paper.svg";
@@ -66,7 +66,7 @@ const Countdown = () => {
   const announcements = ["ROCK", "PAPER", "SCISSORS"];
   const [announce, setAnnounce] = useState(announcements[0]);
 
-	let intervalID: undefined | ReturnType<typeof setTimeout>;
+  let intervalID: undefined | ReturnType<typeof setTimeout>;
   const announcementsLength = announcements.length - 1;
   useEffect(() => {
     if (announce != announcements[announcementsLength]) {

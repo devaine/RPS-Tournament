@@ -1,11 +1,11 @@
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
+import { AnimatePresence } from "framer-motion";
 import React from "react";
 import Play from "@/features/rounds/play";
 import Waiting from "@/features/rounds/waiting";
 import Decision from "@/features/rounds/decision";
 import { GameLayout } from "@/components/layouts/game-layout";
-import { ActionButton, RouteButton } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState("Waiting");
@@ -16,10 +16,7 @@ const Game = () => {
       {currentScreen === "Waiting" && (
         <GameLayout key="Waiting">
           <Waiting />
-          <ActionButton
-            text="Ready?"
-            onclick={() => setCurrentScreen("Play")}
-          />
+          <Button text="Ready?" onclick={() => setCurrentScreen("Play")} />
         </GameLayout>
       )}
       {currentScreen === "Play" && (
@@ -47,12 +44,9 @@ const Game = () => {
         <GameLayout key="Decision">
           <Decision decision={currentDecision} />
           {currentDecision === "YOU LOSE !!!" ? (
-            <RouteButton text="Go to Dashboard" link="/game/dashboard" />
+            <Button text="Go to Dashboard" link="/game/dashboard" />
           ) : (
-            <ActionButton
-              text="Ready?"
-              onclick={() => setCurrentScreen("Play")}
-            />
+            <Button text="Ready?" onclick={() => setCurrentScreen("Play")} />
           )}
         </GameLayout>
       )}

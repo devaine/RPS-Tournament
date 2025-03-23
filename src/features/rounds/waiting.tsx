@@ -1,6 +1,6 @@
 import React from "react";
 import { Heading } from "@/components/ui/text";
-import { ActionButton } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 
 function Waiting() {
   const name = "justink";
