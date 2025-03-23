@@ -9,7 +9,6 @@ export const PlayerList = ({
   header: string;
   players: object;
 }) => {
-
   return (
     <div className="flex flex-col gap-4">
       <div className="text-center">
@@ -30,6 +29,4 @@ export const PlayerList = ({
 };
 
 // TODO: Create Statistics component for Admin Dashboard
-export const Statistics = ({
-
-})
+export const Statistics = {};

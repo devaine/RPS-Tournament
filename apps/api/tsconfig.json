@@ -14,5 +14,5 @@
     "module": "preserve",
     "lib": ["es2022"]
   },
-	"include": ["src"]
+  "include": ["src"]
 }

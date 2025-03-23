@@ -1,23 +1,23 @@
 {
- "compilerOptions": {
-	 "noEmit": true,
-   "strict": true,
-   "target": "ESNext",
-   "lib": ["ES2024", "DOM", "DOM.Iterable"],
-   "allowJs": true,
-   "jsx": "preserve",
-   "esModuleInterop": true,
-   "module": "ESNext",
-   "moduleResolution": "bundler",
-   "forceConsistentCasingInFileNames": true,
-   "useUnknownInCatchVariables": true,
-   "noImplicitOverride": true,
-   "verbatimModuleSyntax": true,
-   "paths": {
-       "@/*": ["src/*"]
-   },
-   "baseUrl": "."
- },
- "include": ["src", "vite.config.mts"],
- "files": ["globals.ts"]
+  "compilerOptions": {
+    "noEmit": true,
+    "strict": true,
+    "target": "ESNext",
+    "lib": ["ES2024", "DOM", "DOM.Iterable"],
+    "allowJs": true,
+    "jsx": "preserve",
+    "esModuleInterop": true,
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "forceConsistentCasingInFileNames": true,
+    "useUnknownInCatchVariables": true,
+    "noImplicitOverride": true,
+    "verbatimModuleSyntax": true,
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "baseUrl": "."
+  },
+  "include": ["src", "vite.config.mts"],
+  "files": ["globals.ts"]
 }
