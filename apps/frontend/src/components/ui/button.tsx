@@ -30,6 +30,8 @@ export const Button = (buttonParameters: ButtonParameters) => {
     ...buttonParameters,
   };
 
+
+  // FIX: Button background color doesn't work on first render
   const className = `bg-${buttonValues.color} py-2 px-4 border-box box-shadow-extend`;
 
   // link requires non-null assertion operator to declare link as never null

@@ -4,6 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import { useFormik } from "formik";
+import * as Yup from "yup";
 
 interface FormValues {
   name: string;
@@ -16,6 +17,11 @@ const Landing = () => {
     id: "1234567",
   };
 
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required(),
+    id: Yup.string().length(7).required(),
+  })
+
   const formik = useFormik({
     initialValues: {
       name: "",
@@ -25,6 +31,7 @@ const Landing = () => {
       alert(JSON.stringify(values, null, 2));
       console.log(values);
     },
+    validationSchema: validationSchema,
   });
 
   return (
@@ -35,6 +42,7 @@ const Landing = () => {
         <Title text="SCISSORS" />
         <Title text="TOURNAMENT" />
       </div>
+
       <form onSubmit={formik.handleSubmit} className="flex flex-col gap-4">
         <Input
           id="name"
