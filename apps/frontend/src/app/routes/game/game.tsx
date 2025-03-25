@@ -16,7 +16,7 @@ const Game = () => {
       {currentScreen === "Waiting" && (
         <GameLayout key="Waiting">
           <Waiting />
-          <Button text="Ready?" onclick={() => setCurrentScreen("Play")} />
+          <Button text="Ready?" onClick={() => setCurrentScreen("Play")} />
         </GameLayout>
       )}
       {currentScreen === "Play" && (
@@ -46,7 +46,7 @@ const Game = () => {
           {currentDecision === "YOU LOSE !!!" ? (
             <Button text="Go to Dashboard" link="/game/dashboard" />
           ) : (
-            <Button text="Ready?" onclick={() => setCurrentScreen("Play")} />
+            <Button text="Ready?" onClick={() => setCurrentScreen("Play")} />
           )}
         </GameLayout>
       )}

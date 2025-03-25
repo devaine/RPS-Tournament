@@ -3,11 +3,7 @@ import { useEffect, useState } from "react";
 import { SplashAnnounce } from "@/components/ui/text";
 import { IconButton } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
-import paper from "@/assets/icons/actions/paper.svg";
-import scissors from "@/assets/icons/actions/scissors.svg";
-import rock from "@/assets/icons/actions/rock.svg";
-// For testing
-// import rock from "@/assets/icons/players/player1.svg";
+import actions from "@/config/actions.json";
 import { AnimatePresence, motion } from "framer-motion";
 
 const Play = ({
@@ -52,11 +48,25 @@ const Battle = ({
 }) => {
   return (
     <GameLayout>
-      <IconButton src={rock} onclick={rockOnClick} />
-
+      <IconButton
+        src={actions[0].url}
+        size={32}
+        text={actions[0].alt}
+        onClick={rockOnClick}
+      />
       <div className="flex gap-8">
-        <IconButton src={paper} onclick={paperOnClick} />
-        <IconButton src={scissors} onclick={scissorsOnClick} />
+        <IconButton
+          src={actions[1].url}
+          size={32}
+          text={actions[1].alt}
+          onClick={paperOnClick}
+        />
+        <IconButton
+          src={actions[2].url}
+          size={32}
+          text={actions[2].alt}
+          onClick={scissorsOnClick}
+        />
       </div>
     </GameLayout>
   );

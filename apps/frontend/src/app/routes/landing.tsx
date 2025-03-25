@@ -6,14 +6,10 @@ import { RegisterLayout } from "@/components/layouts/register-layout";
 import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
-
-interface FormValues {
-  name: string;
-  id: string;
-}
+import type { User } from "@/types/api";
 
 const Landing = () => {
-  const placeHolderValues: FormValues = {
+  const placeHolderValues: User = {
     name: "Bogus Binted",
     id: "1234567",
   };

@@ -8,21 +8,22 @@ import { Text } from "@/components/ui/text";
 interface ButtonParameters {
   text: string;
   type?: "button" | "submit" | "reset";
-  color?: string;
+  color?: "accent" | "background";
   src?: string;
   link?: string;
+  size?: 24 | 32;
   isSubmitting?: boolean;
   onClick?: () => void;
   whileTap?: TargetAndTransition;
 }
 
-const defaults: Pick<ButtonParameters, "type" | "link" | "color" | "whileTap"> =
-{
-  type: "button",
-  link: "",
-  color: "accent",
-  whileTap: { scale: 0.9 },
-};
+const defaults: Pick<ButtonParameters, "type" | "color" | "link" | "whileTap"> =
+  {
+    type: "button",
+    link: "",
+    color: "accent",
+    whileTap: { scale: 0.9 },
+  };
 
 export const Button = (buttonParameters: ButtonParameters) => {
   const buttonValues = {
@@ -30,9 +31,7 @@ export const Button = (buttonParameters: ButtonParameters) => {
     ...buttonParameters,
   };
 
-
-  // FIX: Button background color doesn't work on first render
-  const className = `bg-${buttonValues.color} py-2 px-4 border-box box-shadow-extend`;
+  const { className } = buttonConfig(buttonValues);
 
   // link requires non-null assertion operator to declare link as never null
   // type requires ternary statement to make sure it has a defined value
@@ -77,7 +76,7 @@ export const IconButton = (buttonParameters: ButtonParameters) => {
     ...buttonParameters,
   };
 
-  const className = `bg-${buttonValues.color} border-box-xl box-shadow-extend-xl`;
+  const { className, size } = buttonConfig(buttonValues);
 
   return (
     <motion.button
@@ -88,8 +87,40 @@ export const IconButton = (buttonParameters: ButtonParameters) => {
       <img
         src={buttonValues.src}
         alt={buttonValues.text}
-        className="size-32"
+        className={size}
       ></img>
     </motion.button>
   );
+};
+
+const buttonConfig = (buttonParameters: ButtonParameters) => {
+  const buttonValues = {
+    ...defaults,
+    ...buttonParameters,
+  };
+
+  let className;
+  let size;
+
+  switch (buttonValues.color) {
+    case "accent":
+      className = `bg-accent py-2 px-4 border-box box-shadow-extend`;
+      break;
+    case "background":
+      className = `bg-background py-2 px-4 border-box box-shadow-extend`;
+      break;
+  }
+
+  switch (buttonValues.size) {
+    case 24:
+      size = "size-24";
+      className = `bg-accent border-box box-shadow-extend`;
+      break;
+    case 32:
+      size = "size-32";
+      className = `bg-accent p-2 border-box-xl box-shadow-extend-xl`;
+      break;
+  }
+
+  return { className, size };
 };
