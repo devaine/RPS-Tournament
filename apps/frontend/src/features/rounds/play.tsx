@@ -5,16 +5,9 @@ import { IconButton } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import actions from "@/config/actions.json";
 import { AnimatePresence, motion } from "framer-motion";
+import type { PlayParameters } from "@/types/api";
 
-const Play = ({
-  rockOnClick,
-  paperOnClick,
-  scissorsOnClick,
-}: {
-  rockOnClick: () => void;
-  paperOnClick: () => void;
-  scissorsOnClick: () => void;
-}) => {
+const Play = (playParameters: PlayParameters) => {
   const [showBattle, setShowBattle] = useState(false);
 
   useEffect(() => {
@@ -28,44 +21,36 @@ const Play = ({
       {showBattle === false && <Countdown />}
       {showBattle === true && (
         <Battle
-          rockOnClick={rockOnClick}
-          paperOnClick={paperOnClick}
-          scissorsOnClick={scissorsOnClick}
+          rockOnClick={playParameters.rockOnClick}
+          paperOnClick={playParameters.paperOnClick}
+          scissorsOnClick={playParameters.scissorsOnClick}
         />
       )}
     </AnimatePresence>
   );
 };
 
-const Battle = ({
-  rockOnClick,
-  paperOnClick,
-  scissorsOnClick,
-}: {
-  rockOnClick: () => void;
-  paperOnClick: () => void;
-  scissorsOnClick: () => void;
-}) => {
+const Battle = (playParameters: PlayParameters) => {
   return (
     <GameLayout>
       <IconButton
         src={actions[0].url}
         size={32}
         text={actions[0].alt}
-        onClick={rockOnClick}
+        onClick={playParameters.rockOnClick}
       />
       <div className="flex gap-8">
         <IconButton
           src={actions[1].url}
           size={32}
           text={actions[1].alt}
-          onClick={paperOnClick}
+          onClick={playParameters.paperOnClick}
         />
         <IconButton
           src={actions[2].url}
           size={32}
           text={actions[2].alt}
-          onClick={scissorsOnClick}
+          onClick={playParameters.scissorsOnClick}
         />
       </div>
     </GameLayout>
@@ -108,9 +93,9 @@ const Countdown = () => {
             }}
           >
             <Battle
-              rockOnClick={() => {}}
-              paperOnClick={() => {}}
-              scissorsOnClick={() => {}}
+              rockOnClick={() => { }}
+              paperOnClick={() => { }}
+              scissorsOnClick={() => { }}
             />
           </motion.div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">

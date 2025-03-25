@@ -1,29 +1,18 @@
 import React from "react";
-import { motion, type TargetAndTransition } from "framer-motion";
-import { Link, useNavigate } from "react-router";
+import { motion } from "framer-motion";
+import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
+import type { ButtonParameters } from "@/types/api";
 
 // Global variables for button parameters and styles
 
-interface ButtonParameters {
-  text: string;
-  type?: "button" | "submit" | "reset";
-  color?: "accent" | "background";
-  src?: string;
-  link?: string;
-  size?: 24 | 32;
-  isSubmitting?: boolean;
-  onClick?: () => void;
-  whileTap?: TargetAndTransition;
-}
-
 const defaults: Pick<ButtonParameters, "type" | "color" | "link" | "whileTap"> =
-  {
-    type: "button",
-    link: "",
-    color: "accent",
-    whileTap: { scale: 0.9 },
-  };
+{
+  type: "button",
+  link: "",
+  color: "accent",
+  whileTap: { scale: 0.9 },
+};
 
 export const Button = (buttonParameters: ButtonParameters) => {
   const buttonValues = {
@@ -118,7 +107,7 @@ const buttonConfig = (buttonParameters: ButtonParameters) => {
       break;
     case 32:
       size = "size-32";
-      className = `bg-accent p-2 border-box-xl box-shadow-extend-xl`;
+      className = `bg-accent border-box-xl box-shadow-extend-xl`;
       break;
   }
 

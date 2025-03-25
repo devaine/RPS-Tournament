@@ -7,24 +7,24 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 // NOTE: This is a placeholder
 export const Admin = () => {
   return (
-    <div className="flex flex-col items-between m-4">
+    <div className="flex flex-col items-between">
       <div className="text-center">
         <Title text="ROCK PAPER SCISSORS ADMIN" />
       </div>
-      <div className="flex min-w-screen gap-8">
+      <div className="flex min-w-screen gap-8 p-4">
         <div className="flex flex-col basis-2/3 gap-4">
           <Heading text="Management" />
           <div className="flex flex-col gap-2">
             <Text text="Round" />
             <div className="flex gap-4">
-              <Button text="Start Round" onclick={() => {}} />
-              <Button text="Fix Tie(s)" onclick={() => {}} />
+              <Button text="Start Round" onClick={() => { }} />
+              <Button text="Fix Tie" onClick={() => { }} />
             </div>
             <Text text="Game" />
             <div className="flex gap-4">
-              <Button text="Start" onclick={() => {}} />
-              <Button text="Pause" onclick={() => {}} />
-              <Button text="End" onclick={() => {}} />
+              <Button text="Start" onClick={() => { }} />
+              <Button text="Pause" onClick={() => { }} />
+              <Button text="End" color="background" onClick={() => { }} />
             </div>
           </div>
           <Heading text="Statistics" />

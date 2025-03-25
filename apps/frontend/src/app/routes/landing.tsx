@@ -63,7 +63,9 @@ const Landing = () => {
               placeholder={placeHolderValues.id}
               maxLength={7}
             />
-            <Button type="submit" text="Submit" link="/register"></Button>
+            <div className="p-4">
+              <Button type="submit" text="Submit" link="/register"></Button>
+            </div>
           </form>
         )}
       </Formik>

@@ -3,6 +3,8 @@ import { Title } from "@/components/ui/text";
 import { TextLayout } from "@/components/layouts/text-layout";
 import Divider from "@/components/ui/divider";
 import { PlayerList } from "@/components/ui/lists";
+import { Button } from "@/components/ui/button";
+import { useNavigate } from "react-router";
 
 // NOTE: This is a placeholder
 const Dashboard = () => {
@@ -24,10 +26,11 @@ const Dashboard = () => {
       id: "7800189",
     },
   ];
+  const navigate = useNavigate();
 
   return (
     <TextLayout>
-      <div className="flex flex-col items-center gap-2 m-4">
+      <div className="flex flex-col items-center gap-4 p-4">
         <div>
           <Title text="Dashboard" />
           <Divider />
@@ -36,6 +39,13 @@ const Dashboard = () => {
           <PlayerList header="Players Remaining" players={test} />
           <PlayerList header="Players Lost" players={test} />
         </div>
+        <Button
+          text="Go Back"
+          color="background"
+          onClick={() => {
+            navigate(-1);
+          }}
+        />
       </div>
     </TextLayout>
   );

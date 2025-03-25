@@ -4,51 +4,50 @@ import React from "react";
 import Play from "@/features/rounds/play";
 import Waiting from "@/features/rounds/waiting";
 import Decision from "@/features/rounds/decision";
-import { GameLayout } from "@/components/layouts/game-layout";
-import { Button } from "@/components/ui/button";
+import type { GameScreen } from "@/types/api";
+import type { GameDecision } from "@/types/api";
 
 const Game = () => {
-  const [currentScreen, setCurrentScreen] = useState("Waiting");
-  const [currentDecision, setCurrentDecision] = useState("");
+  const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
+  const [currentDecision, setCurrentDecision] =
+    useState<GameDecision>("YOU WON !!!");
 
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
-        <GameLayout key="Waiting">
-          <Waiting />
-          <Button text="Ready?" onClick={() => setCurrentScreen("Play")} />
-        </GameLayout>
+        <Waiting
+          key="Waiting"
+          leaveOnClick={() => { }}
+          enterOnClick={() => setCurrentScreen("Play")}
+        />
       )}
       {currentScreen === "Play" && (
-        <GameLayout key="Play">
-          <Play
-            rockOnClick={() => {
-              setCurrentScreen("Decision");
-              setCurrentDecision("YOU WON !!!");
-              console.log(currentDecision);
-            }}
-            paperOnClick={() => {
-              setCurrentScreen("Decision");
-              setCurrentDecision("YOU LOSE !!!");
-              console.log(currentDecision);
-            }}
-            scissorsOnClick={() => {
-              setCurrentScreen("Decision");
-              setCurrentDecision("YOU TIED !!!");
-              console.log(currentDecision);
-            }}
-          />
-        </GameLayout>
+        <Play
+          key="Play"
+          rockOnClick={() => {
+            setCurrentScreen("Decision");
+            setCurrentDecision("YOU WON !!!");
+            console.log(currentDecision);
+          }}
+          paperOnClick={() => {
+            setCurrentScreen("Decision");
+            setCurrentDecision("YOU LOSE !!!");
+            console.log(currentDecision);
+          }}
+          scissorsOnClick={() => {
+            setCurrentScreen("Decision");
+            setCurrentDecision("YOU TIED !!!");
+            console.log(currentDecision);
+          }}
+        />
       )}
       {currentScreen === "Decision" && (
-        <GameLayout key="Decision">
-          <Decision decision={currentDecision} />
-          {currentDecision === "YOU LOSE !!!" ? (
-            <Button text="Go to Dashboard" link="/game/dashboard" />
-          ) : (
-            <Button text="Ready?" onClick={() => setCurrentScreen("Play")} />
-          )}
-        </GameLayout>
+        <Decision
+          key="Decision"
+          decision={currentDecision}
+          enterOnClick={() => setCurrentScreen("Play")}
+          leaveOnClick={() => { }}
+        />
       )}
     </AnimatePresence>
   );
