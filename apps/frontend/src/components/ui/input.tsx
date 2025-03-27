@@ -5,7 +5,7 @@ type InputProps = {
   id: string;
   type: string;
   label: string;
-  onChange: (e: any) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   value: string;
   placeholder: string;
   maxLength?: number;

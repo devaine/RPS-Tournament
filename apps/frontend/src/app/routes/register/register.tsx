@@ -1,22 +1,12 @@
 import React from "react";
 import { Title } from "@/components/ui/text";
 import { RegisterLayout } from "@/components/layouts/register-layout";
-import { Button } from "@/components/ui/button";
-import type { Icon } from "@/types/api";
+import { avatars } from "@/config/avatars";
 import { IconButton } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 const Register = () => {
-  const avatars: Icon[] = [];
   const navigate = useNavigate();
-
-  for (let index = 1; index <= 12; index++) {
-    avatars.push({
-      id: index.toString(),
-      url: `/img/assets/avatars/Picture${index}.png`,
-      alt: `Picture${index}`,
-    });
-  }
 
   return (
     <RegisterLayout>

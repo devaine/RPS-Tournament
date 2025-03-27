@@ -17,24 +17,24 @@ export const Admin = () => {
           <div className="flex flex-col gap-2">
             <Text text="Round" />
             <div className="flex gap-4">
-              <Button text="Start Round" onClick={() => { }} />
-              <Button text="Fix Tie" onClick={() => { }} />
+              <Button text="Start Round" onClick={() => {}} />
+              <Button text="Fix Tie" onClick={() => {}} />
             </div>
             <Text text="Game" />
             <div className="flex gap-4">
-              <Button text="Start" onClick={() => { }} />
-              <Button text="Pause" onClick={() => { }} />
-              <Button text="End" color="background" onClick={() => { }} />
+              <Button text="Start" onClick={() => {}} />
+              <Button text="Pause" onClick={() => {}} />
+              <Button text="End" color="background" onClick={() => {}} />
             </div>
           </div>
           <Heading text="Statistics" />
           <TextBoxLayout>
-            <Statistic text1="Round" text2="0" />
-            <Statistic text1="Players in Winners's Bracket" text2="0" />
-            <Statistic text1="Current Ties in Winner's Bracket" text2="0" />
-            <Statistic text1="Players in Loser's Bracket" text2="0" />
-            <Statistic text1="Current Ties in Loser's Bracket" text2="0" />
-            <Statistic text1="Lost Players" text2="0" />
+            <Statistic text="Round" text2="0" />
+            <Statistic text="Players in Winners's Bracket" text2="0" />
+            <Statistic text="Current Ties in Winner's Bracket" text2="0" />
+            <Statistic text="Players in Loser's Bracket" text2="0" />
+            <Statistic text="Current Ties in Loser's Bracket" text2="0" />
+            <Statistic text="Lost Players" text2="0" />
           </TextBoxLayout>
         </div>
         <div className="basis-full">

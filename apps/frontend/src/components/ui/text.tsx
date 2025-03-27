@@ -1,5 +1,5 @@
 import React from "react";
-import { motion, animate, easeIn } from "framer-motion";
+import { motion } from "framer-motion";
 
 type TextProps = {
   text: string | undefined;
