@@ -7,6 +7,7 @@ import Decision from "@/features/play/decision";
 import type { GameScreen } from "@/types/api";
 import type { GameDecision } from "@/types/api";
 
+// TODO: Add user as parameter for game to function
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
   const [currentDecision, setCurrentDecision] =
