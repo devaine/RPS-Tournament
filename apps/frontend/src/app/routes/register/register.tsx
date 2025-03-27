@@ -18,7 +18,7 @@ const Register = () => {
             src={avatar.url}
             text={avatar.alt}
             size={24}
-            onClick={() => navigate("/game")}
+            onClick={() => navigate("/register/confirm-avatar")}
           />
         ))}
       </div>

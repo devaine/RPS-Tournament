@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
 import { type TargetAndTransition } from "framer-motion";
+import { useNavigate } from "react-router";
 
 // Global variables for button parameters and styles
 
@@ -67,6 +68,19 @@ export const Button = (buttonProps: ButtonProps) => {
         </motion.button>
       </Link>
     </div>
+  );
+};
+
+export const BackButton = () => {
+  const navigate = useNavigate();
+  return (
+    <Button
+      text="Go Back"
+      color="background"
+      onClick={() => {
+        navigate(-1);
+      }}
+    />
   );
 };
 
