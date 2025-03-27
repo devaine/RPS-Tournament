@@ -8,18 +8,17 @@ import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import type { User } from "@/types/api";
 
-const placeHolderValues: User = {
-  name: "Bogus Binted",
-  id: "1234567",
-};
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  id: Yup.string().length(7).required(),
-});
-
 const Landing = () => {
-  // note: useNavigate is a hook so can't be declared globally
+  const placeHolderValues: User = {
+    name: "Bogus Binted",
+    id: "1234567",
+  };
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required(),
+    id: Yup.string().length(7).required(),
+  });
+
   const navigate = useNavigate();
 
   return (
