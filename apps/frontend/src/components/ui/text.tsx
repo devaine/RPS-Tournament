@@ -1,20 +1,25 @@
 import React from "react";
 import { motion, animate, easeIn } from "framer-motion";
 
-export function Statistic({ text1, text2 }: { text1: string; text2: string }) {
+type TextProps = {
+  text: string | undefined;
+  text2?: string;
+};
+
+export function Statistic({ text, text2 }: TextProps) {
   return (
     <div className="flex justify-between">
-      <Text text={text1} />
+      <Text text={text} />
       <Text text={text2} />
     </div>
   );
 }
 
-export function Versus({ text1, text2 }: { text1: string; text2: string }) {
+export function Versus({ text, text2 }: TextProps) {
   return (
     <div className="flex justify-between">
       <div className="basis-1/2 text-left">
-        <Text text={text1} />
+        <Text text={text} />
       </div>
       <div className="basis-0">
         <Text text="VS" />
@@ -26,7 +31,7 @@ export function Versus({ text1, text2 }: { text1: string; text2: string }) {
   );
 }
 
-export function Announce({ text }: { text: string }) {
+export function Announce({ text }: TextProps) {
   return (
     <p className="text-paragraph text-9xl text-stroke-xl stroke-black font-jersey-15">
       {text}
@@ -34,7 +39,7 @@ export function Announce({ text }: { text: string }) {
   );
 }
 
-export function SplashAnnounce({ text }: { text: string }) {
+export function SplashAnnounce({ text }: TextProps) {
   return (
     <motion.div
       key={text}
@@ -48,7 +53,7 @@ export function SplashAnnounce({ text }: { text: string }) {
   );
 }
 
-export function Title({ text }: { text: string }) {
+export function Title({ text }: TextProps) {
   return (
     <p className="text-paragraph text-7xl text-stroke-xl stroke-black font-jersey-15">
       {text}
@@ -56,7 +61,7 @@ export function Title({ text }: { text: string }) {
   );
 }
 
-export function Heading({ text }: { text: string }) {
+export function Heading({ text }: TextProps) {
   return (
     <p className="text-paragraph text-5xl text-stroke-lg stroke-black font-jersey-10">
       {text}
@@ -64,7 +69,7 @@ export function Heading({ text }: { text: string }) {
   );
 }
 
-export function Text({ text }: { text: string }) {
+export function Text({ text }: TextProps) {
   return (
     <p className="text-paragraph text-3xl text-stroke stroke-black font-jersey-10">
       {text}

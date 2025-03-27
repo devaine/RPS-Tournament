@@ -2,22 +2,33 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Link } from "react-router";
 import { Text } from "@/components/ui/text";
-import type { ButtonParameters } from "@/types/api";
+import { type TargetAndTransition } from "framer-motion";
 
 // Global variables for button parameters and styles
 
-const defaults: Pick<ButtonParameters, "type" | "color" | "link" | "whileTap"> =
-{
+type ButtonProps = {
+  text: string;
+  type?: "button" | "submit" | "reset";
+  color?: "accent" | "background";
+  src?: string;
+  link?: string;
+  size?: 24 | 32;
+  isSubmitting?: boolean;
+  onClick?: () => void;
+  whileTap?: TargetAndTransition;
+};
+
+const defaults: Pick<ButtonProps, "type" | "color" | "link" | "whileTap"> = {
   type: "button",
   link: "",
   color: "accent",
   whileTap: { scale: 0.9 },
 };
 
-export const Button = (buttonParameters: ButtonParameters) => {
+export const Button = (buttonProps: ButtonProps) => {
   const buttonValues = {
     ...defaults,
-    ...buttonParameters,
+    ...buttonProps,
   };
 
   const { className } = buttonConfig(buttonValues);
@@ -30,7 +41,7 @@ export const Button = (buttonParameters: ButtonParameters) => {
    * meaning link property no longer works
    * */
 
-  return buttonParameters.type === "submit" ? (
+  return buttonProps.type === "submit" ? (
     <div>
       <motion.button
         type={buttonValues.type!}
@@ -59,7 +70,7 @@ export const Button = (buttonParameters: ButtonParameters) => {
   );
 };
 
-export const IconButton = (buttonParameters: ButtonParameters) => {
+export const IconButton = (buttonParameters: ButtonProps) => {
   const buttonValues = {
     ...defaults,
     ...buttonParameters,
@@ -82,7 +93,7 @@ export const IconButton = (buttonParameters: ButtonParameters) => {
   );
 };
 
-const buttonConfig = (buttonParameters: ButtonParameters) => {
+const buttonConfig = (buttonParameters: ButtonProps) => {
   const buttonValues = {
     ...defaults,
     ...buttonParameters,

@@ -6,26 +6,27 @@ import { PlayerList } from "@/components/ui/lists";
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
+const test = [
+  {
+    name: "Bogus Binted",
+    id: "1234567",
+  },
+  {
+    name: "Justin Kondratenko",
+    id: "7800189",
+  },
+  {
+    name: "Bogus Binted",
+    id: "1234567",
+  },
+  {
+    name: "Justin Kondratenko",
+    id: "7800189",
+  },
+];
+
 // NOTE: This is a placeholder
 const Dashboard = () => {
-  const test = [
-    {
-      name: "Bogus Binted",
-      id: "1234567",
-    },
-    {
-      name: "Justin Kondratenko",
-      id: "7800189",
-    },
-    {
-      name: "Bogus Binted",
-      id: "1234567",
-    },
-    {
-      name: "Justin Kondratenko",
-      id: "7800189",
-    },
-  ];
   const navigate = useNavigate();
 
   return (

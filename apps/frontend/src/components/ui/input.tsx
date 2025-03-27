@@ -1,6 +1,16 @@
 import React from "react";
 import { motion } from "framer-motion";
 
+type InputProps = {
+  id: string;
+  type: string;
+  label: string;
+  onChange: (e: any) => void;
+  value: string;
+  placeholder: string;
+  maxLength?: number;
+};
+
 export const Input = ({
   id,
   type,
@@ -9,15 +19,7 @@ export const Input = ({
   value,
   placeholder,
   maxLength,
-}: {
-  id: string;
-  type: string;
-  label: string;
-  onChange: (e: any) => void;
-  value: string;
-  placeholder: string;
-  maxLength?: number;
-}) => {
+}: InputProps) => {
   return (
     <div className="flex flex-col text-left gap-2">
       <label
@@ -41,13 +43,7 @@ export const Input = ({
   );
 };
 
-export const TextBox = ({
-  label,
-  placeholder,
-}: {
-  label: string;
-  placeholder: string;
-}) => {
+export const TextBox = ({ label, placeholder }: InputProps) => {
   return (
     <div className="flex flex-col gap-4 m-4">
       <label

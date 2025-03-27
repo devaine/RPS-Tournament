@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
-import Play from "@/features/rounds/play";
-import Waiting from "@/features/rounds/waiting";
-import Decision from "@/features/rounds/decision";
+import Play from "@/features/play/play";
+import Waiting from "@/features/find/waiting";
+import Decision from "@/features/play/decision";
 import type { GameScreen } from "@/types/api";
 import type { GameDecision } from "@/types/api";
 
@@ -17,7 +17,7 @@ const Game = () => {
       {currentScreen === "Waiting" && (
         <Waiting
           key="Waiting"
-          leaveOnClick={() => { }}
+          leaveOnClick={() => {}}
           enterOnClick={() => setCurrentScreen("Play")}
         />
       )}
@@ -46,7 +46,7 @@ const Game = () => {
           key="Decision"
           decision={currentDecision}
           enterOnClick={() => setCurrentScreen("Play")}
-          leaveOnClick={() => { }}
+          leaveOnClick={() => {}}
         />
       )}
     </AnimatePresence>
