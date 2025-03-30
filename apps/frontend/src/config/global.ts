@@ -1,7 +1,6 @@
-import type { User } from "./types/gameAPI"
+import type { User } from "@/types/gameAPI";
 
-export const userData : User = {
+export const userData: User = {
 	name: "placeholder",
-	id: 1234567
+	id: 1234567,
 };
-

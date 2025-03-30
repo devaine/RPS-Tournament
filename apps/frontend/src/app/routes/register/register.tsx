@@ -21,8 +21,8 @@ const Register = () => {
             onClick={() => navigate("/register/confirm-avatar")}
           />
         ))}
-				<BackButton />
       </div>
+      <BackButton />
     </RegisterLayout>
   );
 };
