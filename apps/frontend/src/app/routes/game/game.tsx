@@ -4,8 +4,8 @@ import React from "react";
 import Play from "@/features/play/play";
 import Waiting from "@/features/find/waiting";
 import Decision from "@/features/play/decision";
-import type { GameScreen } from "@/types/api";
-import type { GameDecision } from "@/types/api";
+import type { GameScreen } from "@/types/gameAPI";
+import type { GameDecision } from "@/types/gameAPI";
 
 // TODO: Add user as parameter for game to function
 const Game = () => {

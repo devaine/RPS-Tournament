@@ -1,4 +1,4 @@
-import type { Icon } from "@/types/api";
+import type { Icon } from "@/types/gameAPI";
 
 export const icons: Icon[] = [
   {

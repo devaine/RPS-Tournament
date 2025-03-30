@@ -26,7 +26,7 @@ export const router = createBrowserRouter([
   // },
   {
     path: "/register/confirm-avatar",
-    element: <ConfirmUser user={{ name: "", id: "", avatar: "" }} />,
+    element: <ConfirmUser />,
   },
   {
     path: "/game",

@@ -3,7 +3,9 @@ import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import type { GameDecision } from "@/types/api";
+import type { GameDecision } from "@/types/gameAPI";
+
+// NOTE: Backend not done yet, soz
 
 type DecisionProps = {
   enterOnClick: () => void;

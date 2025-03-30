@@ -2,7 +2,7 @@ import React from "react";
 import { Title } from "@/components/ui/text";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import { avatars } from "@/config/avatars";
-import { IconButton } from "@/components/ui/button";
+import { IconButton, BackButton } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 const Register = () => {
@@ -21,6 +21,7 @@ const Register = () => {
             onClick={() => navigate("/register/confirm-avatar")}
           />
         ))}
+				<BackButton />
       </div>
     </RegisterLayout>
   );
