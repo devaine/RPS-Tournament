@@ -34,7 +34,7 @@ const Landing = () => {
   );
 };
 
-const RegisterScreen = ({ onSubmit }: LoginProps) => {
+const RegisterScreen = () => {
   const formPlaceHolder: User = {
     name: "Bogos Binted",
     id: 1234567,
