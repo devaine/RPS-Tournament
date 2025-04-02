@@ -2,6 +2,8 @@ export type User = {
   name: string;
   id: number;
   avatar?: string;
+	status?: string;
+	choice?: string;
 };
 
 export type Icon = {

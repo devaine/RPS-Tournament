@@ -19,8 +19,10 @@ function disconnectSocket() {
 			name: userData.name,
 			id: userData.id
 		})
-	};
 
+		// Clears out all local browser data
+		localStorage.clear()
+	};
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   return (

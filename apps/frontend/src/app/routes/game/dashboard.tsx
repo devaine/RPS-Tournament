@@ -5,6 +5,9 @@ import Divider from "@/components/ui/divider";
 import { PlayerList } from "@/components/ui/lists";
 import { BackButton } from "@/components/ui/button";
 
+// Backend Imports
+import { socket } from "@/features/socketio/init";
+
 const test = [
   {
     name: "Bogus Binted",
@@ -23,6 +26,9 @@ const test = [
     id: "7800189",
   },
 ];
+
+console.log(socket.emit("contestantCount"))
+
 
 // NOTE: This is a placeholder
 const Dashboard = () => {

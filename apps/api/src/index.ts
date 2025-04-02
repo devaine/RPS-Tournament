@@ -47,22 +47,27 @@ app.get("/", (req, res) => {
 io.on("connection", (socket) => {
 
 	socket.on("join_event", function(data) {
-		playerCount++;
 		console.log("a user " + socket.id + " connected!");
 		console.log("playerCount: " + playerCount);
 		console.log(data.name + " is the name");
 		console.log(data.id + " is the student id");
+
+		// Join a room (participant_room) with all other clients...
+		socket.join("contestant_room");
+		playerCount++;
 	})
 	
 
 	// NOTE: Listener "leave_event" is for people who 
 	// press the "Leave Game" button in the UI
 	socket.on("leave_event", function(data) {
-		playerCount--;
 		console.log("a user " + socket.id + " disconnected!");
 		console.log("playerCount: " + playerCount);
 		console.log(data.name + " is the name");
 		console.log(data.id + " is the student id");
+
+		socket.leave("contestant_room");
+		playerCount--;
 	})
 
 
@@ -72,8 +77,15 @@ io.on("connection", (socket) => {
 		console.log("user: " + socket.id + " disconnected!")
 		console.log("playerCount: " + playerCount)
 	})
+
+	socket.on("contestantCount", function(data) {
+		console.log("pingping")
+		io.sockets.adapter.rooms.get("contestant_room");
+	})
+
 });
 
 httpServer.listen(PORT, () => {
   console.log("Server listening on " + URL + ":" + PORT);
 });
+

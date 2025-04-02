@@ -18,9 +18,10 @@ const Landing = () => {
   };
 
   const validationSchema = Yup.object().shape({
-    name: Yup.string().required(),
-    id: Yup.number().required(),
+    name: Yup.string().matches(/^[a-z ,.'-]+$/i).required(), // Regex for Names (Only Letters)
+    id: Yup.string().matches(/^\d*$/, "Only Numbers").required() // Regex for ID's (Only Numbers)
   });
+
 
   const navigate = useNavigate();
 
@@ -36,11 +37,14 @@ const Landing = () => {
       <Formik
         initialValues={{ name: "", id: "" }}
         onSubmit={(values) => {
-          console.log(JSON.stringify(values, null, 2));
-
 					// Get Student ID + Name from Formik
 					userData.name = values.name;
 					userData.id = Number(values.id);
+
+					// Send Information to localStorage
+					localStorage.setItem("student_info", JSON.stringify(userData))
+
+					console.log("student information: \n" + localStorage.getItem("student_info"))
 
           navigate("/register");
         }}
@@ -92,7 +96,7 @@ const Landing = () => {
 
 						{
 							// If empty on submission, send error to fill out ID
-							errors.id && touched.id ? (
+							/^$/.test(values.id) && touched.id ? (
 							<div className="text-background text-3xl font-jersey-10 text-stroke">ERROR: Fill out your Student ID!</div>
 							): null
 						}
@@ -109,6 +113,20 @@ const Landing = () => {
 							/.*[a-zA-Z].*/.test(values.id) ? (
 							<div className="text-background text-3xl font-jersey-10 text-stroke">ERROR: Nice try, no letters!</div>
 							): null
+						}
+
+						{
+							// No Symbols in id
+							/[-!$%^&*()_+|~=`{}[]:";'<>?,.\/]/.test(values.id) ? (
+							<div className="text-background text-3xl font-jersey-10 text-stroke">ERROR: Nice try, no symbols!</div>
+							): null
+						}
+
+						{
+							// No whitespace in id
+							/\s{1,}/.test(values.id) ? (
+							<div className="text-background text-3xl font-jersey-10 text-stroke">ERROR: Nice try, no spaces!</div>
+							) : null 
 						}
 
             <div className="p-4">
