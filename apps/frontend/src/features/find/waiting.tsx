@@ -5,7 +5,7 @@ import { GameLayout } from "@/components/layouts/game-layout";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 
 // Backend Imports
-import { socket } from "@/features/socketio/init"
+import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
 // NOTE: Backend: Figure out what to do here on the props
@@ -15,12 +15,11 @@ type WaitingProps = {
 };
 
 function disconnectSocket() {
-		socket.emit("leave_event", {
-			name: userData.name,
-			id: userData.id
-		})
-	};
-
+  socket.emit("leave_event", {
+    name: userData.name,
+    id: userData.id,
+  });
+}
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   return (
