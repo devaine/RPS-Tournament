@@ -25,8 +25,6 @@ const Landing = () => {
     id: Yup.string().matches(/^\d*$/, "Only Numbers").required(), // Regex for ID's (Only Numbers)
   });
 
-  const navigate = useNavigate();
-
   return (
     <RegisterLayout>
       <div className="flex flex-col">
