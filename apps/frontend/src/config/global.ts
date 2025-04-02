@@ -4,4 +4,3 @@ export const userData: User = {
 	name: "placeholder",
 	id: 1234567,
 };
-

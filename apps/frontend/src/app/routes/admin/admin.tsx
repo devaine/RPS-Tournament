@@ -10,8 +10,7 @@ import { Input } from "@/components/ui/input";
 import { Formik } from "formik";
 import { AnimatePresence } from "framer-motion";
 import * as Yup from "yup";
-
-type AdminScreen = "Login" | "Admin";
+import type { AdminScreen } from "@/types/gameAPI";
 
 type LoginProps = {
   onSubmit: () => void;
@@ -112,7 +111,10 @@ const AdminScreen = () => {
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start" onClick={() => { }} />
+              <Button
+                text="Start"
+                onClick={() => setLandingScreen("Game Started")}
+              />
               <Button text="Pause" onClick={() => { }} />
               <Button text="End" color="background" onClick={() => { }} />
             </MultiButtonLayout>

@@ -2,8 +2,8 @@ export type User = {
   name: string;
   id: number;
   avatar?: string;
-	status?: string;
-	choice?: string;
+  status?: string;
+  choice?: string;
 };
 
 export type Icon = {
@@ -11,6 +11,10 @@ export type Icon = {
   url: string;
   alt: string;
 };
+
+export type AdminScreen = "Login" | "Admin";
+
+export type LandingScreen = "Register" | "Game Started";
 
 export type GameScreen = "Waiting" | "Play" | "Decision";
 
