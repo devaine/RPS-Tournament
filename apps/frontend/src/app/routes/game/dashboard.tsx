@@ -10,26 +10,13 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import { socket } from "@/features/socketio/init";
 
 const test = [
-  {
-    name: "Bogus Binted",
-    id: "1234567",
-  },
-  {
-    name: "Justin Kondratenko",
-    id: "7800189",
-  },
-  {
-    name: "Bogus Binted",
-    id: "1234567",
-  },
-  {
-    name: "Justin Kondratenko",
-    id: "7800189",
-  },
+  "Bogus Binted",
+  "Justin Kondratenko",
+  "Bogus Binted",
+  "Justin Kondratenko",
 ];
 
-console.log(socket.emit("contestantCount"))
-
+console.log(socket.emit("contestantCount"));
 
 // NOTE: This is a placeholder
 const Dashboard = () => {
