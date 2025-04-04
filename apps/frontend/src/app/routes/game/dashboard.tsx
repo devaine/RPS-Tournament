@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect, useState } from "react";
 import { Title, Statistic } from "@/components/ui/text";
 import { TextLayout } from "@/components/layouts/text-layout";
 import Divider from "@/components/ui/divider";
@@ -9,18 +10,6 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 
-function getContestants() {
-	let externalVariable: string[] = []
-	socket.emit("contestantCount", (response : Array<string>) => {
-		externalVariable = response.slice()
-	})
-
-	console.log(externalVariable)
-	return externalVariable
-}
-
-setInterval(getContestants, 1000)
-
 const test = [
   "Bogus Binted",
   "Justin Kondratenko",
@@ -28,12 +17,23 @@ const test = [
   "Justin Kondratenko",
 ];
 
-console.log(socket.emit("contestantCount"));
-
-//<PlayerList header="Players Lost" players={test} />
-
-// NOTE: This is a placeholder
 const Dashboard = () => {
+  const [contestants, setContestants] = useState<string[]>([]);
+
+  // UseEffect runs when [socket] changes, fetching contestants each time
+  // TODO: Make string of contestants return ALL contestants
+  useEffect(() => {
+    if (!socket) return;
+
+    const fetchContestants = () => {
+      socket.emit("contestantCount", (contestantNames: string[]) => {
+        setContestants(contestantNames);
+      });
+    };
+
+    fetchContestants();
+  }, [socket]);
+
   return (
     <TextLayout>
       <div className="flex flex-col items-center gap-4 p-4">
@@ -45,7 +45,7 @@ const Dashboard = () => {
           </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
-          <PlayerList header="Players Remaining" players={getContestants()}/>
+          <PlayerList header="Players Remaining" players={contestants} />
         </div>
         <BackButton />
       </div>
