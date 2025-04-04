@@ -13,7 +13,7 @@ services:
 
     deploy:
       update_config:
-        order: start-first
+        order: stop-first
 
 secrets:
   rps-port:
