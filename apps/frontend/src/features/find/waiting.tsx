@@ -8,6 +8,14 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
+// Before anything, socketio connects to backend
+socket.connect()
+
+socket.emit("join_event", {
+	name: userData.name,
+	id: userData.id
+})
+
 // NOTE: Backend: Figure out what to do here on the props
 type WaitingProps = {
   enterOnClick: () => void;

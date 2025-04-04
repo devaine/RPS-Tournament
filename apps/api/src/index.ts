@@ -5,11 +5,7 @@ import helmet from "helmet";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
-
-
-// GAME VARIABLES
-let playerCount = 0;
-
+// Finding values
 
 /* NOTE: FOR PRODUCTION
 * Instead of a URL + PORT seperately,
@@ -41,11 +37,15 @@ app.get("/", (req, res) => {
 });
 
 
+
+var playerCount = 0;
+var contestantList = {}
+
+
 /* NOTE: When there's a connection ("connection") open up listeners
 *	 If "join_event" is true (from client-end) grab data from client
 */
 io.on("connection", (socket) => {
-
 	socket.on("join_event", function(data) {
 		console.log("a user " + socket.id + " connected!");
 		console.log("playerCount: " + playerCount);
@@ -54,6 +54,10 @@ io.on("connection", (socket) => {
 
 		// Join a room (participant_room) with all other clients...
 		socket.join("contestant_room");
+
+		// Assign the data from emit to socket
+		socket.data.name = data.name;
+		socket.data.id = data.id;
 		playerCount++;
 	})
 	
@@ -61,12 +65,17 @@ io.on("connection", (socket) => {
 	// NOTE: Listener "leave_event" is for people who 
 	// press the "Leave Game" button in the UI
 	socket.on("leave_event", function(data) {
+		if(socket.rooms.has("contestant_room")) {
+			socket.leave("contestant_room");
+		}
+
 		console.log("a user " + socket.id + " disconnected!");
 		console.log("playerCount: " + playerCount);
 		console.log(data.name + " is the name");
 		console.log(data.id + " is the student id");
 
-		socket.leave("contestant_room");
+		socket.data.name = "placeholder";
+		socket.data.id = 1234567;
 		playerCount--;
 	})
 
@@ -78,12 +87,19 @@ io.on("connection", (socket) => {
 		console.log("playerCount: " + playerCount)
 	})
 
-	socket.on("contestantCount", function(data) {
-		console.log("pingping")
-		io.sockets.adapter.rooms.get("contestant_room");
+	// Fetch data for all sockets in contestant_room & find their data
+	socket.on("contestantCount", async (callback) => {
+		const contestant_sockets = await io.in("contestant_room").fetchSockets();
+		const contestant_names = contestant_sockets.map(function(value) {
+			return value.data.name
+		})
+
+		callback(contestant_names)
 	})
 
 });
+
+
 
 httpServer.listen(PORT, () => {
   console.log("Server listening on " + URL + ":" + PORT);

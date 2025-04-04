@@ -9,6 +9,18 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 
+function getContestants() {
+	let externalVariable: string[] = []
+	socket.emit("contestantCount", (response : Array<string>) => {
+		externalVariable = response.slice()
+	})
+
+	console.log(externalVariable)
+	return externalVariable
+}
+
+setInterval(getContestants, 1000)
+
 const test = [
   "Bogus Binted",
   "Justin Kondratenko",
@@ -17,6 +29,8 @@ const test = [
 ];
 
 console.log(socket.emit("contestantCount"));
+
+//<PlayerList header="Players Lost" players={test} />
 
 // NOTE: This is a placeholder
 const Dashboard = () => {
@@ -31,8 +45,7 @@ const Dashboard = () => {
           </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
-          <PlayerList header="Players Remaining" players={test} />
-          <PlayerList header="Players Lost" players={test} />
+          <PlayerList header="Players Remaining" players={getContestants()}/>
         </div>
         <BackButton />
       </div>
