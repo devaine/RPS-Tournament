@@ -16,6 +16,7 @@ type LoginProps = {
   onSubmit: () => void;
 };
 
+// Admin password is the first 7 digits of the Fibonacci sequence
 const adminCred: User = {
   name: "Admin Gang Admin Gang",
   id: 11235813,
@@ -106,17 +107,14 @@ const AdminScreen = () => {
           <div className="flex flex-col gap-2">
             <Text text="Round" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start Round" onClick={() => { }} />
-              <Button text="Fix Tie" onClick={() => { }} />
+              <Button text="Start Round" onClick={() => {}} />
+              <Button text="Fix Tie" onClick={() => {}} />
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button
-                text="Start"
-                onClick={() => setLandingScreen("Game Started")}
-              />
-              <Button text="Pause" onClick={() => { }} />
-              <Button text="End" color="background" onClick={() => { }} />
+              <Button text="Start" onClick={() => {}} />
+              <Button text="Pause" onClick={() => {}} />
+              <Button text="End" color="background" onClick={() => {}} />
             </MultiButtonLayout>
           </div>
         </div>
