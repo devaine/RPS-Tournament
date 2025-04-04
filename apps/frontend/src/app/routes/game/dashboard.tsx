@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { Title, Statistic } from "@/components/ui/text";
+import { Title, Statistic, Heading } from "@/components/ui/text";
 import { TextLayout } from "@/components/layouts/text-layout";
 import Divider from "@/components/ui/divider";
 import { PlayerList } from "@/components/ui/lists";
@@ -31,7 +31,7 @@ const Dashboard = () => {
       });
     };
 
-    fetchContestants();
+    setInterval(fetchContestants, 1000);
   }, [socket]);
 
   return (
@@ -45,7 +45,11 @@ const Dashboard = () => {
           </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
-          <PlayerList header="Players Remaining" players={contestants} />
+          {contestants.length > 0 ? (
+            <PlayerList header="Players Remaining" players={contestants} />
+          ) : (
+            <Heading text="Loading Player Data" />
+          )}
         </div>
         <BackButton />
       </div>
