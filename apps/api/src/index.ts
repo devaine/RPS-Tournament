@@ -45,12 +45,12 @@ var contestantList = {};
 io.on("connection", (socket) => {
   socket.on("join_event", function (data) {
     console.log("a user " + socket.id + " connected!");
-    console.log("playerCount: " + playerCount);
     console.log(data.name + " is the name");
     console.log(data.id + " is the student id");
 
     // Join a room (participant_room) with all other clients...
     socket.join("contestant_room");
+		console.log(data.name + " joined contestant room")
 
     // Assign the data from emit to socket
     socket.data.name = data.name;
@@ -65,7 +65,7 @@ io.on("connection", (socket) => {
       socket.leave("contestant_room");
     }
 
-    console.log("a user " + socket.id + " disconnected!");
+    console.log("a user " + socket.id + " left the event!");
     console.log("playerCount: " + playerCount);
     console.log(data.name + " is the name");
     console.log(data.id + " is the student id");

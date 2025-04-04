@@ -8,7 +8,23 @@ import { Avatar } from "@/components/ui/avatar";
 import { userData } from "@/config/global";
 import { socket } from "@/features/socketio/init";
 
+
+
 const ConfirmUser = () => {
+	function joinEvent() {
+		socket.connect()
+		
+		socket.emit("join_event", {
+			name: userData.name,
+			id: userData.id
+		})
+	}
+	
+	// If already connected, disconnect, automatically disconnect
+	if(socket.connect()) {
+		socket.disconnect()
+	}
+
   return (
     <RegisterLayout>
       <Title text="Ready to join?" />
@@ -17,20 +33,11 @@ const ConfirmUser = () => {
       <Avatar src={userData.avatar!} />
       <div className="flex gap-4">
         <BackButton />
-        <Button text="Yes" link="/game" onClick={connectSocket}></Button>
+        <Button text="Yes" link="/game" onClick={() => joinEvent()}></Button>
       </div>
     </RegisterLayout>
   );
 };
 
-function connectSocket() {
-  /* NOTE: Backend: onClick allows client to connect to socketio server
-   * WITH details regarding client a.k.a. name at the very least
-   */
-  socket.emit("join_event", {
-    name: userData.name,
-    id: userData.id,
-  });
-}
 
 export default ConfirmUser;

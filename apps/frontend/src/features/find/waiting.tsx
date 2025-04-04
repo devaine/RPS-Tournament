@@ -8,13 +8,7 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
-// Before anything, socketio connects to backend
-socket.connect()
 
-socket.emit("join_event", {
-	name: userData.name,
-	id: userData.id
-})
 
 // NOTE: Backend: Figure out what to do here on the props
 type WaitingProps = {
@@ -28,11 +22,23 @@ function disconnectSocket() {
     id: userData.id,
   });
 
+	// Disconnect
+	socket.disconnect()
+
   // Clears out all local browser data
   localStorage.clear();
 }
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
+	// If not connected, connect automatically
+	if(socket.disconnect()) {
+		socket.connect();
+		socket.emit("join_event", {
+			name: userData.name,
+			id: userData.id
+	})
+}
+
   return (
     <GameLayout>
       <Heading text={"Waiting to enter the ring..."} />
