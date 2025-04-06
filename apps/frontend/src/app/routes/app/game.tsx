@@ -2,7 +2,7 @@ import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import Play from "@/features/play/play";
-import Waiting from "@/features/find/waiting";
+import Waiting from "@/features/game/waiting";
 import Decision from "@/features/play/decision";
 import End from "@/features/game/end";
 import type { GameScreen } from "@/types/gameAPI";
