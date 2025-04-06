@@ -7,18 +7,28 @@ import { AnimatePresence, motion } from "framer-motion";
 
 const Countdown = () => {
   const announcements = ["ROCK", "PAPER", "SCISSORS"];
+  const scales = [
+    [10, 1.2, 1],
+    [10, 1.1, 0.9],
+    [10, 1.0, 0.8],
+  ];
+
   const [announce, setAnnounce] = useState(announcements[0]);
+  const [scale, setScale] = useState(scales[0]);
 
   let intervalID: undefined | ReturnType<typeof setTimeout>;
   const announcementsLength = announcements.length - 1;
+
   useEffect(() => {
     if (announce != announcements[announcementsLength]) {
       intervalID = setInterval(() => {
         const index = announcements.indexOf(announce);
         if (index === announcementsLength) {
           setAnnounce(announcements[0]);
+          setScale(scales[0]);
         } else {
           setAnnounce(announcements[index + 1]);
+          setScale(scales[index + 1]);
         }
       }, 1000);
     }
@@ -47,7 +57,7 @@ const Countdown = () => {
             />
           </motion.div>
           <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-            <SplashAnnounce text={announce} key={announce} />
+            <SplashAnnounce text={announce} scale={scale} key={announce} />
           </div>
         </GameLayout>
       )}

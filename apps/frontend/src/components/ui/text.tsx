@@ -5,6 +5,7 @@ import { TextBoxLayout } from "../layouts/text-box-layout";
 type TextProps = {
   text: string | undefined;
   text2?: string;
+  scale?: number[];
 };
 
 export function TextBox({ text }: TextProps) {
@@ -48,12 +49,12 @@ export function Announce({ text }: TextProps) {
   );
 }
 
-export function SplashAnnounce({ text }: TextProps) {
+export function SplashAnnounce({ text, scale }: TextProps) {
   return (
     <motion.div
       key={text}
       animate={{
-        scale: [10, 1.25, 1],
+        scale: scale,
         transition: { times: [0, 0.2, 1], duration: 1 },
       }}
     >
