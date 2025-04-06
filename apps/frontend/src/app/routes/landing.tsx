@@ -9,7 +9,6 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import type { User } from "@/types/gameAPI";
-
 // Backend Imports
 import { userData } from "@/config/global"; // Global Variables
 import { socket } from "@/features/socketio/init";
@@ -178,7 +177,7 @@ const GameStartedScreen = () => {
   return (
     <div className="flex flex-col gap-4">
       <Heading text="The tournament has begun!" />
-      <Button text="View Dashboard" link="/game/dashboard" />
+      <Button text="View Dashboard" link="/dashboard" />
     </div>
   );
 };

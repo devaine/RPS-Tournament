@@ -2,6 +2,8 @@ import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import helmet from "helmet";
+import { PORT, URL, FRONTEND_PORT } from "./config";
+import { gameManager } from "./game";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
@@ -12,16 +14,11 @@ import helmet from "helmet";
  * just create a domain to connect to
  */
 
-// SERVER VARIABLES
-const PORT = 3001;
-const FRONTEND_PORT = 5173;
-const URL = "http://localhost";
-
 const app = express();
 const httpServer = createServer(app);
 
 // NOTE: Initializes SocketIO (Server-Side)
-const io = new Server(httpServer, {
+export const io = new Server(httpServer, {
   connectionStateRecovery: { maxDisconnectionDuration: 120000 },
   cors: {
     origin: URL + ":" + FRONTEND_PORT, // References Frontend
@@ -50,7 +47,7 @@ io.on("connection", (socket) => {
 
     // Join a room (participant_room) with all other clients...
     socket.join("contestant_room");
-		console.log(data.name + " joined contestant room")
+    console.log(data.name + " joined contestant room");
 
     // Assign the data from emit to socket
     socket.data.name = data.name;
@@ -91,6 +88,8 @@ io.on("connection", (socket) => {
 
     callback(contestant_names);
   });
+
+  gameManager(socket);
 });
 
 httpServer.listen(PORT, () => {

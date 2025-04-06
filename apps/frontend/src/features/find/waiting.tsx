@@ -35,6 +35,7 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
       name: userData.name,
       id: userData.id,
     });
+    socket.emit("test");
   }
 
   return (
