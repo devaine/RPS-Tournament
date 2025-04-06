@@ -4,6 +4,7 @@ import React from "react";
 import Play from "@/features/play/play";
 import Waiting from "@/features/find/waiting";
 import Decision from "@/features/play/decision";
+import End from "@/features/game/end";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameDecision } from "@/types/gameAPI";
 
@@ -50,6 +51,7 @@ const Game = () => {
           leaveOnClick={() => {}}
         />
       )}
+      {currentScreen === "End" && <End />}
     </AnimatePresence>
   );
 };

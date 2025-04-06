@@ -1,10 +1,19 @@
 import React from "react";
 import { motion } from "framer-motion";
+import { TextBoxLayout } from "../layouts/text-box-layout";
 
 type TextProps = {
   text: string | undefined;
   text2?: string;
 };
+
+export function TextBox({ text }: TextProps) {
+  return (
+    <TextBoxLayout>
+      <Text text={text} />
+    </TextBoxLayout>
+  );
+}
 
 export function Statistic({ text, text2 }: TextProps) {
   return (

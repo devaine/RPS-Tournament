@@ -19,7 +19,7 @@ function Decision({ enterOnClick, leaveOnClick, decision }: DecisionProps) {
       <Announce text={decision} />
       <MultiButtonLayout>
         {decision === "YOU LOSE !!!" ? (
-          <Button text="Go to Dashboard" link="/game/dashboard" />
+          <Button text="Go to Dashboard" link="/dashboard" />
         ) : (
           <Button text="Ready to go again?" onClick={() => enterOnClick} />
         )}

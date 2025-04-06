@@ -8,8 +8,6 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
-
-
 // NOTE: Backend: Figure out what to do here on the props
 type WaitingProps = {
   enterOnClick: () => void;
@@ -22,22 +20,22 @@ function disconnectSocket() {
     id: userData.id,
   });
 
-	// Disconnect
-	socket.disconnect()
+  // Disconnect
+  socket.disconnect();
 
   // Clears out all local browser data
   localStorage.clear();
 }
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
-	// If not connected, connect automatically
-	if(socket.disconnect()) {
-		socket.connect();
-		socket.emit("join_event", {
-			name: userData.name,
-			id: userData.id
-	})
-}
+  // If not connected, connect automatically
+  if (socket.disconnect()) {
+    socket.connect();
+    socket.emit("join_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+  }
 
   return (
     <GameLayout>
@@ -46,7 +44,7 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
         <Button text="Ready?" onClick={enterOnClick} />
         <Button
           text="Go to Dashboard"
-          link="/game/dashboard"
+          link="/dashboard"
           onClick={leaveOnClick}
         />
         <Button

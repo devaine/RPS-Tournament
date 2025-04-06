@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { Title, Heading, Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
-import Dashboard from "@/app/routes/game/dashboard";
+import Dashboard from "@/app/routes/app/dashboard";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import type { User } from "@/types/gameAPI";

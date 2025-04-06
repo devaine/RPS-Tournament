@@ -3,11 +3,11 @@ import Landing from "./routes/landing";
 import Register from "./routes/register/register";
 import ConfirmUser from "./routes/register/confirm-user";
 import NotFound from "./routes/not-found";
-import Game from "./routes/game/game";
-import Dashboard from "./routes/game/dashboard";
-import Admin from "./routes/admin/admin";
-import TV from "./routes/game/tv";
-import End from "./routes/game/end";
+import Game from "./routes/app/game";
+import Dashboard from "./routes/app/dashboard";
+import Admin from "./routes/app/admin";
+import TV from "./routes/app/tv";
+import About from "./routes/app/about";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
 // TODO: Protect all routes after registration so users need to login to see rest
@@ -30,16 +30,16 @@ const routes = createBrowserRouter([
     element: <Game />,
   },
   {
-    path: "/game/dashboard",
+    path: "/dashboard",
     element: <Dashboard />,
   },
   {
-    path: "/game/tv",
+    path: "/tv",
     element: <TV />,
   },
   {
-    path: "/game/end",
-    element: <End />,
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/admin",
