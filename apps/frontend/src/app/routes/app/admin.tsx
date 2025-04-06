@@ -12,6 +12,8 @@ import { AnimatePresence } from "framer-motion";
 import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
 
+import { socket } from "@/features/socketio/init"
+
 type LoginProps = {
   onSubmit: () => void;
 };
@@ -27,10 +29,26 @@ const adminCred: User = {
   id: 123,
 };
 
+//const adminCred: User = {
+//  name: "test",
+//  id: 123,
+//};
+
+
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   id: Yup.number().required(),
 });
+
+
+console.log(socket.connected)
+
+// SocketIO Stuff
+function startRound() {
+	socket.emit("startRound", (response: object) => {
+		console.log(response)
+	})
+}
 
 export const Admin = () => {
   const [currentScreen, setCurrentScreen] = useState<AdminScreen>("Login");
@@ -50,13 +68,10 @@ const LoginScreen = ({ onSubmit }: LoginProps) => {
       <Formik
         initialValues={{ name: "", id: "" }}
         onSubmit={(values) => {
-          console.log(JSON.stringify(values, null, 2));
-
           if (
             values.name === adminCred.name &&
             values.id === String(adminCred.id)
           ) {
-            console.log("Admin logged in");
             onSubmit();
           }
         }}
@@ -112,7 +127,7 @@ const AdminScreen = () => {
           <div className="flex flex-col gap-2">
             <Text text="Round" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start Round" onClick={() => {}} />
+              <Button text="Start Round" onClick={startRound} />
               <Button text="Fix Tie" onClick={() => {}} />
             </MultiButtonLayout>
             <Text text="Game" />

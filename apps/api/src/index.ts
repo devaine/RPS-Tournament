@@ -35,7 +35,6 @@ app.get("/", (req, res) => {
 });
 
 var playerCount = 0;
-var contestantList = {};
 
 /* NOTE: When there's a connection ("connection") open up listeners
  *	 If "join_event" is true (from client-end) grab data from client
@@ -54,13 +53,29 @@ io.on("connection", (socket) => {
 
   // Fetch data for all sockets in contestant_room & find their data
   socket.on("contestantCount", async (callback) => {
-    const contestant_sockets = await io.in("contestant_room").fetchSockets();
-    const contestant_names = contestant_sockets.map(function (value) {
+    const getSockets = await io.in("contestant_room").fetchSockets();
+    const getNames = getSockets.map(function (value) {
       return value.data.name;
     });
 
-    callback(contestant_names);
+    callback(getNames);
   });
+	
+	// FOR ADMIN PAGE
+	// Fetch all socket ids 
+	socket.on("startRound", async (callback) => {
+		const getSockets = await io.in("contestant_room").fetchSockets()
+		const getIDs = getSockets.map(function (value) {
+			return value.id; // IDs of the sockets
+		})
+		callback(getIDs)
+
+		function randomNumber(min: number, max: number) {
+			return Math.floor(Math.random() * (max - min) + min);
+		}
+
+		console.log(randomNumber(0, getSockets.length))
+	})
 });
 
 httpServer.listen(PORT, () => {

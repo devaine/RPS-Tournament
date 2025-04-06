@@ -11,12 +11,9 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
-const test = [
-  "Bogus Binted",
-  "Justin Kondratenko",
-  "Bogus Binted",
-  "Justin Kondratenko",
-];
+
+// NOTE: Backend: Make sure that when proctected routes are in place
+// that players without user data are sent to "/"
 
 const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
@@ -27,10 +24,12 @@ const Dashboard = () => {
 		// If socket isn't connected, connect & join event as contestant
     if (socket.disconnect()) {
 			socket.connect();
-			socket.emit("join_event", {
-				name: userData.name,
-				id: userData.id
-			})
+			if (userData.name != undefined && userData.id != undefined) {
+				socket.emit("join_event", {
+					name: userData.name,
+					id: userData.id
+				})
+			}
 		};
 
     const fetchContestants = () => {
