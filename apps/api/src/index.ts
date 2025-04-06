@@ -4,6 +4,7 @@ import { Server } from "socket.io";
 import helmet from "helmet";
 import { PORT, URL, FRONTEND_PORT } from "./config";
 import { gameManager } from "./game";
+import { contestantManager } from "./contestants";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
@@ -40,37 +41,9 @@ var contestantList = {};
  *	 If "join_event" is true (from client-end) grab data from client
  */
 io.on("connection", (socket) => {
-  socket.on("join_event", function (data) {
-    console.log("a user " + socket.id + " connected!");
-    console.log(data.name + " is the name");
-    console.log(data.id + " is the student id");
-
-    // Join a room (participant_room) with all other clients...
-    socket.join("contestant_room");
-    console.log(data.name + " joined contestant room");
-
-    // Assign the data from emit to socket
-    socket.data.name = data.name;
-    socket.data.id = data.id;
-    playerCount++;
-  });
-
-  // NOTE: Listener "leave_event" is for people who
-  // press the "Leave Game" button in the UI
-  socket.on("leave_event", function (data) {
-    if (socket.rooms.has("contestant_room")) {
-      socket.leave("contestant_room");
-    }
-
-    console.log("a user " + socket.id + " left the event!");
-    console.log("playerCount: " + playerCount);
-    console.log(data.name + " is the name");
-    console.log(data.id + " is the student id");
-
-    socket.data.name = "placeholder";
-    socket.data.id = 1234567;
-    playerCount--;
-  });
+  // Functions for handling game and contestants
+  gameManager(socket);
+  contestantManager(socket, playerCount);
 
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {
@@ -88,8 +61,6 @@ io.on("connection", (socket) => {
 
     callback(contestant_names);
   });
-
-  gameManager(socket);
 });
 
 httpServer.listen(PORT, () => {

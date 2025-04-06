@@ -1,9 +1,7 @@
 import { Socket } from "socket.io";
 
 export function gameManager(socket: Socket) {
-  socket.on("test", () => {
-    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee");
-  });
+  socket.on("join_game_room", () => {});
 }
 
 function decideWinner(choice1: string, choice2: string) {

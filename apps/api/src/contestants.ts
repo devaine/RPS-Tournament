@@ -1,0 +1,35 @@
+import { Socket } from "socket.io";
+
+export function contestantManager(socket: Socket, playerCount: number) {
+  socket.on("join_event", function (data) {
+    console.log("a user " + socket.id + " connected!");
+    console.log(data.name + " is the name");
+    console.log(data.id + " is the student id");
+
+    // Join a room (participant_room) with all other clients...
+    socket.join("contestant_room");
+    console.log(data.name + " joined contestant room");
+
+    // Assign the data from emit to socket
+    socket.data.name = data.name;
+    socket.data.id = data.id;
+    playerCount++;
+  });
+
+  // NOTE: Listener "leave_event" is for people who
+  // press the "Leave Game" button in the UI
+  socket.on("leave_event", function (data) {
+    if (socket.rooms.has("contestant_room")) {
+      socket.leave("contestant_room");
+    }
+
+    console.log("a user " + socket.id + " left the event!");
+    console.log("playerCount: " + playerCount);
+    console.log(data.name + " is the name");
+    console.log(data.id + " is the student id");
+
+    socket.data.name = "placeholder";
+    socket.data.id = 1234567;
+    playerCount--;
+  });
+}
