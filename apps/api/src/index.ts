@@ -80,13 +80,20 @@ io.on("connection", (socket) => {
   });
 
   // Fetch data for all sockets in contestant_room & find their data
-  socket.on("contestantCount", async (callback) => {
+  socket.on("contestantList", async (callback) => {
     const contestant_sockets = await io.in("contestant_room").fetchSockets();
     const contestant_names = contestant_sockets.map(function (value) {
       return value.data.name;
     });
 
     callback(contestant_names);
+  });
+
+  socket.on("playerList", async (callback) => {
+    const player_sockets = await io.in("game_room").fetchSockets();
+    const player_names = player_sockets.length;
+
+    callback(player_names);
   });
 
   gameManager(socket);

@@ -11,35 +11,36 @@ import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
-const test = [
-  "Bogus Binted",
-  "Justin Kondratenko",
-  "Bogus Binted",
-  "Justin Kondratenko",
-];
-
 const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
+  const [players, setPlayers] = useState<string[]>([]);
 
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
   useEffect(() => {
-		// If socket isn't connected, connect & join event as contestant
+    // If socket isn't connected, connect & join event as contestant
     if (socket.disconnect()) {
-			socket.connect();
-			socket.emit("join_event", {
-				name: userData.name,
-				id: userData.id
-			})
-		};
+      socket.connect();
+      socket.emit("join_event", {
+        name: userData.name,
+        id: userData.id,
+      });
+    }
 
     const fetchContestants = () => {
-      socket.emit("contestantCount", (contestantNames: string[]) => {
+      socket.emit("contestantList", (contestantNames: string[]) => {
         setContestants(contestantNames);
       });
     };
 
-    setInterval(fetchContestants, 1000)
+    const fetchPlayers = () => {
+      socket.emit("playerList", (playerNames: string[]) => {
+        setPlayers(playerNames);
+      });
+    };
+
+    setInterval(fetchContestants, 1000);
+    setInterval(fetchPlayers, 1000);
   }, [socket]);
 
   return (
@@ -53,10 +54,15 @@ const Dashboard = () => {
           </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
-          {contestants.length > 0 ? (
-            <PlayerList header="Players Remaining" players={contestants} />
+          {players.length > 0 ? (
+            <PlayerList header="Players in Combat" players={players} />
           ) : (
-            <Heading text="Loading Player Data" />
+            <Heading text="Loading Game Data" />
+          )}
+          {contestants.length > 0 ? (
+            <PlayerList header="Contestants Remaining" players={contestants} />
+          ) : (
+            <Heading text="Loading Contestant Data" />
           )}
         </div>
         <BackButton />

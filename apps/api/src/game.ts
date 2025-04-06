@@ -1,8 +1,9 @@
 import { Socket } from "socket.io";
 
 export function gameManager(socket: Socket) {
-  socket.on("test", () => {
-    console.log("eeeeeeeeeeeeeeeeeeeeeeeeeeeee");
+  socket.on("join_game_room", (data) => {
+    socket.join("game_room");
+    console.log(data.name + " joined game room");
   });
 }
 
