@@ -17,9 +17,14 @@ type LoginProps = {
 };
 
 // Admin password is the first 7 digits of the Fibonacci sequence
+// const adminCred: User = {
+//   name: "Admin Gang Admin Gang",
+//   id: 11235813,
+// };
+
 const adminCred: User = {
-  name: "Admin Gang Admin Gang",
-  id: 11235813,
+  name: "test",
+  id: 123,
 };
 
 const validationSchema = Yup.object().shape({

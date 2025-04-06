@@ -14,20 +14,20 @@ type WaitingProps = {
   leaveOnClick: () => void;
 };
 
-function disconnectSocket() {
-  socket.emit("leave_event", {
-    name: userData.name,
-    id: userData.id,
-  });
-
-  // Disconnect
-  socket.disconnect();
-
-  // Clears out all local browser data
-  localStorage.clear();
-}
-
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
+  const disconnectSocket = () => {
+    socket.emit("leave_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+
+    // Disconnect
+    socket.disconnect();
+
+    // Clears out all local browser data
+    localStorage.clear();
+  };
+
   // If not connected, connect automatically
   if (socket.disconnect()) {
     socket.connect();

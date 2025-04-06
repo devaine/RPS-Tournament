@@ -10,14 +10,16 @@ const About = () => {
         <TextBox text="Justin Kondratenko" />
         <TextBox text="Rafael Rojas" />
         <TextBox text="Lance Finke" />
-        <Heading text="Contributers:" />
-        <TextBox text="Art by Taylor Wiedeman" />
+        <Heading text="Icon Art by:" />
+        <TextBox text="Taylor Wiedeman " />
+        <Heading text="Avatar Art by:" />
+        <TextBox text="Angel Huerta " />
         <Heading text="Special Thanks:" />
         <TextBox text="American Society of Mechnical Engineers (ASME) Club" />
         <TextBox text="Robotics Club" />
         <TextBox text="AANHPI" />
         <TextBox text="Tabletop Club" />
-        <TextBox text="Computer Science Club (obv)" />
+        <TextBox text="Computer Science Club (obviously)" />
       </div>
     </TextLayout>
   );

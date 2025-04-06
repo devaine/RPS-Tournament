@@ -8,26 +8,44 @@ import Dashboard from "./routes/app/dashboard";
 import Admin from "./routes/app/admin";
 import TV from "./routes/app/tv";
 import About from "./routes/app/about";
+import {
+  GameProtectedRoute,
+  RegisterProtectedRoute,
+} from "@/features/auth/protected-route";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-// TODO: Protect all routes after registration so users need to login to see rest
 
 const routes = createBrowserRouter([
   {
     path: "/",
-    element: <Landing />,
+    element: (
+      <RegisterProtectedRoute>
+        <Landing />
+      </RegisterProtectedRoute>
+    ),
   },
   {
     path: "/register",
-    element: <Register />,
+    element: (
+      <GameProtectedRoute>
+        <Register />
+      </GameProtectedRoute>
+    ),
   },
   {
     path: "/register/confirm-avatar",
-    element: <ConfirmUser />,
+    element: (
+      <GameProtectedRoute>
+        <ConfirmUser />
+      </GameProtectedRoute>
+    ),
   },
   {
     path: "/game",
-    element: <Game />,
+    element: (
+      <GameProtectedRoute>
+        <Game />
+      </GameProtectedRoute>
+    ),
   },
   {
     path: "/dashboard",
