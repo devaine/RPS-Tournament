@@ -8,22 +8,15 @@ import { Avatar } from "@/components/ui/avatar";
 import { userData } from "@/config/global";
 import { socket } from "@/features/socketio/init";
 
-
-
 const ConfirmUser = () => {
-	function joinEvent() {
-		socket.connect()
-		
-		socket.emit("join_event", {
-			name: userData.name,
-			id: userData.id
-		})
-	}
-	
-	// If already connected, disconnect, automatically disconnect
-	if(socket.connect()) {
-		socket.disconnect()
-	}
+  function joinEvent() {
+    socket.connect();
+
+    socket.emit("join_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+  }
 
   return (
     <RegisterLayout>
@@ -38,6 +31,5 @@ const ConfirmUser = () => {
     </RegisterLayout>
   );
 };
-
 
 export default ConfirmUser;

@@ -22,7 +22,6 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
     });
 
     // Disconnect
-    socket.disconnect();
 
     // Clears out all local browser data
     localStorage.clear();
