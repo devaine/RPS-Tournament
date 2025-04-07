@@ -19,7 +19,7 @@ const ConfirmUser = () => {
 	}
 	
 	// If already connected, disconnect, automatically disconnect
-	if(socket.connect()) {
+	if(socket.connected) {
 		socket.disconnect()
 	}
 

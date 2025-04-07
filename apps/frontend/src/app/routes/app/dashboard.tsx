@@ -14,6 +14,15 @@ import { userData } from "@/config/global";
 
 // NOTE: Backend: Make sure that when proctected routes are in place
 // that players without user data are sent to "/"
+if (socket.disconnected) {
+	socket.connect();
+	if (userData.name != undefined && userData.id != undefined) {
+		socket.emit("join_event", {
+			name: userData.name,
+			id: userData.id
+		})
+	}
+};
 
 const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
@@ -21,19 +30,8 @@ const Dashboard = () => {
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
   useEffect(() => {
-		// If socket isn't connected, connect & join event as contestant
-    if (socket.disconnect()) {
-			socket.connect();
-			if (userData.name != undefined && userData.id != undefined) {
-				socket.emit("join_event", {
-					name: userData.name,
-					id: userData.id
-				})
-			}
-		};
-
     const fetchContestants = () => {
-      socket.emit("contestantCount", (contestantNames: string[]) => {
+      socket.emit("contestantList", (contestantNames: string[]) => {
         setContestants(contestantNames);
       });
     };

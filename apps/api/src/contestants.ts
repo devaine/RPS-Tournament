@@ -9,6 +9,8 @@ export function contestantManager(socket: Socket, playerCount: number) {
     // Join a room (participant_room) with all other clients...
     socket.join("contestant_room");
     console.log(data.name + " joined contestant room");
+		console.log(.name + " joined contestant room");
+
 
     // Assign the data from emit to socket
     socket.data.name = data.name;
@@ -22,14 +24,14 @@ export function contestantManager(socket: Socket, playerCount: number) {
     if (socket.rooms.has("contestant_room")) {
       socket.leave("contestant_room");
     }
+		
+    playerCount--;
 
     console.log("a user " + socket.id + " left the event!");
     console.log("playerCount: " + playerCount);
     console.log(data.name + " is the name");
     console.log(data.id + " is the student id");
 
-    socket.data.name = "placeholder";
-    socket.data.id = 1234567;
-    playerCount--;
+		socket.disconnect()
   });
 }
