@@ -18,11 +18,6 @@ import type { LandingScreen } from "@/types/gameAPI";
 const Landing = () => {
   const [landingScreen, setLandingScreen] = useState<LandingScreen>("Register");
 
-  // Disconnect from SocketIO automatically (clients can still be connected)
-  if (socket.connect()) {
-    socket.disconnect();
-  }
-
   return (
     <RegisterLayout>
       <div className="flex flex-col">

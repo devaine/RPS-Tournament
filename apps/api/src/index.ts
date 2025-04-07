@@ -46,13 +46,11 @@ io.on("connection", (socket) => {
 
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {
-    playerCount--;
     console.log("user: " + socket.id + " disconnected!");
-    console.log("playerCount: " + playerCount);
   });
 
   // Fetch data for all sockets in contestant_room & find their data
-  socket.on("contestantCount", async (callback) => {
+  socket.on("contestantList", async (callback) => {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const getNames = getSockets.map(function (value) {
       return value.data.name;
@@ -60,22 +58,7 @@ io.on("connection", (socket) => {
 
     callback(getNames);
   });
-	
-	// FOR ADMIN PAGE
-	// Fetch all socket ids 
-	socket.on("startRound", async (callback) => {
-		const getSockets = await io.in("contestant_room").fetchSockets()
-		const getIDs = getSockets.map(function (value) {
-			return value.id; // IDs of the sockets
-		})
-		callback(getIDs)
 
-		function randomNumber(min: number, max: number) {
-			return Math.floor(Math.random() * (max - min) + min);
-		}
-
-		console.log(randomNumber(0, getSockets.length))
-	})
 });
 
 httpServer.listen(PORT, () => {

@@ -29,23 +29,15 @@ const adminCred: User = {
   id: 123,
 };
 
-//const adminCred: User = {
-//  name: "test",
-//  id: 123,
-//};
-
-
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   id: Yup.number().required(),
 });
 
 
-console.log(socket.connected)
-
 // SocketIO Stuff
 function startRound() {
-	socket.emit("startRound", (response: object) => {
+	socket.emit("startRound", (response: string) => {
 		console.log(response)
 	})
 }

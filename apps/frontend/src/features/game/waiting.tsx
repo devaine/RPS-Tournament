@@ -28,7 +28,7 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   };
 
   // If not connected, connect automatically
-  if (socket.disconnect()) {
+  if (socket.disconnected) {
     socket.connect();
     socket.emit("join_event", {
       name: userData.name,
