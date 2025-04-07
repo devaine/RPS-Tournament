@@ -16,9 +16,6 @@ import { userData } from "@/config/global";
 // TODO: Add user as parameter for game to function
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
-  const [currentDecision, setCurrentDecision] =
-    useState<GameDecision>("Loading...");
-	
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
@@ -26,17 +23,18 @@ const Game = () => {
           key="Waiting"
           leaveOnClick={() => {}}
           enterOnClick={async () => {
-						const promise = () => new Promise(resolve => {
-							socket.emit("playerReady")
-							socket.on("gameSync", (response): GameScreen => {
-								resolve(response)
-								return response
-							})
-						})
-					
-						setCurrentScreen("Ready")
-						setCurrentScreen(await promise() as GameScreen)
-					}}
+            const promise = () =>
+              new Promise((resolve) => {
+                socket.emit("playerReady");
+                socket.on("gameSync", (response): GameScreen => {
+                  resolve(response);
+                  return response;
+                });
+              });
+
+            setCurrentScreen("Ready");
+            setCurrentScreen((await promise()) as GameScreen);
+          }}
         />
       )}
       {currentScreen === "Ready" && <Ready key="Ready" />}
@@ -45,25 +43,24 @@ const Game = () => {
           key="Play"
           rockOnClick={() => {
             userData.choice = "rock";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
           paperOnClick={() => {
             userData.choice = "paper";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
           scissorsOnClick={() => {
             userData.choice = "scissors";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
         />
       )}
       {currentScreen === "Decision" && (
         <Decision
           key="Decision"
-          decision={currentDecision}
           enterOnClick={() => setCurrentScreen("Play")}
           leaveOnClick={() => {}}
         />

@@ -5,6 +5,7 @@ import helmet from "helmet";
 import { PORT, URL, FRONTEND_PORT } from "./config";
 import { gameManager } from "./game";
 import { contestantManager } from "./contestants";
+import { playManager } from "./play";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
@@ -43,6 +44,7 @@ io.on("connection", (socket) => {
   // Functions for handling game and contestants
   gameManager(socket);
   contestantManager(socket, playerCount);
+  playManager(socket);
 
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {

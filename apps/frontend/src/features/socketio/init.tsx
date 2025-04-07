@@ -4,7 +4,7 @@ const PORT = 3001;
 const URL = "http://localhost:" + PORT;
 
 const socket = io(URL, {
-	autoConnect: false
+  autoConnect: false,
 });
 
 export { socket };
