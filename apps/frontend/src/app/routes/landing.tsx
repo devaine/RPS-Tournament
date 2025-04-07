@@ -9,9 +9,9 @@ import { Formik } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router";
 import type { User } from "@/types/gameAPI";
+
 // Backend Imports
 import { userData } from "@/config/global"; // Global Variables
-import { socket } from "@/features/socketio/init";
 
 import type { LandingScreen } from "@/types/gameAPI";
 
