@@ -41,12 +41,11 @@ function startRound() {
   });
 }
 
-function startGame() {
-  socket.emit("startGame", (response: object) => {
+function removePlayer() {
+  socket.emit("removePlayer", (response: object) => {
     console.log(response);
   });
 }
-
 
 function endGame() {
   socket.emit("end_game", (response: object) => {
@@ -132,11 +131,12 @@ const AdminScreen = () => {
             <Text text="Round" />
             <MultiButtonLayout horizontal={true}>
               <Button text="Start Round" onClick={startRound} />
+              <Button text="Remove Player" onClick={removePlayer} />
               <Button text="Fix Tie" onClick={() => {}} />
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start" onClick={startGame} />
+              <Button text="Start" onClick={() => {}} />
               <Button text="Pause" onClick={() => {}} />
               <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>

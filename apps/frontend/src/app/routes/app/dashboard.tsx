@@ -26,6 +26,7 @@ if (socket.disconnected) {
 const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
   const [players, setPlayers] = useState<string[]>([]);
+  const [losers, setLosers] = useState<string[]>([]);
 
   // If socket isn't connected, connect & join event as contestant
   if (socket.disconnected) {
@@ -51,8 +52,15 @@ const Dashboard = () => {
       });
     };
 
+    const fetchLosers = () => {
+      socket.emit("loserList", (loserNames: string[]) => {
+        setLosers(loserNames);
+      });
+    };
+
     setInterval(fetchContestants, 1000);
     setInterval(fetchPlayers, 1000);
+    setInterval(fetchLosers, 1000);
   }, [socket]);
 
   return (
@@ -69,12 +77,17 @@ const Dashboard = () => {
           {players.length > 0 ? (
             <PlayerList header="Players in Combat" players={players} />
           ) : (
-            <Heading text="Loading Game Data" />
+            <Heading text="No Players Found" />
           )}
           {contestants.length > 0 ? (
             <PlayerList header="Contestants Remaining" players={contestants} />
           ) : (
-            <Heading text="Loading Contestant Data" />
+            <Heading text="No Contestants Found" />
+          )}
+          {losers.length > 0 ? (
+            <PlayerList header="Lost Contestants" players={contestants} />
+          ) : (
+            <Heading text="No Losers Found :D" />
           )}
         </div>
         <BackButton />
