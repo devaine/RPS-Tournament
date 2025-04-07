@@ -34,14 +34,19 @@ const validationSchema = Yup.object().shape({
   id: Yup.number().required(),
 });
 
-console.log(socket.connected);
-
 // SocketIO Stuff
 function startRound() {
   socket.emit("startRound", (response: object) => {
     console.log(response);
   });
 }
+
+function startGame() {
+  socket.emit("startGame", (response: object) => {
+    console.log(response);
+  });
+}
+
 
 function endGame() {
   socket.emit("end_game", (response: object) => {
@@ -131,7 +136,7 @@ const AdminScreen = () => {
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start" onClick={() => {}} />
+              <Button text="Start" onClick={startGame} />
               <Button text="Pause" onClick={() => {}} />
               <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>

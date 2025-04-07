@@ -1,7 +1,10 @@
 import { Socket } from "socket.io";
 import { io } from "./index"
+import type { argv0 } from "node:process";
 
 export function gameManager(socket: Socket) {
+
+	let readyCount = 0
 
 	// FOR ADMIN PAGE
 	// Fetch all socket ids 
@@ -29,14 +32,20 @@ export function gameManager(socket: Socket) {
 		io.to(String(player2)).socketsJoin("game_room")
 		io.to(String(player2)).socketsLeave("contestant_room")
 
+	})
 
-		const check = await io.in("game_room").fetchSockets()
-		const list = check.map(function (data) {
-			console.log(data.id)
-			return data.id
-		})
+	socket.on("startGame", async (callback) => {
+			readyCount++ 
 
-		callback(list);
+			if(readyCount === 2){ 
+				callback("Play")
+			} else {
+				return null
+			}
+
+	})
+
+	socket.on("playerReady", async (callback) => {
 	})
 }
 
