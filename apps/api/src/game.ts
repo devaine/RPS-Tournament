@@ -35,19 +35,25 @@ export function gameManager(socket: Socket) {
 	})
 
 	socket.on("startGame", async (callback) => {
-			readyCount++ 
-
-			if(readyCount === 2){ 
-				callback("Play")
-			} else {
-				return null
-			}
+			
 
 	})
 
 	socket.on("playerReady", async (callback) => {
-	})
-}
+		const getSockets = await io.in("game_room").fetchSockets()
+		const listSockets: string[] = []
+	
+		for(const socket of getSockets) {
+			listSockets.push(socket.id)
+		}
+
+		console.log(listSockets)
+
+		if(io.listeners("playerReady").length === 2) {
+				callback("Play")
+			}
+		}
+)}
 
 
 

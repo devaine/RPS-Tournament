@@ -18,21 +18,6 @@ const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
   const [currentDecision, setCurrentDecision] =
     useState<GameDecision>("Loading...");
-  let intervalID: undefined | ReturnType<typeof setTimeout>;
-
-  useEffect(() => {
-    const pushDecision = () => {
-      // socket.on("decision", () => {
-      //   setCurrentDecision("YOU WON !!!");
-      // });
-      setCurrentDecision("YOU WON !!!");
-    };
-
-    intervalID = setInterval(pushDecision, 1000);
-
-    return () => clearInterval(intervalID);
-  }, [socket]);
-
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
@@ -42,7 +27,7 @@ const Game = () => {
           enterOnClick={() => setCurrentScreen("Ready")}
         />
       )}
-      {currentScreen === "Ready" && <Ready key="Ready" />}
+      {currentScreen === "Ready" && <Ready key="Ready" onReady={()=> {setCurrentScreen("Play")}} />}
       {currentScreen === "Play" && (
         <Play
           key="Play"
