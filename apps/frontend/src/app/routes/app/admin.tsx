@@ -34,8 +34,6 @@ const validationSchema = Yup.object().shape({
   id: Yup.number().required(),
 });
 
-console.log(socket.connected);
-
 // SocketIO Stuff
 function startRound() {
   socket.emit("startRound", (response: object) => {
