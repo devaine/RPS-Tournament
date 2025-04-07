@@ -56,7 +56,7 @@ io.on("connection", (socket) => {
       return value.data.name;
     });
 
-    callback(contestant_names);
+    callback(getNames);
   });
 
 });

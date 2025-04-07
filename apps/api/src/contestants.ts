@@ -9,8 +9,6 @@ export function contestantManager(socket: Socket, playerCount: number) {
     // Join a room (participant_room) with all other clients...
     socket.join("contestant_room");
     console.log(data.name + " joined contestant room");
-		console.log(.name + " joined contestant room");
-
 
     // Assign the data from emit to socket
     socket.data.name = data.name;
