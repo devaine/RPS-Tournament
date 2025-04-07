@@ -58,23 +58,23 @@ io.on("connection", (socket) => {
       return value.data.name;
     });
 
-    callback(getNames);
+    callback(contestant_names);
   });
-	
-	// FOR ADMIN PAGE
-	// Fetch all socket ids 
-	socket.on("startRound", async (callback) => {
-		const getSockets = await io.in("contestant_room").fetchSockets()
-		const getIDs = getSockets.map(function (value) {
-			return value.id; // IDs of the sockets
-		})
-		callback(getIDs)
-
   socket.on("playerList", async (callback) => {
     const player_sockets = await io.in("game_room").fetchSockets();
     const player_names = player_sockets.length;
 
     callback(player_names);
+  });
+
+  // FOR ADMIN PAGE
+  // Fetch all socket ids
+  socket.on("startRound", async (callback) => {
+    const getSockets = await io.in("contestant_room").fetchSockets();
+    const getIDs = getSockets.map(function (value) {
+      return value.id; // IDs of the sockets
+    });
+    callback(getIDs);
   });
 
   gameManager(socket);

@@ -15,18 +15,18 @@ const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
   const [players, setPlayers] = useState<string[]>([]);
 
+  // If socket isn't connected, connect & join event as contestant
+  if (socket.disconnect()) {
+    socket.connect();
+    socket.emit("join_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+  }
+
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
   useEffect(() => {
-    // If socket isn't connected, connect & join event as contestant
-    if (socket.disconnect()) {
-      socket.connect();
-      socket.emit("join_event", {
-        name: userData.name,
-        id: userData.id,
-      });
-    }
-
     const fetchContestants = () => {
       socket.emit("contestantList", (contestantNames: string[]) => {
         setContestants(contestantNames);
