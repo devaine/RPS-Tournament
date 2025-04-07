@@ -21,8 +21,6 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
       id: userData.id,
     });
 
-    // Disconnect
-
     // Clears out all local browser data
     localStorage.clear();
   };

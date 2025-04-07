@@ -29,7 +29,7 @@ const Dashboard = () => {
   const [players, setPlayers] = useState<string[]>([]);
 
   // If socket isn't connected, connect & join event as contestant
-  if (socket.disconnect()) {
+  if (socket.disconnected) {
     socket.connect();
     socket.emit("join_event", {
       name: userData.name,

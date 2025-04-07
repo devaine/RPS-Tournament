@@ -59,6 +59,15 @@ io.on("connection", (socket) => {
     callback(getNames);
   });
 
+  socket.on("playerList", async (callback) => {
+    const getSockets = await io.in("game_room").fetchSockets();
+    const getNames = getSockets.map(function (value) {
+      return value.data.name;
+    });
+
+    callback(getNames);
+  });
+
 });
 
 httpServer.listen(PORT, () => {

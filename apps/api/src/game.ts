@@ -18,10 +18,25 @@ export function gameManager(socket: Socket) {
 			listSockets.push(socket.id)
 		}
 
-		const player1 = listSockets[randomNumber(0, getSockets.length)]
+		const player = listSockets[randomNumber(0, getSockets.length)]
+
+		io.to(String(player)).socketsJoin("game_room")
+		io.to(String(player)).socketsLeave("contestant_room")
+		
+		
 		const player2 = listSockets[randomNumber(0, getSockets.length)]
 
+		io.to(String(player2)).socketsJoin("game_room")
+		io.to(String(player2)).socketsLeave("contestant_room")
 
+
+		const check = await io.in("game_room").fetchSockets()
+		const list = check.map(function (data) {
+			console.log(data.id)
+			return data.id
+		})
+
+		callback(list);
 	})
 }
 
