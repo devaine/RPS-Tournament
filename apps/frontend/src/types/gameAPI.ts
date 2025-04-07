@@ -16,8 +16,12 @@ export type AdminScreen = "Login" | "Admin";
 
 export type LandingScreen = "Register" | "Game Started";
 
-export type GameScreen = "Waiting" | "Play" | "Decision" | "End";
+export type GameScreen = "Waiting" | "Play" | "Decision" | "End" | "Ready";
 
-export type GameDecision = "YOU WON !!!" | "YOU LOSE !!!" | "YOU TIED !!!";
+export type GameDecision =
+  | "YOU WON !!!"
+  | "YOU LOSE !!!"
+  | "YOU TIED !!!"
+  | "Loading...";
 
 export type GameChoices = "rock" | "paper" | "scissors";

@@ -18,17 +18,20 @@ function Decision({ enterOnClick, leaveOnClick, decision }: DecisionProps) {
     <GameLayout key="Decision">
       <Announce text={decision} />
       <MultiButtonLayout>
-        {decision === "YOU LOSE !!!" ? (
+        {decision === "YOU LOSE !!!" && (
           <Button text="Go to Dashboard" link="/dashboard" />
-        ) : (
+        )}
+        {(decision === "YOU WON !!!" || decision === "YOU TIED !!!") && (
           <Button text="Ready to go again?" onClick={() => enterOnClick} />
         )}
-        <Button
-          text="Leave Game"
-          link="/"
-          color="background"
-          onClick={leaveOnClick}
-        />
+        {decision !== "Loading..." && (
+          <Button
+            text="Leave Game"
+            link="/"
+            color="background"
+            onClick={leaveOnClick}
+          />
+        )}
       </MultiButtonLayout>
     </GameLayout>
   );

@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import Play from "@/features/play/play";
 import Waiting from "@/features/game/waiting";
 import Decision from "@/features/play/decision";
 import End from "@/features/game/end";
+import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameDecision } from "@/types/gameAPI";
 
@@ -16,7 +17,21 @@ import { userData } from "@/config/global";
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
   const [currentDecision, setCurrentDecision] =
-    useState<GameDecision>("YOU WON !!!");
+    useState<GameDecision>("Loading...");
+  let intervalID: undefined | ReturnType<typeof setTimeout>;
+
+  useEffect(() => {
+    const pushDecision = () => {
+      // socket.on("decision", () => {
+      //   setCurrentDecision("YOU WON !!!");
+      // });
+      setCurrentDecision("YOU WON !!!");
+    };
+
+    intervalID = setInterval(pushDecision, 1000);
+
+    return () => clearInterval(intervalID);
+  }, [socket]);
 
   return (
     <AnimatePresence mode="wait">
@@ -24,29 +39,27 @@ const Game = () => {
         <Waiting
           key="Waiting"
           leaveOnClick={() => {}}
-          enterOnClick={() => setCurrentScreen("Play")}
+          enterOnClick={() => setCurrentScreen("Ready")}
         />
       )}
+      {currentScreen === "Ready" && <Ready key="Ready" />}
       {currentScreen === "Play" && (
         <Play
           key="Play"
           rockOnClick={() => {
-            setCurrentScreen("Decision");
-            // setCurrentDecision("YOU WON !!!");
             userData.choice = "rock";
-            console.log(currentDecision);
+            setCurrentScreen("Decision");
+            console.log(userData);
           }}
           paperOnClick={() => {
-            setCurrentScreen("Decision");
-            // setCurrentDecision("YOU LOSE !!!");
             userData.choice = "paper";
-            console.log(currentDecision);
+            setCurrentScreen("Decision");
+            console.log(userData);
           }}
           scissorsOnClick={() => {
-            setCurrentScreen("Decision");
-            // setCurrentDecision("YOU TIED !!!");
             userData.choice = "scissors";
-            console.log(currentDecision);
+            setCurrentScreen("Decision");
+            console.log(userData);
           }}
         />
       )}
