@@ -47,14 +47,15 @@ export function gameManager(socket: Socket) {
 			listSockets.push(socket.id)
 		}
 
-		console.log(listSockets)
+		console.log(io.listeners("playerReady").length)
+
 
 		if(io.listeners("playerReady").length === 2) {
-				callback("Play")
-			}
+			console.log('KJFEJAFOHADOFASFJAFJSF')
+			callback("Play")
 		}
+	}
 )}
-
 
 
 function decideWinner(choice1: string, choice2: string) {
