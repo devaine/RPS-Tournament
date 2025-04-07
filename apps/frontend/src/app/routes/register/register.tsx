@@ -5,8 +5,16 @@ import { avatars } from "@/config/avatars";
 import { IconButton, BackButton } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
+// Backend Imports
+import { userData } from "@/config/global"; // Global Variables
+
 const Register = () => {
   const navigate = useNavigate();
+
+  const pickAvatar = (url: string) => {
+    userData.avatar = url;
+    navigate("/register/confirm-avatar");
+  };
 
   return (
     <RegisterLayout>
@@ -18,7 +26,9 @@ const Register = () => {
             src={avatar.url}
             text={avatar.alt}
             size={24}
-            onClick={() => navigate("/register/confirm-avatar")}
+            onClick={() => {
+              pickAvatar(avatar.url);
+            }}
           />
         ))}
       </div>

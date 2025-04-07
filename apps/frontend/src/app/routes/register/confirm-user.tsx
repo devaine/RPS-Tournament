@@ -15,6 +15,7 @@ const ConfirmUser = () => {
     socket.emit("join_event", {
       name: userData.name,
       id: userData.id,
+      avatar: userData.avatar,
     });
   }
 
