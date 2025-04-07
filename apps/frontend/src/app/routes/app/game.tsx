@@ -5,6 +5,7 @@ import Play from "@/features/play/play";
 import Waiting from "@/features/game/waiting";
 import Decision from "@/features/play/decision";
 import End from "@/features/game/end";
+import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameDecision } from "@/types/gameAPI";
 
@@ -38,9 +39,10 @@ const Game = () => {
         <Waiting
           key="Waiting"
           leaveOnClick={() => {}}
-          enterOnClick={() => setCurrentScreen("Play")}
+          enterOnClick={() => setCurrentScreen("Ready")}
         />
       )}
+      {currentScreen === "Ready" && <Ready key="Ready" />}
       {currentScreen === "Play" && (
         <Play
           key="Play"
