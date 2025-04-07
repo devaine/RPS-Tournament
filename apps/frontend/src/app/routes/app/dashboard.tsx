@@ -26,6 +26,16 @@ if (socket.disconnected) {
 
 const Dashboard = () => {
   const [contestants, setContestants] = useState<string[]>([]);
+  const [players, setPlayers] = useState<string[]>([]);
+
+  // If socket isn't connected, connect & join event as contestant
+  if (socket.disconnect()) {
+    socket.connect();
+    socket.emit("join_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+  }
 
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
@@ -36,7 +46,14 @@ const Dashboard = () => {
       });
     };
 
-    setInterval(fetchContestants, 1000)
+    const fetchPlayers = () => {
+      socket.emit("playerList", (playerNames: string[]) => {
+        setPlayers(playerNames);
+      });
+    };
+
+    setInterval(fetchContestants, 1000);
+    setInterval(fetchPlayers, 1000);
   }, [socket]);
 
   return (
@@ -50,10 +67,15 @@ const Dashboard = () => {
           </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
-          {contestants.length > 0 ? (
-            <PlayerList header="Players Remaining" players={contestants} />
+          {players.length > 0 ? (
+            <PlayerList header="Players in Combat" players={players} />
           ) : (
-            <Heading text="Loading Player Data" />
+            <Heading text="Loading Game Data" />
+          )}
+          {contestants.length > 0 ? (
+            <PlayerList header="Contestants Remaining" players={contestants} />
+          ) : (
+            <Heading text="Loading Contestant Data" />
           )}
         </div>
         <BackButton />

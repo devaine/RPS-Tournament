@@ -8,6 +8,9 @@ import End from "@/features/game/end";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameDecision } from "@/types/gameAPI";
 
+// Backend Imports
+import { socket } from "@/features/socketio/init";
+
 // TODO: Add user as parameter for game to function
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
@@ -51,7 +54,7 @@ const Game = () => {
           leaveOnClick={() => {}}
         />
       )}
-      {currentScreen === "End" && <End />}
+      {currentScreen === "End" && <End key="End" />}
     </AnimatePresence>
   );
 };
