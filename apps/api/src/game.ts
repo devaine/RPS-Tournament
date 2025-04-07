@@ -1,9 +1,14 @@
 import { Socket } from "socket.io";
+import { io } from "./index";
 
 export function gameManager(socket: Socket) {
-  socket.on("join_game_room", (data) => {
-    socket.join("game_room");
-    console.log(data.name + " joined game room");
+  socket.on("end_game", async (callback) => {
+    const contestant_sockets = await io.in("contestant_room").fetchSockets();
+    const contestand_count = contestant_sockets.length;
+
+    if (contestand_count <= 3) {
+      return "End";
+    }
   });
 }
 

@@ -12,7 +12,7 @@ import { AnimatePresence } from "framer-motion";
 import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
 
-import { socket } from "@/features/socketio/init"
+import { socket } from "@/features/socketio/init";
 
 type LoginProps = {
   onSubmit: () => void;
@@ -29,25 +29,24 @@ const adminCred: User = {
   id: 123,
 };
 
-//const adminCred: User = {
-//  name: "test",
-//  id: 123,
-//};
-
-
 const validationSchema = Yup.object().shape({
   name: Yup.string().required(),
   id: Yup.number().required(),
 });
 
-
-console.log(socket.connected)
+console.log(socket.connected);
 
 // SocketIO Stuff
 function startRound() {
-	socket.emit("startRound", (response: object) => {
-		console.log(response)
-	})
+  socket.emit("startRound", (response: object) => {
+    console.log(response);
+  });
+}
+
+function endGame() {
+  socket.emit("end_game", (response: object) => {
+    console.log(response);
+  });
 }
 
 export const Admin = () => {
@@ -134,7 +133,7 @@ const AdminScreen = () => {
             <MultiButtonLayout horizontal={true}>
               <Button text="Start" onClick={() => {}} />
               <Button text="Pause" onClick={() => {}} />
-              <Button text="End" color="background" onClick={() => {}} />
+              <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>
           </div>
         </div>

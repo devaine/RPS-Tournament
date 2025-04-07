@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { AnimatePresence } from "framer-motion";
 import React from "react";
 import Play from "@/features/play/play";
@@ -13,20 +13,9 @@ import { socket } from "@/features/socketio/init";
 
 // TODO: Add user as parameter for game to function
 const Game = () => {
-  const [currentScreen, setCurrentScreen] = useState<GameScreen>("End");
+  const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
   const [currentDecision, setCurrentDecision] =
     useState<GameDecision>("YOU WON !!!");
-  const [winners, setWinners] = useState<string[]>([]);
-
-  useEffect(() => {
-    const fetchWinners = () => {
-      socket.emit("contestantList", (contestantNames: string[]) => {
-        setWinners(contestantNames);
-      });
-    };
-
-    setInterval(fetchWinners, 1000);
-  }, [socket]);
 
   return (
     <AnimatePresence mode="wait">
@@ -65,7 +54,7 @@ const Game = () => {
           leaveOnClick={() => {}}
         />
       )}
-      {currentScreen === "End" && <End key="End" winners={winners} />}
+      {currentScreen === "End" && <End key="End" />}
     </AnimatePresence>
   );
 };
