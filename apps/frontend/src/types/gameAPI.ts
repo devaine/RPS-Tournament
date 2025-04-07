@@ -18,6 +18,10 @@ export type LandingScreen = "Register" | "Game Started";
 
 export type GameScreen = "Waiting" | "Play" | "Decision" | "End";
 
-export type GameDecision = "YOU WON !!!" | "YOU LOSE !!!" | "YOU TIED !!!";
+export type GameDecision =
+  | "YOU WON !!!"
+  | "YOU LOSE !!!"
+  | "YOU TIED !!!"
+  | "Loading...";
 
 export type GameChoices = "rock" | "paper" | "scissors";
