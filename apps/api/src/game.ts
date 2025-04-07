@@ -1,10 +1,11 @@
 import { Socket } from "socket.io";
 import { io } from "./index";
 
+var count = 0;
+
 export function gameManager(socket: Socket) {
   // FOR ADMIN PAGE
   // Fetch all socket ids
-	let readyCount = 0
 
 	// FOR ADMIN PAGE
 	// Fetch all socket ids 
@@ -79,16 +80,17 @@ export function gameManager(socket: Socket) {
 			listSockets.push(socket.id)
 		}
 
-		console.log(io.listeners("playerReady").length)
+		count++
 
-
-		if(io.listeners("playerReady").length === 2) {
-			console.log('KJFEJAFOHADOFASFJAFJSF')
-			callback("Play")
+		if(count === 2) {
+			io.to(String(listSockets[0])).emit("gameSync", "Play")
+			io.to(String(listSockets[1])).emit("gameSync", "Play")
+			count = 0;
+		} else {
+			null
 		}
 	}
 )}
-
 
 function decideWinner(choice1: string, choice2: string) {
   if (choice1 === choice2) {

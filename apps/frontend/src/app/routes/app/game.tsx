@@ -18,16 +18,28 @@ const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
   const [currentDecision, setCurrentDecision] =
     useState<GameDecision>("Loading...");
+	
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
         <Waiting
           key="Waiting"
           leaveOnClick={() => {}}
-          enterOnClick={() => setCurrentScreen("Ready")}
+          enterOnClick={async () => {
+						const promise = () => new Promise(resolve => {
+							socket.emit("playerReady")
+							socket.on("gameSync", (response): GameScreen => {
+								resolve(response)
+								return response
+							})
+						})
+					
+						setCurrentScreen("Ready")
+						setCurrentScreen(await promise() as GameScreen)
+					}}
         />
       )}
-      {currentScreen === "Ready" && <Ready key="Ready" onReady={()=> {setCurrentScreen("Play")}} />}
+      {currentScreen === "Ready" && <Ready key="Ready" />}
       {currentScreen === "Play" && (
         <Play
           key="Play"

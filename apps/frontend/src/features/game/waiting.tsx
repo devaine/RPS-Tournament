@@ -15,6 +15,7 @@ type WaitingProps = {
   leaveOnClick: () => void;
 };
 
+
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
 
@@ -54,7 +55,10 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
     <GameLayout>
       <Heading text={"Waiting to enter the ring..."} />
       <MultiButtonLayout>
-        {isPlayer && <Button text="Ready?" onClick={enterOnClick} />}
+        {isPlayer && <Button text="Ready?" onClick={() => {
+					enterOnClick()
+				}
+				} />}
         <Button
           text="Go to Dashboard"
           link="/dashboard"

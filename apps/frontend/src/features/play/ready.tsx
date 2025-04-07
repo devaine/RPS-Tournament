@@ -4,22 +4,8 @@ import { GameLayout as TextLayout } from "@/components/layouts/game-layout";
 import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 
 import { socket } from "@/features/socketio/init";
-import type { GameScreen} from "@/types/gameAPI";
 
-type ReadyProps = {
-	onReady: () => void;
-}
-
-export default function Ready({onReady}: ReadyProps) {
-	const pushGame = () => {
-			socket.emit("playerReady", (response: GameScreen) => {
-				if(response === "Play")
-					onReady();
-			});
-    };
-
-	pushGame()
-
+export default function Ready() {
   return (
     <TextLayout>
       <div className="flex flex-col items-center gap-4 p-4">
