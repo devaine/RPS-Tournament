@@ -12,4 +12,5 @@ const useID = userData_storage === null ? undefined : userData_storage.id;
 export const userData: User = {
   name: useName,
   id: useID,
+  choice: undefined,
 };

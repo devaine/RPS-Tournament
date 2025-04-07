@@ -10,6 +10,7 @@ import type { GameDecision } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
+import { userData } from "@/config/global";
 
 // TODO: Add user as parameter for game to function
 const Game = () => {
@@ -31,17 +32,20 @@ const Game = () => {
           key="Play"
           rockOnClick={() => {
             setCurrentScreen("Decision");
-            setCurrentDecision("YOU WON !!!");
+            // setCurrentDecision("YOU WON !!!");
+            userData.choice = "rock";
             console.log(currentDecision);
           }}
           paperOnClick={() => {
             setCurrentScreen("Decision");
-            setCurrentDecision("YOU LOSE !!!");
+            // setCurrentDecision("YOU LOSE !!!");
+            userData.choice = "paper";
             console.log(currentDecision);
           }}
           scissorsOnClick={() => {
             setCurrentScreen("Decision");
-            setCurrentDecision("YOU TIED !!!");
+            // setCurrentDecision("YOU TIED !!!");
+            userData.choice = "scissors";
             console.log(currentDecision);
           }}
         />
