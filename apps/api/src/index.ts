@@ -49,7 +49,7 @@ io.on("connection", (socket) => {
     console.log("user: " + socket.id + " disconnected!");
   });
 
-  // Fetch data for all sockets in contestant_room & find their data
+  // Fetch data for all sockets in rooms & find their data
   socket.on("contestantList", async (callback) => {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const getNames = getSockets.map(function (value) {
@@ -68,6 +68,14 @@ io.on("connection", (socket) => {
     callback(getNames);
   });
 
+  socket.on("loserList", async (callback) => {
+    const getSockets = await io.in("loser_room").fetchSockets();
+    const getNames = getSockets.map(function (value) {
+      return value.data.name;
+    });
+
+    callback(getNames);
+  });
 });
 
 httpServer.listen(PORT, () => {
