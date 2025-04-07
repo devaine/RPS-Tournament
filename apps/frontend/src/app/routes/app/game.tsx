@@ -16,42 +16,48 @@ import { userData } from "@/config/global";
 // TODO: Add user as parameter for game to function
 const Game = () => {
   const [currentScreen, setCurrentScreen] = useState<GameScreen>("Waiting");
-  const [currentDecision, setCurrentDecision] =
-    useState<GameDecision>("Loading...");
+
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Waiting" && (
         <Waiting
           key="Waiting"
           leaveOnClick={() => {}}
-          enterOnClick={() => setCurrentScreen("Ready")}
+          // enterOnClick={() => setCurrentScreen("Ready")}
+          enterOnClick={() => setCurrentScreen("Play")}
         />
       )}
-      {currentScreen === "Ready" && <Ready key="Ready" onReady={()=> {setCurrentScreen("Play")}} />}
+      {currentScreen === "Ready" && (
+        <Ready
+          key="Ready"
+          onReady={() => {
+            setCurrentScreen("Play");
+          }}
+        />
+      )}
       {currentScreen === "Play" && (
         <Play
           key="Play"
           rockOnClick={() => {
             userData.choice = "rock";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
           paperOnClick={() => {
             userData.choice = "paper";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
           scissorsOnClick={() => {
             userData.choice = "scissors";
+            socket.emit("setChoice", userData.choice);
             setCurrentScreen("Decision");
-            console.log(userData);
           }}
         />
       )}
       {currentScreen === "Decision" && (
         <Decision
           key="Decision"
-          decision={currentDecision}
           enterOnClick={() => setCurrentScreen("Play")}
           leaveOnClick={() => {}}
         />

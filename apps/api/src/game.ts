@@ -8,22 +8,14 @@ export function gameManager(socket: Socket) {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const listSockets: string[] = [];
 
-	let readyCount = 0
+    function randomNumber(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
 
-	// FOR ADMIN PAGE
-	// Fetch all socket ids 
-	socket.on("startRound", async (callback) => {
-		const getSockets = await io.in("contestant_room").fetchSockets()
-		const listSockets: string[] = []
-	
-		function randomNumber(min: number, max: number) {
-			return Math.floor(Math.random() * (max - min) + min);
-		}
-	
-		// Sends all socket ids into a array
-		for(const socket of getSockets) {
-			listSockets.push(socket.id)
-		}
+    // Sends all socket ids into a array
+    for (const socket of getSockets) {
+      listSockets.push(socket.id);
+    }
 
     // Sends all socket ids into a array
     for (const socket of getSockets) {
