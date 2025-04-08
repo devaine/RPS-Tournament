@@ -29,6 +29,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
       setDecision("YOU WON !!!");
     };
     const onLose = () => {
+      userData.choice = "";
       setDecision("YOU LOSE !!!");
     };
     const onTied = () => {
@@ -53,7 +54,13 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
       <Announce text={decision} />
       <MultiButtonLayout>
         {decision === "YOU LOSE !!!" && (
-          <Button text="Go to Dashboard" link="/dashboard" />
+          <Button
+            text="Go to Dashboard"
+            link="/dashboard"
+            onClick={() => {
+              localStorage.setItem("status", "loser");
+            }}
+          />
         )}
         {decision === "YOU TIED !!!" && (
           <Button

@@ -15,10 +15,6 @@ import { socket } from "@/features/socketio/init";
 // fixed by adding emit("join_event") but that might cause the current player to be
 // contestant room
 
-if (socket.disconnected) {
-  socket.connect();
-}
-
 const End = () => {
   const [winners, setWinners] = useState<string[]>([]);
 

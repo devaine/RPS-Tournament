@@ -17,6 +17,7 @@ const ConfirmUser = () => {
       id: userData.id,
       avatar: userData.avatar,
       choice: userData.choice,
+      status: userData.status,
     });
   }
 

@@ -15,9 +15,10 @@ type WaitingProps = {
   leaveOnClick: () => void;
 };
 
-
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
+
+  console.log(userData);
 
   useEffect(() => {
     const checkQueue = () => {
@@ -41,24 +42,18 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
     localStorage.clear();
   };
 
-  // If not connected, connect automatically
-  if (socket.disconnected) {
-    socket.connect();
-    socket.emit("join_event", {
-      name: userData.name,
-      id: userData.id,
-    });
-    socket.emit("test");
-  }
-
   return (
     <GameLayout>
       <Heading text={"Waiting to enter the ring..."} />
       <MultiButtonLayout>
-        {isPlayer && <Button text="Ready?" onClick={() => {
-					enterOnClick()
-				}
-				} />}
+        {isPlayer && (
+          <Button
+            text="Ready?"
+            onClick={() => {
+              enterOnClick();
+            }}
+          />
+        )}
         <Button
           text="Go to Dashboard"
           link="/dashboard"

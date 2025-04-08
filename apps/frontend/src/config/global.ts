@@ -12,10 +12,13 @@ const useAvatar =
   userData_storage === null ? undefined : userData_storage.avatar;
 const useChoice =
   userData_storage === null ? undefined : userData_storage.avatar;
+const useStatus =
+  userData_storage === null ? undefined : userData_storage.avatar;
 
 export const userData: User = {
   name: useName,
   id: useID,
   avatar: useAvatar,
   choice: useChoice,
+  status: useStatus,
 };

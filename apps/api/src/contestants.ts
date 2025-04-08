@@ -10,6 +10,7 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.avatar + " is the student avatar");
 
     // Join a room (participant_room) with all other clients...
+    // FIX: Add conditional to not set room if already in room
     socket.join("contestant_room");
     console.log(data.name + " joined contestant room");
 
