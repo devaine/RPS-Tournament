@@ -27,13 +27,19 @@ export function playManager(socket: Socket) {
     const player2 = listPlayers[1];
 
     const winnerString = decideWinner({ player1, player2 });
+    const loserString = decideLoser({ player1, player2 });
     const winner = await findUserSocket(winnerString);
+    const loser = await findUserSocket(loserString);
+
     console.log({ player1, player2 });
+
     if (winner) {
       winner.emit("win");
     }
-
-    callback({ winner, winnerString });
+    if (loser) {
+      loser.emit("lose");
+    }
+    // TODO: Tie
   });
 }
 
@@ -68,5 +74,28 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
     return player1.name;
   } else {
     return player2.name;
+  }
+}
+
+function decideLoser({ player1, player2 }: DecideWinnerProps) {
+  if (
+    !player1 ||
+    !player2 ||
+    player1.choice === undefined ||
+    player2.choice === undefined
+  ) {
+    return "";
+  }
+
+  if (player1.choice === player2.choice) {
+    return "tie";
+  } else if (
+    (player1.choice === "rock" && player2.choice === "scissors") ||
+    (player1.choice === "paper" && player2.choice === "rock") ||
+    (player1.choice === "scissors" && player2.choice === "paper")
+  ) {
+    return player2.name;
+  } else {
+    return player1.name;
   }
 }

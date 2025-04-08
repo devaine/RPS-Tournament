@@ -44,16 +44,25 @@ const Game = () => {
           rockOnClick={() => {
             userData.choice = "rock";
             socket.emit("setChoice", userData.choice);
+            socket.emit("play", (response: string) => {
+              console.log(response);
+            });
             setCurrentScreen("Decision");
           }}
           paperOnClick={() => {
             userData.choice = "paper";
             socket.emit("setChoice", userData.choice);
+            socket.emit("play", (response: string) => {
+              console.log(response);
+            });
             setCurrentScreen("Decision");
           }}
           scissorsOnClick={() => {
             userData.choice = "scissors";
             socket.emit("setChoice", userData.choice);
+            socket.emit("play", (response: string) => {
+              console.log(response);
+            });
             setCurrentScreen("Decision");
           }}
         />

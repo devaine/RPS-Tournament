@@ -20,10 +20,6 @@ type DecisionProps = {
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
-  socket.emit("play", (response: string) => {
-    console.log(response);
-  });
-
   useEffect(() => {
     const onWin = () => {
       setDecision("YOU WON !!!");
@@ -38,6 +34,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
     socket.on("win", onWin);
     socket.on("lose", onLose);
     socket.on("tied", onTied);
+
     return () => {
       socket.off("win", onWin);
       socket.off("lose", onLose);
