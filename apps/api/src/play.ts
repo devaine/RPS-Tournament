@@ -9,6 +9,7 @@ export type User = {
   choice?: string;
 };
 
+
 export function playManager(socket: Socket) {
   socket.on("setChoice", (choice: string) => {
     socket.data.choice = choice;
@@ -21,9 +22,10 @@ export function playManager(socket: Socket) {
     const getNames = getSockets.map(function (value) {
       listPlayers.push(value.data);
     });
+
     getNames;
 
-    // Grab players
+    // Grab players from getNames array
     const player1 = listPlayers[0];
     const player2 = listPlayers[1];
 
@@ -75,6 +77,7 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
 
   // Actual game logic, probably sucks compared to other implementations but who cares
   if (player1.choice === player2.choice) {
+		// NOTE: Begin here for ties
     return "tie";
   } else if (
     (player1.choice === "rock" && player2.choice === "scissors") ||

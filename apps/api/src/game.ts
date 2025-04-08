@@ -3,31 +3,34 @@ import { io } from "./index";
 
 var count = 0;
 
+function randomNumber(min: number, max: number) {
+      return Math.floor(Math.random() * (max - min) + min);
+    }
+
+function getRandomPlayer(array: string[]) {
+	for(var x = 0; x <= 2; x++){
+			const player = array[randomNumber(0, array.length)];
+			io.to(String(player)).socketsJoin("game_room");
+			io.to(String(player)).socketsLeave("contestant_room");
+
+		}
+}
+
 export function gameManager(socket: Socket) {
   // FOR ADMIN PAGE
   // Fetch all socket ids
-
-  // FOR ADMIN PAGE
-  // Fetch all socket ids
-  //
+	
   // NOTE: Fetches sockets and move sthem to "game_room"
   socket.on("startRound", async (callback) => {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const listSockets: string[] = [];
 
-    function randomNumber(min: number, max: number) {
-      return Math.floor(Math.random() * (max - min) + min);
-    }
-
     // Sends all socket ids into a array
     for (const socket of getSockets) {
       listSockets.push(socket.id);
     }
-    const player = listSockets[randomNumber(0, getSockets.length)];
 
-    io.to(String(player)).socketsJoin("game_room");
-    io.to(String(player)).socketsLeave("contestant_room");
-
+		getRandomPlayer(listSockets)	
     // FIX: Can't put second player in queue
 
     // const player2 = listSockets[randomNumber(0, getSockets.length)]
