@@ -1,4 +1,6 @@
 import { Socket } from "socket.io";
+import { landingScreen, type LandingScreen } from "./config";
+import { io } from "./index";
 
 export function contestantManager(socket: Socket, playerCount: number) {
   socket.on("join_event", function (data) {
@@ -34,5 +36,14 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.id + " is the student id");
 
     socket.disconnect();
+  });
+
+  // Send current state to new connections
+  socket.emit("landing_update", landingScreen);
+
+  // Handle state changes from clients
+  socket.on("set_landing", (newLanding: LandingScreen) => {
+    // Broadcast to all connected clients
+    io.emit("state_update", newLanding);
   });
 }
