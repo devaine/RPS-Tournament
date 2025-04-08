@@ -20,6 +20,7 @@ type DecisionProps = {
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
+  // Use effect for handing decision useState using socketio event listeners
   useEffect(() => {
     const onWin = () => {
       setDecision("YOU WON !!!");
@@ -35,24 +36,13 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
     socket.on("lose", onLose);
     socket.on("tied", onTied);
 
+    // Cleanup for event listeners
     return () => {
       socket.off("win", onWin);
       socket.off("lose", onLose);
       socket.off("tied", onTied);
     };
   }, [decision]);
-
-  // const findDecision = () => {
-  //   socket.emit("play", (response: string) => {
-  //     if (response === userData.name) setDecision("YOU WON !!!");
-  //     else if (response === "tied") setDecision("YOU TIED !!!");
-  //     else if (response !== "") setDecision("YOU LOSE !!!");
-  //     else setDecision("Loading...");
-  //     console.log(response);
-  //   });
-  //   console.log(userData.choice);
-  // };
-  // setInterval(findDecision, 1000);
 
   return (
     <GameLayout key="Decision">

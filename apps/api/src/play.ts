@@ -23,23 +23,29 @@ export function playManager(socket: Socket) {
     });
     getNames;
 
+    // Grab players
     const player1 = listPlayers[0];
     const player2 = listPlayers[1];
 
-    const winnerString = decideWinner({ player1, player2 });
-    const loserString = decideLoser({ player1, player2 });
-    const winner = await findUserSocket(winnerString);
-    const loser = await findUserSocket(loserString);
+    // Decide Winner and Loser
+    const winnerName = decideWinner({ player1, player2 });
+    const loserName = decideLoser({ player1, player2 });
+
+    // Find user sockets for winner and loser
+    const winner = await findUserSocket(winnerName);
+    const loser = await findUserSocket(loserName);
 
     console.log({ player1, player2 });
 
+    // NOTE: When fetching userSocket, it can be undefined so this if statement
+    // checks if its defined.
     if (winner) {
-      winner.emit("win");
+      winner.emit("win"); // Emits decision to show who won and who lost
     }
     if (loser) {
       loser.emit("lose");
     }
-    // TODO: Tie
+    // TODO: Add Tie Functionality
   });
 }
 
@@ -55,6 +61,9 @@ type DecideWinnerProps = {
 };
 
 function decideWinner({ player1, player2 }: DecideWinnerProps) {
+  // NOTE: Check if player1 and player2 exist because (like findSocket)
+  // they can possibly not exist, also check if choice is undefined (as in
+  // undecided)
   if (
     !player1 ||
     !player2 ||
@@ -64,6 +73,7 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
     return "";
   }
 
+  // Actual game logic, probably sucks compared to other implementations but who cares
   if (player1.choice === player2.choice) {
     return "tie";
   } else if (
@@ -77,6 +87,7 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
   }
 }
 
+// Same as previous function but copy pasted
 function decideLoser({ player1, player2 }: DecideWinnerProps) {
   if (
     !player1 ||

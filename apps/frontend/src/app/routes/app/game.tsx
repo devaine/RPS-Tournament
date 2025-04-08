@@ -39,6 +39,7 @@ const Game = () => {
       )}
       {currentScreen === "Ready" && <Ready key="Ready" />}
       {currentScreen === "Play" && (
+        /* All onCLicks set user choice, activate play socket event listener, and set screen to decision */
         <Play
           key="Play"
           rockOnClick={() => {
