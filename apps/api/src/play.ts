@@ -11,12 +11,11 @@ export type User = {
 };
 
 export function playManager(socket: Socket) {
-	// Listens to Client Choice
+  // Listens to Client Choice
   socket.on("setChoice", (choice: string) => {
     socket.data.choice = choice;
     console.log(socket.data.choice);
   });
-
 
   socket.on("play", async (callback) => {
     const getSockets = await io.in("game_room").fetchSockets();
@@ -60,7 +59,6 @@ export function playManager(socket: Socket) {
 			loser.leave("game_room")
 			loser.join("loser_room")
     }
-		
   });
 }
 
@@ -130,4 +128,6 @@ function tieSend(player1: RemoteSocket<DefaultEventsMap, any>, player2: RemoteSo
 	player1.emit("tied")
 	player2.emit("tied")
 
+  player1.emit("tied");
+  player2.emit("tied");
 }

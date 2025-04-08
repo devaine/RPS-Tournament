@@ -21,6 +21,8 @@ type DecisionProps = {
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
+  // TODO: Reset userChoice and/or computer choice so after a rematch, it will show up as loading after going again.
+
   // Use effect for handing decision useState using socketio event listeners
   useEffect(() => {
     const onWin = () => {
@@ -31,7 +33,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
     };
     const onTied = () => {
       setDecision("YOU TIED !!!");
-			console.log(userData.choice)
+      console.log(userData.choice);
     };
 
     socket.on("win", onWin);
@@ -53,19 +55,17 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
         {decision === "YOU LOSE !!!" && (
           <Button text="Go to Dashboard" link="/dashboard" />
         )}
-        {(decision === "YOU TIED !!!") && (
-          <Button text="Ready to go again?" onClick={ async () => { 
-						socket.emit("readyAgain");
-						enterOnClick()
-					}} />
-        )}
-        {decision !== "Loading..." && (
+        {decision === "YOU TIED !!!" && (
           <Button
-            text="Leave Game"
-            link="/"
-            color="background"
-            onClick={leaveOnClick}
+            text="Ready to go again?"
+            onClick={async () => {
+              socket.emit("readyAgain");
+              enterOnClick();
+            }}
           />
+        )}
+        {decision === "YOU WON !!!" && (
+          <Button text="Return to Lobby" onClick={leaveOnClick} />
         )}
       </MultiButtonLayout>
     </GameLayout>

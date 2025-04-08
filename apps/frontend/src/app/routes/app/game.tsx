@@ -22,7 +22,7 @@ const Game = () => {
         <Waiting
           key="Waiting"
           leaveOnClick={() => {}}
-          enterOnClick={ async () => {
+          enterOnClick={async () => {
             const promise = () =>
               new Promise((resolve) => {
                 socket.emit("playerReady");
@@ -31,20 +31,20 @@ const Game = () => {
                   return response;
                 });
 
-								socket.on("tie_retry", () => {})
+                socket.on("tie_retry", () => {});
               });
 
-						const promiseRetry = () =>
-							new Promise((resolve) => {
-								socket.on("retrySync", (response): GameScreen => {
-									resolve(response)
-									return response;
-								})
-							})
+            const promiseRetry = () =>
+              new Promise((resolve) => {
+                socket.on("retrySync", (response): GameScreen => {
+                  resolve(response);
+                  return response;
+                });
+              });
 
             setCurrentScreen("Ready");
             setCurrentScreen((await promise()) as GameScreen); // Settles for one game
-						setCurrentScreen((await promiseRetry()) as GameScreen); // Settles for ties
+            setCurrentScreen((await promiseRetry()) as GameScreen); // Settles for ties
           }}
         />
       )}
@@ -53,15 +53,15 @@ const Game = () => {
         /* All onCLicks set user choice, activate play socket event listener, and set screen to decision */
         <Play
           key="Play"
-					// TODO: Backend: Refactor for promises
-          rockOnClick={ async () => {
-						userData.choice = "rock";
-						socket.emit("setChoice", userData.choice); // Sends the choice
+          // TODO: Backend: Refactor for promises
+          rockOnClick={async () => {
+            userData.choice = "rock";
+            socket.emit("setChoice", userData.choice); // Sends the choice
 
             socket.emit("play", (response: string) => {
               console.log(response);
             });
-						
+
             setCurrentScreen("Decision");
           }}
           paperOnClick={() => {
@@ -86,9 +86,11 @@ const Game = () => {
         <Decision
           key="Decision"
           enterOnClick={() => {
-						setCurrentScreen("Ready")
-					}}
-          leaveOnClick={() => {}}
+            setCurrentScreen("Ready");
+          }}
+          leaveOnClick={() => {
+            setCurrentScreen("Waiting");
+          }}
         />
       )}
       {currentScreen === "End" && <End key="End" />}
