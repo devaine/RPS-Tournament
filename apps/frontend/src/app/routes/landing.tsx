@@ -1,5 +1,4 @@
-import React from "react";
-import { useState } from "react";
+import React, { useEffect, useState, createContext, useContext } from "react";
 import { AnimatePresence } from "framer-motion";
 import { Heading, Title } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
@@ -12,11 +11,47 @@ import type { User } from "@/types/gameAPI";
 
 // Backend Imports
 import { userData } from "@/config/global"; // Global Variables
-
+import { socket } from "@/features/socketio/init";
 import type { LandingScreen } from "@/types/gameAPI";
+
+type LandingContextType = {
+  updateLanding: (newValue: LandingScreen) => void; // Adjust the type as needed
+  // Add other context values here if needed
+};
+
+const LandingContext = createContext<LandingContextType | undefined>(undefined);
+
+export function LandingProvider({ children }: { children: ReactNode }) {
+  const [landingState, setLandingState] = useState<LandingScreen>("Register");
+
+  const updateLanding = (newValue: LandingScreen) => {
+    setLandingState(newValue);
+    // Add any socket.io logic here if needed
+  };
+
+  return (
+    <LandingContext.Provider value={{ updateLanding }}>
+      {children}
+    </LandingContext.Provider>
+  );
+}
 
 const Landing = () => {
   const [landingScreen, setLandingScreen] = useState<LandingScreen>("Register");
+
+  useEffect(() => {
+    socket.on("landing_update", (newLanding) => {
+      setLandingScreen(newLanding);
+    });
+
+    return () => {
+      socket.off("landing_update");
+    };
+  }, [landingScreen]);
+
+  const updateLanding = (newLanding: LandingScreen) => {
+    socket.emit("set_landing", newLanding);
+  };
 
   return (
     <RegisterLayout>
@@ -26,10 +61,10 @@ const Landing = () => {
         <Title text="SCISSORS" />
         <Title text="TOURNAMENT" />
       </div>
-      <AnimatePresence>
+      <LandingContext.Provider value={{ updateLanding }}>
         {landingScreen === "Register" && <RegisterScreen />}
         {landingScreen === "Game Started" && <GameStartedScreen />}
-      </AnimatePresence>
+      </LandingContext.Provider>
     </RegisterLayout>
   );
 };
@@ -176,5 +211,11 @@ const GameStartedScreen = () => {
     </div>
   );
 };
-
+export const useLandingContext = () => {
+  const context = useContext(LandingContext);
+  if (context === undefined) {
+    throw new Error("useLandingContext must be used within a LandingProvider");
+  }
+  return context;
+};
 export default Landing;

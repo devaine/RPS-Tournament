@@ -24,4 +24,4 @@ export type GameDecision =
   | "YOU TIED !!!"
   | "Loading...";
 
-export type GameChoices = "rock" | "paper" | "scissors";
+export type GameChoices = "rock" | "paper" | "scissors" | "";

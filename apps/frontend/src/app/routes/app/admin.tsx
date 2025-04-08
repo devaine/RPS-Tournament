@@ -13,6 +13,7 @@ import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
 
 import { socket } from "@/features/socketio/init";
+import { useLandingContext } from "@/app/routes/landing";
 
 type LoginProps = {
   onSubmit: () => void;
@@ -35,6 +36,7 @@ const validationSchema = Yup.object().shape({
 });
 
 // SocketIO Stuff
+
 function startRound() {
   socket.emit("startRound", (response: object) => {
     console.log(response);
@@ -119,6 +121,9 @@ const LoginScreen = ({ onSubmit }: LoginProps) => {
 const AdminScreen = () => {
   /* NOTE: Start not only starts the game but prevents new players from joining */
 
+  // FIX: UseContext not working to set landing page
+  // const { updateLanding } = useLandingContext();
+
   return (
     <div className="flex flex-col items-between">
       <div className="text-center">
@@ -136,7 +141,12 @@ const AdminScreen = () => {
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button text="Start" onClick={() => {}} />
+              <Button
+                text="Start"
+                onClick={() => {
+                  // updateLanding("Game Started");
+                }}
+              />
               <Button text="Pause" onClick={() => {}} />
               <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>
