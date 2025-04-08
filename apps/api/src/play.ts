@@ -38,8 +38,11 @@ export function playManager(socket: Socket) {
 		if (player1?.choice === player2?.choice){
 			const player1Socket = await findUserSocket(String(player1?.name))
 			const player2Socket = await findUserSocket(String(player2?.name))
-			if (player1Socket && player2Socket)
+			if (player1Socket && player2Socket) {
 				tieSend(player1Socket, player2Socket)
+				player1Socket.data.choice = undefined
+				player2Socket.data.choice = undefined
+			}
 
 		}
 
@@ -88,7 +91,7 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
 
   // Actual game logic, probably sucks compared to other implementations but who cares
   if (player1.choice === player2.choice) {
-    return "tie";
+    return "";
   } else if (
     (player1.choice === "rock" && player2.choice === "scissors") ||
     (player1.choice === "paper" && player2.choice === "rock") ||
@@ -112,7 +115,7 @@ function decideLoser({ player1, player2 }: DecideWinnerProps) {
   }
 
   if (player1.choice === player2.choice) {
-    return "tie";
+    return "";
   } else if (
     (player1.choice === "rock" && player2.choice === "scissors") ||
     (player1.choice === "paper" && player2.choice === "rock") ||
@@ -127,7 +130,4 @@ function decideLoser({ player1, player2 }: DecideWinnerProps) {
 function tieSend(player1: RemoteSocket<DefaultEventsMap, any>, player2: RemoteSocket<DefaultEventsMap, any>) {
 	player1.emit("tied")
 	player2.emit("tied")
-
-  player1.emit("tied");
-  player2.emit("tied");
 }
