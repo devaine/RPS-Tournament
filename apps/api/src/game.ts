@@ -2,6 +2,7 @@ import { Socket } from "socket.io";
 import { io } from "./index";
 
 var count = 0;
+var retryCount = 0;
 
 function randomNumber(min: number, max: number) {
       return Math.floor(Math.random() * (max - min) + min);
@@ -61,6 +62,7 @@ export function gameManager(socket: Socket) {
     // callback(list);
   });
 
+	// NOTE: Basically just waits for a both sockets to answer
   socket.on("playerReady", async (callback) => {
     const getSockets = await io.in("game_room").fetchSockets();
     const listSockets: string[] = [];
@@ -75,6 +77,27 @@ export function gameManager(socket: Socket) {
       io.to(String(listSockets[0])).emit("gameSync", "Play");
       io.to(String(listSockets[1])).emit("gameSync", "Play");
       count = 0;
+    } else {
+      null;
+    }
+  });
+
+	// NOTE: Basically just waits for a both sockets to answer BUT FOR TIES
+  socket.on("readyAgain", async () => {
+    const getSockets = await io.in("game_room").fetchSockets();
+    const listSockets: string[] = [];
+
+    for (const socket of getSockets) {
+      listSockets.push(socket.id);
+    }
+
+    retryCount++;
+
+    if (retryCount === 2) {
+      io.to(String(listSockets[0])).emit("retrySync", "Play");
+      io.to(String(listSockets[1])).emit("retrySync", "Play");
+			console.log(retryCount + " ASFNSOIAHFSAHF")
+      retryCount = 0;
     } else {
       null;
     }

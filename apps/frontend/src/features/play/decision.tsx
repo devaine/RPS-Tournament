@@ -5,6 +5,7 @@ import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import type { GameDecision } from "@/types/gameAPI";
+import type { GameScreen } from "@/types/gameAPI";
 import type { User } from "@/types/gameAPI";
 
 // NOTE: Backend not done yet, soz
@@ -30,6 +31,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
     };
     const onTied = () => {
       setDecision("YOU TIED !!!");
+			console.log(userData.choice)
     };
 
     socket.on("win", onWin);
@@ -51,8 +53,11 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
         {decision === "YOU LOSE !!!" && (
           <Button text="Go to Dashboard" link="/dashboard" />
         )}
-        {(decision === "YOU WON !!!" || decision === "YOU TIED !!!") && (
-          <Button text="Ready to go again?" onClick={() => enterOnClick} />
+        {(decision === "YOU TIED !!!") && (
+          <Button text="Ready to go again?" onClick={ async () => { 
+						socket.emit("readyAgain");
+						enterOnClick()
+					}} />
         )}
         {decision !== "Loading..." && (
           <Button

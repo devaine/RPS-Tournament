@@ -1,4 +1,5 @@
 import { Socket } from "socket.io";
+import type { RemoteSocket } from "socket.io"
 import { io } from "./index";
 
 export type User = {
@@ -9,12 +10,13 @@ export type User = {
   choice?: string;
 };
 
-
 export function playManager(socket: Socket) {
+	// Listens to Client Choice
   socket.on("setChoice", (choice: string) => {
     socket.data.choice = choice;
     console.log(socket.data.choice);
   });
+
 
   socket.on("play", async (callback) => {
     const getSockets = await io.in("game_room").fetchSockets();
@@ -33,11 +35,16 @@ export function playManager(socket: Socket) {
     const winnerName = decideWinner({ player1, player2 });
     const loserName = decideLoser({ player1, player2 });
 
+		if (player1?.choice === player2?.choice){
+			const player1Socket = await findUserSocket(String(player1?.name))
+			const player2Socket = await findUserSocket(String(player2?.name))
+
+			tieSend(player1Socket, player2Socket)
+		}
+
     // Find user sockets for winner and loser
     const winner = await findUserSocket(winnerName);
     const loser = await findUserSocket(loserName);
-
-    console.log({ player1, player2 });
 
     // NOTE: When fetching userSocket, it can be undefined so this if statement
     // checks if its defined.
@@ -47,7 +54,7 @@ export function playManager(socket: Socket) {
     if (loser) {
       loser.emit("lose");
     }
-    // TODO: Add Tie Functionality
+		
   });
 }
 
@@ -112,4 +119,10 @@ function decideLoser({ player1, player2 }: DecideWinnerProps) {
   } else {
     return player1.name;
   }
+}
+
+function tieSend(player1: RemoteSocket<any, any>, player2: RemoteSocket<any, any>) {
+	player1.emit("tied")
+	player2.emit("tied")
+
 }
