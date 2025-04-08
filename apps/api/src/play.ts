@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import type { RemoteSocket } from "socket.io"
+import { RemoteSocket, type DefaultEventsMap } from "socket.io"
 import { io } from "./index";
 
 export type User = {
@@ -35,11 +35,13 @@ export function playManager(socket: Socket) {
     const winnerName = decideWinner({ player1, player2 });
     const loserName = decideLoser({ player1, player2 });
 
+		// TODO: Add clearing choioces to frontend
 		if (player1?.choice === player2?.choice){
 			const player1Socket = await findUserSocket(String(player1?.name))
 			const player2Socket = await findUserSocket(String(player2?.name))
+			if (player1Socket && player2Socket)
+				tieSend(player1Socket, player2Socket)
 
-			tieSend(player1Socket, player2Socket)
 		}
 
     // Find user sockets for winner and loser
@@ -50,9 +52,13 @@ export function playManager(socket: Socket) {
     // checks if its defined.
     if (winner) {
       winner.emit("win"); // Emits decision to show who won and who lost
+			winner.join("contestant_room")
+			winner.leave("game_room")
     }
     if (loser) {
       loser.emit("lose");
+			loser.leave("game_room")
+			loser.join("loser_room")
     }
 		
   });
@@ -84,7 +90,6 @@ function decideWinner({ player1, player2 }: DecideWinnerProps) {
 
   // Actual game logic, probably sucks compared to other implementations but who cares
   if (player1.choice === player2.choice) {
-		// NOTE: Begin here for ties
     return "tie";
   } else if (
     (player1.choice === "rock" && player2.choice === "scissors") ||
@@ -121,7 +126,7 @@ function decideLoser({ player1, player2 }: DecideWinnerProps) {
   }
 }
 
-function tieSend(player1: RemoteSocket<any, any>, player2: RemoteSocket<any, any>) {
+function tieSend(player1: RemoteSocket<DefaultEventsMap, any>, player2: RemoteSocket<DefaultEventsMap, any>) {
 	player1.emit("tied")
 	player2.emit("tied")
 
