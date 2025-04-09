@@ -10,6 +10,6 @@ export default defineConfig({
   plugins: [tsconfigPaths(), react(), tailwindcss()],
   server: {
     //port: Number(process.env.VITE_PORT) // Converted into a number
-    port: Number(process.env.VITE_PORT),
+   // port: Number(process.env.VITE_PORT),
   },
 });
