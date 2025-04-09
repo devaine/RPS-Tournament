@@ -6,6 +6,7 @@ import { PORT, URL, FRONTEND_PORT } from "./config";
 import { gameManager } from "./game";
 import { contestantManager } from "./contestants";
 import { playManager } from "./play";
+import { listManager } from "./list";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
@@ -46,6 +47,7 @@ io.on("connection", (socket) => {
   gameManager(socket);
   contestantManager(socket, playerCount);
   playManager(socket);
+  listManager(socket);
 
   io.emit("landing_update", globalLandingState);
 
@@ -61,34 +63,6 @@ io.on("connection", (socket) => {
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {
     console.log("user: " + socket.id + " disconnected!");
-  });
-
-  // Fetch data for all sockets in rooms & find their data
-  socket.on("contestantList", async (callback) => {
-    const getSockets = await io.in("contestant_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
-      return value.data.name;
-    });
-
-    callback(getNames);
-  });
-
-  socket.on("playerList", async (callback) => {
-    const getSockets = await io.in("game_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
-      return value.data.name;
-    });
-
-    callback(getNames);
-  });
-
-  socket.on("loserList", async (callback) => {
-    const getSockets = await io.in("loser_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
-      return value.data.name;
-    });
-
-    callback(getNames);
   });
 });
 

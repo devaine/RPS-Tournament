@@ -14,6 +14,7 @@ const RegisterScreen = () => {
   const formPlaceHolder: User = {
     name: "Bogos Binted",
     id: 1234567,
+    avatar: "",
   };
   const navigate = useNavigate();
 

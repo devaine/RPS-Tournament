@@ -10,7 +10,7 @@ export const Avatar = ({ src }: { src: string }) => {
 
 export const SmallAvatar = ({ src }: { src: string }) => {
   return (
-    <div className="size-12 bg-accent border-box box-shadow-extend">
+    <div className="size-20 bg-accent border-box box-shadow-extend">
       <img src={src} />
     </div>
   );

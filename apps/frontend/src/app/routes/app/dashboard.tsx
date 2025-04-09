@@ -6,6 +6,7 @@ import Divider from "@/components/ui/divider";
 import { PlayerList } from "@/components/ui/lists";
 import { BackButton } from "@/components/ui/button";
 import { TextBoxLayout } from "@/components/layouts/text-box-layout";
+import type { User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -19,32 +20,34 @@ if (socket.disconnected && userData.status != "loser") {
     socket.emit("join_event", {
       name: userData.name,
       id: userData.id,
+      avatar: userData.avatar,
     });
   }
 }
 
 const Dashboard = () => {
-  const [contestants, setContestants] = useState<string[]>([]);
-  const [players, setPlayers] = useState<string[]>([]);
-  const [losers, setLosers] = useState<string[]>([]);
+  const [contestants, setContestants] = useState<User[]>([]);
+  const [players, setPlayers] = useState<User[]>([]);
+  const [losers, setLosers] = useState<User[]>([]);
 
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
   useEffect(() => {
     const fetchContestants = () => {
-      socket.emit("contestantList", (contestantNames: string[]) => {
+      socket.emit("contestantList", (contestantNames: User[]) => {
         setContestants(contestantNames);
+        console.log(contestantNames);
       });
     };
 
     const fetchPlayers = () => {
-      socket.emit("playerList", (playerNames: string[]) => {
+      socket.emit("playerList", (playerNames: User[]) => {
         setPlayers(playerNames);
       });
     };
 
     const fetchLosers = () => {
-      socket.emit("loserList", (loserNames: string[]) => {
+      socket.emit("loserList", (loserNames: User[]) => {
         setLosers(loserNames);
       });
     };

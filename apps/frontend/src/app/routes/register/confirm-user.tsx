@@ -19,6 +19,8 @@ const ConfirmUser = () => {
       choice: userData.choice,
       status: userData.status,
     });
+
+    localStorage.setItem("student_info", JSON.stringify(userData));
   }
 
   return (
