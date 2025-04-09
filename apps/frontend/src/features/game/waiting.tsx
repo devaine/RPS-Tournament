@@ -4,6 +4,7 @@ import { Heading } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
+import { type User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";

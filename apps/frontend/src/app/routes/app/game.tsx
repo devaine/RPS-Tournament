@@ -7,7 +7,6 @@ import Decision from "@/features/play/decision";
 import End from "@/features/game/end";
 import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
-import type { GameDecision } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -55,27 +54,37 @@ const Game = () => {
           key="Play"
           // TODO: Backend: Refactor for promises
           rockOnClick={async () => {
-            userData.choice = "rock";
-            socket.emit("setChoice", userData.choice); // Sends the choice
-
-            socket.emit("play", (response: string) => {
-              console.log(response);
-            });
-
+						const promise = () => new Promise((resolve) => {
+							userData.choice = "rock"
+							socket.emit("play", userData.choice, (response: string) => {
+								resolve(response)
+							});
+						})
+							
             setCurrentScreen("Decision");
+						socket.emit("gameResult", (await promise()))
           }}
-          paperOnClick={() => {
-            userData.choice = "paper";
-            socket.emit("setChoice", userData.choice);
-            socket.emit("play", (response: string) => {
-              console.log(response);
-            });
+          paperOnClick={async () => {
+            const promise = () => new Promise((resolve) => {
+							userData.choice = "paper"
+							socket.emit("play", userData.choice, (response: string) => {
+								resolve(response)
+							});
+						})
+
             setCurrentScreen("Decision");
+						socket.emit("gameResult", (await promise()))
           }}
-          scissorsOnClick={() => {
-            userData.choice = "scissors";
-            socket.emit("setChoice", userData.choice);
+          scissorsOnClick={async () => {
+            const promise = () => new Promise((resolve) => {
+							userData.choice = "scissors"
+							socket.emit("play", userData.choice, (response: string) => {
+								resolve(response)
+							});
+						})
+
             setCurrentScreen("Decision");
+						socket.emit("gameResult", (await promise()))
           }}
         />
       )}

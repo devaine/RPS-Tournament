@@ -26,16 +26,10 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
 	// when [] is empty with every component update, executes useEffect
 	// react will not return a promise as a function
 	// async always returns promises
-	useEffect(() => {
-		fetchConclusion()
-		return () => {}
-	}, [])
-
-	function fetchConclusion() {
-		socket.emit("play", (response) => {
-
-		})
-	}
+	
+	socket.on("gameResult", (response: string) => {
+		console.log(response)
+	})
 
 
   //useEffect(() => {

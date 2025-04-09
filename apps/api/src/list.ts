@@ -9,7 +9,7 @@ export function listManager(socket: Socket) {
       return value.data;
     });
 
-    callback(getContestants.filter(Boolean)); // Filter out undefined names
+    callback(getContestants.filter(Boolean));
   });
 
   socket.on("playerList", async (callback) => {
@@ -18,7 +18,7 @@ export function listManager(socket: Socket) {
       return value.data;
     });
 
-    callback(getPlayers.filter(Boolean)); // Also filters out ghost players
+    callback(getPlayers.filter(Boolean));
   });
 
   socket.on("loserList", async (callback) => {
