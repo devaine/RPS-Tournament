@@ -3,7 +3,7 @@
 	"license": "ISC",
 	"private": true,
 	"scripts": {
-		"dev": "vite",
+		"dev": "vite --host 0.0.0.0",
 		"host": "vite --host",
 		"build": "vite build",
 		"preview": "vite preview"
