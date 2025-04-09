@@ -47,9 +47,15 @@ io.on("connection", (socket) => {
   contestantManager(socket, playerCount);
   playManager(socket);
 
+  io.emit("landing_update", globalLandingState);
+
+  socket.on("get_initial_state", () => {
+    socket.emit("screen-state-update", globalLandingState);
+  });
+
   socket.on("start_game", async (callback) => {
-    io.emit("landing_update", "Game Started");
-    callback("Game Started");
+    globalLandingState = "Game Started";
+    io.emit("landing_update", globalLandingState);
   });
 
   // Handles genuine disconnection (refreshes + crashes etc.)

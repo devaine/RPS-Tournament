@@ -7,8 +7,7 @@ import type { LandingScreen } from "@/types/gameAPI";
 
 type LandingContextType = {
   landingState: LandingScreen;
-  setLandingState: React.Dispatch<React.SetStateAction<LandingScreen>>;
-  // Add other context values here if needed
+  setLandingState: (newLanding: LandingScreen) => void;
 };
 
 export const LandingContext = createContext<LandingContextType | undefined>(
@@ -23,13 +22,24 @@ export function LandingProvider({ children }: { children: React.ReactNode }) {
       setLandingState(newLanding);
     });
 
+    // Get initial state from server
+    socket.emit("get_initial_state");
+
     return () => {
       socket.off("landing_update");
     };
   }, [landingState]);
 
+  const handleSetLandingState = (newLanding: LandingScreen) => {
+    setLandingState(newLanding);
+    // Notify server about the screen change
+    socket?.emit("landing_update", newLanding);
+  };
+
   return (
-    <LandingContext.Provider value={{ landingState, setLandingState }}>
+    <LandingContext.Provider
+      value={{ landingState, setLandingState: handleSetLandingState }}
+    >
       {children}
     </LandingContext.Provider>
   );
