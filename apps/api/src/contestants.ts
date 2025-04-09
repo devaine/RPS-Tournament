@@ -11,6 +11,7 @@ export function contestantManager(socket: Socket, playerCount: number) {
 
     // Join a room (participant_room) with all other clients...
     // FIX: Add conditional to not set room if already in room
+    // Low Priority
     socket.join("contestant_room");
     console.log(data.name + " joined contestant room");
 

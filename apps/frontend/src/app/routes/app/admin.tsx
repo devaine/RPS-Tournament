@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
 
 import { socket } from "@/features/socketio/init";
-import { useLandingContext } from "@/app/routes/landing";
+import { useLandingContext } from "@/features/game/start";
 
 type LoginProps = {
   onSubmit: () => void;
