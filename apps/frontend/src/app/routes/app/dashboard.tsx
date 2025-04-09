@@ -34,21 +34,20 @@ const Dashboard = () => {
   // TODO: Make string of contestants return ALL contestants
   useEffect(() => {
     const fetchContestants = () => {
-      socket.emit("contestantList", (contestantNames: User[]) => {
-        setContestants(contestantNames);
-        console.log(contestantNames);
+      socket.emit("contestantList", (contestants: User[]) => {
+        setContestants(contestants);
       });
     };
 
     const fetchPlayers = () => {
-      socket.emit("playerList", (playerNames: User[]) => {
-        setPlayers(playerNames);
+      socket.emit("playerList", (players: User[]) => {
+        setPlayers(players);
       });
     };
 
     const fetchLosers = () => {
-      socket.emit("loserList", (loserNames: User[]) => {
-        setLosers(loserNames);
+      socket.emit("loserList", (losers: User[]) => {
+        setLosers(losers);
       });
     };
 
@@ -63,9 +62,6 @@ const Dashboard = () => {
         <div>
           <Title text="Dashboard" />
           <Divider />
-          <TextBoxLayout>
-            <Statistic text="Round" text2="0" />
-          </TextBoxLayout>
         </div>
         <div className="flex flex-col gap-4">
           {players.length > 0 ? (

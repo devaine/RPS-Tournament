@@ -4,36 +4,17 @@ import { Title, Heading, Text } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import Dashboard from "@/app/routes/app/dashboard";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import { RegisterLayout } from "@/components/layouts/register-layout";
 import type { User } from "@/types/gameAPI";
 import { Input } from "@/components/ui/input";
 import { Formik } from "formik";
 import { AnimatePresence } from "framer-motion";
 import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
+import { AdminLogin } from "@/features/auth/admin-login";
 
 import { socket } from "@/features/socketio/init";
 import { useLandingContext } from "@/features/game/landing-context";
-
-type LoginProps = {
-  onSubmit: () => void;
-};
-
-// Admin password is the first 7 digits of the Fibonacci sequence
-// const adminCred: User = {
-//   name: "Admin Gang Admin Gang",
-//   id: 11235813,
-// };
-
-const adminCred: User = {
-  name: "test",
-  id: 123,
-};
-
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required(),
-  id: Yup.number().required(),
-});
+import Divider from "@/components/ui/divider";
 
 // SocketIO Stuff
 
@@ -50,7 +31,6 @@ function removePlayer() {
 }
 
 function startGame() {
-  console.log("did stuff");
   socket.emit("start_game", (response: object) => {
     console.log(response);
   });
@@ -67,61 +47,10 @@ export const Admin = () => {
   return (
     <AnimatePresence mode="wait">
       {currentScreen === "Login" && (
-        <LoginScreen onSubmit={() => setCurrentScreen("Admin")} />
+        <AdminLogin onSubmit={() => setCurrentScreen("Admin")} />
       )}
       {currentScreen === "Admin" && <AdminScreen />}
     </AnimatePresence>
-  );
-};
-
-const LoginScreen = ({ onSubmit }: LoginProps) => {
-  return (
-    <RegisterLayout>
-      <Formik
-        initialValues={{ name: "", id: "" }}
-        onSubmit={(values) => {
-          if (
-            values.name === adminCred.name &&
-            values.id === String(adminCred.id)
-          ) {
-            onSubmit();
-          }
-        }}
-        validationSchema={validationSchema}
-      >
-        {({
-          values,
-          handleChange,
-          handleSubmit,
-          /* and other goodies */
-        }) => (
-          <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-            <Input
-              id="name"
-              type="text"
-              label="Admin Username"
-              onChange={handleChange}
-              value={values.name}
-              placeholder={""}
-              maxLength={30}
-            />
-            <Input
-              id="id"
-              type="password"
-              inputMode="numeric" // Added for best compatibility
-              label="Admin Password"
-              onChange={handleChange}
-              value={values.id}
-              placeholder={""}
-              maxLength={8}
-            />
-            <div className="p-4">
-              <Button type="submit" text="Submit"></Button>
-            </div>
-          </form>
-        )}
-      </Formik>
-    </RegisterLayout>
   );
 };
 
@@ -138,20 +67,21 @@ const AdminScreen = () => {
       </div>
       <div className="flex min-w-screen gap-8 p-4">
         <div className="flex flex-col basis-1/3 gap-4">
-          <Heading text="Management" />
+          <Title text="Management" />
+          <Divider />
           <div className="flex flex-col gap-2">
-            <Text text="Round" />
+            <Heading text="Round" />
             <MultiButtonLayout horizontal={true}>
               <Button text="Start Round" onClick={startRound} />
               <Button text="Remove Player" onClick={removePlayer} />
-              <Button text="Fix Tie" onClick={() => {}} />
             </MultiButtonLayout>
-            <Text text="Game" />
+            <Heading text="Game" />
             <MultiButtonLayout horizontal={true}>
               <Button text="Start" onClick={startGame} />
-              <Button text="Pause" onClick={() => {}} />
               <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>
+            <Heading text="Contestants" />
+            {removeContestant()}
           </div>
         </div>
         <div className="basis-full">
@@ -159,6 +89,37 @@ const AdminScreen = () => {
         </div>
       </div>
     </div>
+  );
+};
+
+const removeContestant = () => {
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required(),
+  });
+
+  return (
+    <MultiButtonLayout horizontal={true}>
+      <Formik
+        initialValues={{ name: "" }}
+        onSubmit={(values) => { }}
+        validationSchema={validationSchema}
+      >
+        {({ values, handleChange, handleSubmit }) => (
+          <form onSubmit={handleSubmit} className="flex gap-4 items-end">
+            <Input
+              id="name"
+              type="text"
+              label="Remove Contestant by First Name"
+              onChange={handleChange}
+              value={values.name}
+              placeholder="Bogos"
+              maxLength={30}
+            />
+            <Button type="submit" text="Enter" />
+          </form>
+        )}
+      </Formik>
+    </MultiButtonLayout>
   );
 };
 
