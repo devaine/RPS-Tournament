@@ -22,30 +22,43 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
   // Use effect for handing decision useState using socketio event listeners
+		
+	useEffect(() => {
+		const promise = () => new Promise((resolve) => {
+			socket.on("game_outcome", (response: string) => {
+				resolve(response)
+			})
+		})
 
-	//
-  useEffect(() => {
-    const onWin = () => {
-      setDecision("YOU WON !!!");
-    };
-    const onLose = () => {
-      setDecision("YOU LOSE !!!");
-    };
-    const onTied = () => {
-      setDecision("YOU TIED !!!");
-    };
+		const turnout = async () => {
+			setDecision((await promise() as GameDecision))
+		}
+		turnout()
+	})
 
-    socket.on("win", onWin);
-    socket.on("lose", onLose);
-    socket.on("tied", onTied);
 
-    // Cleanup for event listeners
-    return () => {
-      socket.off("win", onWin);
-      socket.off("lose", onLose);
-      socket.off("tied", onTied);
-    };
-  }, [decision]);
+  //useEffect(() => {
+  //  const onWin = () => {
+  //    setDecision("YOU WON !!!");
+  //  };
+  //  const onLose = () => {
+  //    setDecision("YOU LOSE !!!");
+  //  };
+  //  const onTied = () => {
+  //    setDecision("YOU TIED !!!");
+  //  };
+
+  //  socket.on("win", onWin);
+  //  socket.on("lose", onLose);
+  //  socket.on("tied", onTied);
+
+  //  // Cleanup for event listeners
+  //  return () => {
+  //    socket.off("win", onWin);
+  //    socket.off("lose", onLose);
+  //    socket.off("tied", onTied);
+  //  };
+  //}, [decision]);
 
   return (
     <GameLayout key="Decision">
