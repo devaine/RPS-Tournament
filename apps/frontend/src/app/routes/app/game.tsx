@@ -86,18 +86,19 @@ function gameSyncRetry() {
 }
 
 async function getPlayerChoice(choice: GameChoices) {
-  const promise = () =>
-    new Promise((resolve) => {
-      userData.choice = choice;
-      socket.emit("play", userData.choice, (response: string) => {
-        resolve(response);
-      });
+  return new Promise((resolve) => {
+    userData.choice = choice;
+    socket.emit("play", userData.choice, (response: string) => {
+      resolve(response);
     });
-
-  socket.emit("gameResult", await promise());
+  });
 }
 
 // For Handing the game itself, use promise.then wahtever
-// function gamePlayPromise() {}
+function gamePlayPromise(choice: GameChoices) {
+  getPlayerChoice(choice).then((response) => {
+    socket.emit("gameResult", response);
+  });
+}
 
 export default Game;

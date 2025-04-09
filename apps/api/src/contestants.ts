@@ -40,12 +40,8 @@ export function contestantManager(socket: Socket, playerCount: number) {
     socket.disconnect();
   });
 
-  // Send current state to new connections
-  socket.emit("landing_update", landingScreen);
-
-  // Handle state changes from clients
-  socket.on("set_landing", (newLanding: LandingScreen) => {
-    // Broadcast to all connected clients
-    io.emit("state_update", newLanding);
+  // Handles genuine disconnection (refreshes + crashes etc.)
+  socket.on("disconnect", () => {
+    console.log("user: " + socket.id + " disconnected!");
   });
 }
