@@ -30,9 +30,9 @@ const TV = () => {
       });
     };
 
-    setInterval(fetchContestants, 1000);
-    setInterval(fetchPlayers, 1000);
-  }, [socket]);
+    fetchContestants();
+    fetchPlayers();
+  }, [contestants, players]);
 
   return (
     <div className="flex flex-col h-min-screen justify-evenly">

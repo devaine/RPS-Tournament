@@ -35,7 +35,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
     return () => {
       socket.off("gameResult");
     };
-  });
+  }, [socket]);
 
   //useEffect(() => {
   //  const onWin = () => {

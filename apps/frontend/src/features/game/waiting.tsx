@@ -37,8 +37,8 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
       });
     };
 
-    setInterval(checkQueue, 1000);
-  }, [socket]);
+    setInterval(checkQueue, 100);
+  }, [isPlayer]);
 
   const disconnectSocket = () => {
     socket.emit("leave_event", {

@@ -16,12 +16,9 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
     useState<GameDecision>("Loading...");
 
   useEffect(() => {
-    socket.on("decision_update", (newLanding) => {
+    socket.on("set_decision", (newLanding) => {
       setDecisionState(newLanding);
     });
-
-    // Get initial state from server
-    socket.emit("get_initial_decision");
 
     return () => {
       socket.off("decision_update");
