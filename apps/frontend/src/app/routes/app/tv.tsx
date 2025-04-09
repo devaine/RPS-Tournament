@@ -10,31 +10,43 @@ import type { User } from "@/types/gameAPI";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 import { Avatar } from "@/components/ui/avatar";
+import { PlayerList } from "@/components/ui/lists";
 
 // TODO: Make this prototype actually do stuff
 const TV = () => {
   const [players, setPlayers] = useState<User[]>([]);
+  const [contestants, setContestants] = useState<User[]>([]);
 
   useEffect(() => {
+    const fetchContestants = () => {
+      socket.emit("contestantList", (contestants: User[]) => {
+        setContestants(contestants);
+      });
+    };
+
     const fetchPlayers = () => {
       socket.emit("playerList", (players: User[]) => {
         setPlayers(players);
       });
     };
+
+    setInterval(fetchContestants, 1000);
     setInterval(fetchPlayers, 1000);
-    console.log(players);
   }, [socket]);
 
   return (
-    <TVLayout>
-      {players.length > 0
-        ? displayPlayer({ index: 0, players: players })
-        : displayEmptyPlayer()}
-      <Announce text="VS" />
-      {players.length > 1
-        ? displayPlayer({ index: 1, players: players })
-        : displayEmptyPlayer()}
-    </TVLayout>
+    <div className="flex flex-col h-min-screen justify-evenly">
+      <TVLayout>
+        {players.length > 0
+          ? displayPlayer({ index: 0, players: players })
+          : displayEmptyPlayer()}
+        <Announce text="VS" />
+        {players.length > 1
+          ? displayPlayer({ index: 1, players: players })
+          : displayEmptyPlayer()}
+      </TVLayout>
+      <PlayerList header="Spectators" players={contestants} />
+    </div>
   );
 };
 
