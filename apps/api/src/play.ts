@@ -2,40 +2,37 @@ import { Socket } from "socket.io";
 import { type RemoteSocket, type DefaultEventsMap } from "socket.io"
 import { io } from "./index";
 
-var count = 0;
+var decisionCount = 0;
 
 export function playManager(socket: Socket) {
-  // Listens to Client Choice
-  socket.on("setChoice", (arg) => {
-    socket.data.choice = arg;
-  });
+  socket.on("play", async (arg: string, callback) => {
+		decisionCount = decisionCount + 1
 
-  socket.on("play", async (callback) => {
     const getSockets = await io.in("game_room").fetchSockets();
     const listPlayers: string[] = [];
-    const getIDs = getSockets.map(function (value) {
-      listPlayers.push(value.id)
-    }); getIDs
+    const getIDs = getSockets.forEach(function(value) {
+			listPlayers.push(value.id)
+		})
 
-		count++
-		
-		// PLAYER1 & PLAYER2 ARE SOCKET OBJECTS
-		const player1 = io.sockets.sockets.get(String(listPlayers[0]))
-		const player2 = io.sockets.sockets.get(String(listPlayers[1]))
+		getIDs
 
-		if(count == 2) {
-			// IDS ONLY
-			var winner: string | undefined = ""
-			var loser: string | undefined = ""
-			
-			const test = decideWinner(player1, player2)
+		// Secures the choice in client data
+		console.log(socket.id)
+		socket.data.choice = arg
 
-			console.log(test)
+		if(decisionCount === 2) {
+			const player1ID = String(listPlayers[0])
+			const player2ID = String(listPlayers[1])
 
-			// Checks for ties
-			if (player1?.data.choice === player2?.data.choice) {
-				
-			}
+			console.log(player1ID)
+			console.log(player2ID)
+
+
+			socket.emit("gameResult", "testeste")
+
+			decisionCount = 0
+		} else {
+			null
 		}
 
 

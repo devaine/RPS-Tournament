@@ -4,6 +4,7 @@ import { Heading } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
+import { type User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -18,12 +19,18 @@ type WaitingProps = {
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
 
-  console.log(userData);
-
+	const matchPlayerName = (players: User[]) => {
+		for (let i = 0; i < players.length; i++) {
+			if(players[i].name === userData.name) {
+				return true
+			}
+		}
+	}
+	
   useEffect(() => {
     const checkQueue = () => {
-      socket.emit("playerList", (playerNames: string[]) => {
-        if (playerNames.includes(userData.name)) {
+      socket.emit("playerList", (playerNames: User[]) => {
+        if (matchPlayerName(playerNames)) {
           setPlayer(true);
         }
       });

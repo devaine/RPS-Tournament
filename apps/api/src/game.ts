@@ -41,9 +41,12 @@ export function gameManager(socket: Socket) {
     for (const socket of getSockets) {
       listSockets.push(socket.id);
     }
+
     const player = listSockets[randomNumber(0, getSockets.length)];
+
     io.to(String(player)).socketsLeave("game_room");
     io.to(String(player)).socketsJoin("contestant_room");
+
     const check = await io.in("game_room").fetchSockets();
     const list = check.map(function(data) {
       console.log(data.id);
