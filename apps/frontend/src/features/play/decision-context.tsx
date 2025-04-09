@@ -1,13 +1,10 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { socket } from "@/features/socketio/init";
-
-// NOTE: This file is mostly used as functions to provide a universal way to access landing state (whether it should be set to register or game started)
-
 import type { GameDecision } from "@/types/gameAPI";
 
 type DecisionContextType = {
   decisionState: GameDecision;
-  setDecisionState: (newLanding: GameDecision) => void;
+  setDecisionState: (newDecision: GameDecision) => void;
 };
 
 export const DecisionContext = createContext<DecisionContextType | undefined>(
@@ -39,10 +36,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DecisionContext.Provider
-      value={{
-        decisionState: decisionState,
-        setDecisionState: handleSetDecisionState,
-      }}
+      value={{ decisionState, setDecisionState: handleSetDecisionState }}
     >
       {children}
     </DecisionContext.Provider>
