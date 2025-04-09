@@ -8,7 +8,6 @@ import { type User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
-import type { User } from "@/types/gameAPI";
 import { userData } from "@/config/global";
 
 // NOTE: Backend: Figure out what to do here on the props

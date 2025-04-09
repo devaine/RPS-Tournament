@@ -7,6 +7,7 @@ import Decision from "@/features/play/decision";
 import End from "@/features/game/end";
 import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
+import type { GameChoices } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -22,28 +23,9 @@ const Game = () => {
           key="Waiting"
           leaveOnClick={() => {}}
           enterOnClick={async () => {
-            const promise = () =>
-              new Promise((resolve) => {
-                socket.emit("playerReady");
-                socket.on("gameSync", (response): GameScreen => {
-                  resolve(response);
-                  return response;
-                });
-
-                socket.on("tie_retry", () => {});
-              });
-
-            const promiseRetry = () =>
-              new Promise((resolve) => {
-                socket.on("retrySync", (response): GameScreen => {
-                  resolve(response);
-                  return response;
-                });
-              });
-
             setCurrentScreen("Ready");
-            setCurrentScreen((await promise()) as GameScreen); // Settles for one game
-            setCurrentScreen((await promiseRetry()) as GameScreen); // Settles for ties
+            setCurrentScreen((await gameSync()) as GameScreen); // Settles for one game
+            setCurrentScreen((await gameSyncRetry()) as GameScreen); // Settles for ties
           }}
         />
       )}
@@ -54,37 +36,16 @@ const Game = () => {
           key="Play"
           // TODO: Backend: Refactor for promises
           rockOnClick={async () => {
-						const promise = () => new Promise((resolve) => {
-							userData.choice = "rock"
-							socket.emit("play", userData.choice, (response: string) => {
-								resolve(response)
-							});
-						})
-							
+            getPlayerChoice("rock");
             setCurrentScreen("Decision");
-						socket.emit("gameResult", (await promise()))
           }}
           paperOnClick={async () => {
-            const promise = () => new Promise((resolve) => {
-							userData.choice = "paper"
-							socket.emit("play", userData.choice, (response: string) => {
-								resolve(response)
-							});
-						})
-
+            getPlayerChoice("paper");
             setCurrentScreen("Decision");
-						socket.emit("gameResult", (await promise()))
           }}
           scissorsOnClick={async () => {
-            const promise = () => new Promise((resolve) => {
-							userData.choice = "scissors"
-							socket.emit("play", userData.choice, (response: string) => {
-								resolve(response)
-							});
-						})
-
+            getPlayerChoice("scissors");
             setCurrentScreen("Decision");
-						socket.emit("gameResult", (await promise()))
           }}
         />
       )}
@@ -103,5 +64,40 @@ const Game = () => {
     </AnimatePresence>
   );
 };
+function gameSync() {
+  return new Promise((resolve) => {
+    socket.emit("playerReady");
+    socket.on("gameSync", (response): GameScreen => {
+      resolve(response);
+      return response;
+    });
+
+    socket.on("tie_retry", () => {});
+  });
+}
+
+function gameSyncRetry() {
+  return new Promise((resolve) => {
+    socket.on("retrySync", (response): GameScreen => {
+      resolve(response);
+      return response;
+    });
+  });
+}
+
+function getPlayerChoice(choice: GameChoices) {
+  const promise = () =>
+    new Promise((resolve) => {
+      userData.choice = choice;
+      socket.emit("play", userData.choice, (response: string) => {
+        resolve(response);
+      });
+    });
+
+  socket.emit("gameResult", await promise());
+}
+
+// For Handing the game itself, use promise.then wahtever
+// function gamePlayPromise() {}
 
 export default Game;
