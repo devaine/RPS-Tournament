@@ -24,12 +24,13 @@ export function playManager(socket: Socket) {
 		const player2 = io.sockets.sockets.get(String(listPlayers[1]))
 
 		if(count == 2) {
+			// IDS ONLY
 			var winner: string | undefined = ""
 			var loser: string | undefined = ""
 			
+			const test = decideWinner(player1, player2)
 
-
-			count = 0
+			console.log(test)
 
 			// Checks for ties
 			if (player1?.data.choice === player2?.data.choice) {
@@ -50,7 +51,7 @@ export function playManager(socket: Socket) {
   });
 }
 
-async function decideWinner( player1: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any> | undefined, player2: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any> | undefined ): Promise<string[]> {
+function decideWinner( player1: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any> | undefined, player2: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any> | undefined ): Promise<string[]> {
   // NOTE: Check if player1 and player2 exist because (like findSocket)
   // they can possibly not exist, also check if `choice` is undefined (as in
   // undecided)

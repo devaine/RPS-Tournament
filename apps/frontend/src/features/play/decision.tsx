@@ -22,19 +22,20 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
   // Use effect for handing decision useState using socketio event listeners
-		
+	// when [var] changes, executes useEffect
+	// when [] is empty with every component update, executes useEffect
+	// react will not return a promise as a function
+	// async always returns promises
 	useEffect(() => {
-		const promise = () => new Promise((resolve) => {
-			socket.on("game_outcome", (response: string) => {
-				resolve(response)
-			})
-		})
+		fetchConclusion()
+		return () => {}
+	}, [])
 
-		const turnout = async () => {
-			setDecision((await promise() as GameDecision))
-		}
-		turnout()
-	})
+	function fetchConclusion() {
+		socket.emit("play", (response) => {
+
+		})
+	}
 
 
   //useEffect(() => {
