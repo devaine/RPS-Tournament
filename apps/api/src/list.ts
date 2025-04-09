@@ -5,28 +5,28 @@ export function listManager(socket: Socket) {
   // Fetch data for all sockets in rooms & find their data
   socket.on("contestantList", async (callback) => {
     const getSockets = await io.in("contestant_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
+    const getContestants = getSockets.map(function (value) {
       return value.data;
     });
 
-    callback(getNames);
+    callback(getContestants.filter(Boolean)); // Filter out undefined names
   });
 
   socket.on("playerList", async (callback) => {
     const getSockets = await io.in("game_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
+    const getPlayers = getSockets.map(function (value) {
       return value.data;
     });
 
-    callback(getNames);
+    callback(getPlayers.filter(Boolean)); // Also filters out ghost players
   });
 
   socket.on("loserList", async (callback) => {
     const getSockets = await io.in("loser_room").fetchSockets();
-    const getNames = getSockets.map(function (value) {
+    const getLosers = getSockets.map(function (value) {
       return value.data;
     });
 
-    callback(getNames);
+    callback(getLosers.filter(Boolean));
   });
 }

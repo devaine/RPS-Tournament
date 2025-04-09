@@ -7,6 +7,7 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
+import type { User } from "@/types/gameAPI";
 import { userData } from "@/config/global";
 
 // NOTE: Backend: Figure out what to do here on the props
@@ -18,12 +19,19 @@ type WaitingProps = {
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
 
-  console.log(userData);
+  const matchPlayerName = (players: User[]) => {
+    for (let i = 0; i < players.length; i++) {
+      if (players[i].name === userData.name) {
+        return true;
+      }
+    }
+    return false;
+  };
 
   useEffect(() => {
     const checkQueue = () => {
-      socket.emit("playerList", (playerNames: string[]) => {
-        if (playerNames.includes(userData.name)) {
+      socket.emit("playerList", (players: User[]) => {
+        if (matchPlayerName(players)) {
           setPlayer(true);
         }
       });
