@@ -36,6 +36,7 @@ app.get("/", (req, res) => {
 });
 
 var playerCount = 0;
+let globalLandingState: string = "Register";
 
 /* NOTE: When there's a connection ("connection") open up listeners
  *	 If "join_event" is true (from client-end) grab data from client
@@ -45,6 +46,11 @@ io.on("connection", (socket) => {
   gameManager(socket);
   contestantManager(socket, playerCount);
   playManager(socket);
+
+  socket.on("start_game", async (callback) => {
+    io.emit("landing_update", "Game Started");
+    callback("Game Started");
+  });
 
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {

@@ -79,6 +79,14 @@ export function Heading({ text }: TextProps) {
   );
 }
 
+export function ErrorText({ text }: TextProps) {
+  return (
+    <p className="text-background text-3xl text-stroke stroke-black font-jersey-10">
+      {text}
+    </p>
+  );
+}
+
 export function Text({ text }: TextProps) {
   return (
     <p className="text-paragraph text-3xl text-stroke stroke-black font-jersey-10">

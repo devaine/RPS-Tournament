@@ -1,4 +1,5 @@
 import React from "react";
+import { ErrorText } from "@/components/ui/text";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { Formik } from "formik";
@@ -59,25 +60,18 @@ const RegisterScreen = () => {
             placeholder={formPlaceHolder.name}
             maxLength={30}
           />
-
           {
             // No numbers in name
             /\d/.test(values.name) ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Nice try, no numbers!
-              </div>
+              <ErrorText text="ERROR: Nice try, no numbers!" />
             ) : null
           }
-
           {
             // If empty, send error
             errors.name && touched.name ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Fill out your name!
-              </div>
+              <ErrorText text="ERROR: Fill out your name!" />
             ) : null
           }
-
           <Input
             id="id"
             type="text"
@@ -88,52 +82,36 @@ const RegisterScreen = () => {
             placeholder={String(formPlaceHolder.id)}
             maxLength={7}
           />
-
           {
             // If empty on submission, send error to fill out ID
             errors.id && touched.id ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Fill out your Student ID!
-              </div>
+              <ErrorText text="ERROR: Fill out your Student ID!" />
             ) : null
           }
-
           {
             // If values.id is NOT a number on submission, send error to correct
             errors.id && !/^\d*$/.test(values.id) && touched.id ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Not a valid Student ID!
-              </div>
+              <ErrorText text="ERROR: Not a valid Student ID!" />
             ) : null
           }
-
           {
             // No letters in id
             /.*[a-zA-Z].*/.test(values.id) ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Nice try, no letters!
-              </div>
+              <ErrorText text="ERROR: Nice try, no letters!" />
             ) : null
           }
-
           {
             // No Symbols in id
             /[-!$%^&*()_+|~=`{}[]:";'<>?,.\/]/.test(values.id) ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Nice try, no symbols!
-              </div>
+              <ErrorText text="ERROR: Nice try, no symbols!" />
             ) : null
           }
-
           {
             // No whitespace in id
             /\s{1,}/.test(values.id) ? (
-              <div className="text-background text-3xl font-jersey-10 text-stroke">
-                ERROR: Nice try, no spaces!
-              </div>
+              <ErrorText text="ERROR: Nice try, no spaces!" />
             ) : null
           }
-
           <div className="p-4">
             <Button type="submit" text="Submit" link="/register"></Button>
           </div>

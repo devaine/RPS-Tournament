@@ -13,7 +13,7 @@ import * as Yup from "yup";
 import type { AdminScreen } from "@/types/gameAPI";
 
 import { socket } from "@/features/socketio/init";
-import { useLandingContext } from "@/features/game/start";
+import { useLandingContext } from "@/features/game/landing-context";
 
 type LoginProps = {
   onSubmit: () => void;
@@ -45,6 +45,13 @@ function startRound() {
 
 function removePlayer() {
   socket.emit("removePlayer", (response: object) => {
+    console.log(response);
+  });
+}
+
+function startGame() {
+  console.log("did stuff");
+  socket.emit("start_game", (response: object) => {
     console.log(response);
   });
 }
@@ -141,12 +148,7 @@ const AdminScreen = () => {
             </MultiButtonLayout>
             <Text text="Game" />
             <MultiButtonLayout horizontal={true}>
-              <Button
-                text="Start"
-                onClick={() => {
-                  // updateLanding("Game Started");
-                }}
-              />
+              <Button text="Start" onClick={startGame} />
               <Button text="Pause" onClick={() => {}} />
               <Button text="End" color="background" onClick={endGame} />
             </MultiButtonLayout>

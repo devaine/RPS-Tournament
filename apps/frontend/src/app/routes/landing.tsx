@@ -1,30 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Title } from "@/components/ui/text";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import RegisterScreen from "@/features/auth/register";
-import { GameStartedScreen, LandingContext } from "@/features/game/start";
-
-// Backend Imports
-import { socket } from "@/features/socketio/init";
-import type { LandingScreen } from "@/types/gameAPI";
+import { GameStartedScreen } from "@/features/game/start";
+import {
+  LandingProvider,
+  useLandingContext,
+} from "@/features/game/landing-context";
 
 const Landing = () => {
-  const [landingScreen, setLandingScreen] = useState<LandingScreen>("Register");
-
-  useEffect(() => {
-    socket.on("landing_update", (newLanding) => {
-      setLandingScreen(newLanding);
-    });
-
-    return () => {
-      socket.off("landing_update");
-    };
-  }, [landingScreen]);
-
-  const updateLanding = (newLanding: LandingScreen) => {
-    socket.emit("set_landing", newLanding);
-  };
-
   return (
     <RegisterLayout>
       <div className="flex flex-col">
@@ -33,12 +17,24 @@ const Landing = () => {
         <Title text="SCISSORS" />
         <Title text="TOURNAMENT" />
       </div>
-      <LandingContext.Provider value={{ updateLanding }}>
-        {landingScreen === "Register" && <RegisterScreen />}
-        {landingScreen === "Game Started" && <GameStartedScreen />}
-      </LandingContext.Provider>
+      <LandingProvider>
+        <LandingRouter />
+      </LandingProvider>
     </RegisterLayout>
   );
+};
+
+const LandingRouter = () => {
+  const { landingState } = useLandingContext();
+
+  switch (landingState) {
+    case "Register":
+      return <RegisterScreen />;
+    case "Game Started":
+      return <GameStartedScreen />;
+    default:
+      return <RegisterScreen />;
+  }
 };
 
 export default Landing;
