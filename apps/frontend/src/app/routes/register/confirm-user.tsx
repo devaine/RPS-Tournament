@@ -20,7 +20,7 @@ const ConfirmUser = () => {
       status: userData.status,
     });
 
-    localStorage.setItem("student_info", JSON.stringify(userData));
+    localStorage.setItem("avatar", userData.avatar!);
   }
 
   return (
