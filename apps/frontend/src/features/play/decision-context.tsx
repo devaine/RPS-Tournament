@@ -16,12 +16,25 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
     useState<GameDecision>("Loading...");
 
   useEffect(() => {
-    socket.on("set_decision", (newLanding) => {
-      setDecisionState(newLanding);
-    });
+    const onWin = () => {
+      setDecisionState("YOU WON !!!");
+    };
+    const onLose = () => {
+      setDecisionState("YOU LOSE !!!");
+    };
+    const onTied = () => {
+      setDecisionState("YOU TIED !!!");
+    };
 
+    socket.on("win", onWin);
+    socket.on("lose", onLose);
+    socket.on("tied", onTied);
+
+    // Cleanup for event listeners
     return () => {
-      socket.off("decision_update");
+      socket.off("win", onWin);
+      socket.off("lose", onLose);
+      socket.off("tied", onTied);
     };
   }, [decisionState]);
 

@@ -25,6 +25,7 @@ const Game = () => {
           leaveOnClick={() => {}}
           enterOnClick={async () => {
             setCurrentScreen("Ready");
+            socket.emit("set_decision", "YOU WON !!!");
             setCurrentScreen((await gameSync()) as GameScreen); // Settles for one game
             setCurrentScreen((await gameSyncRetry()) as GameScreen); // Settles for ties
           }}

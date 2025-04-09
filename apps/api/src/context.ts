@@ -7,7 +7,7 @@ let globalLandingState: string = "Register";
 
 export function contextManager(socket: Socket) {
   landingStateManger(socket);
-  // decisionStateManager(socket);
+  decisionStateManager(socket);
 }
 
 function landingStateManger(socket: Socket) {
@@ -32,8 +32,9 @@ function landingStateManger(socket: Socket) {
   });
 }
 
+// NOTE: not in use, keeping in case of future use
 function decisionStateManager(socket: Socket) {
-  socket.on("set_decision", async (newDecision: GameDecision) => {
-    socket.emit("decision_update", newDecision);
+  socket.on("get_initial_decision", () => {
+    socket.emit("win");
   });
 }

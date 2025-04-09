@@ -4,14 +4,10 @@ import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import type { GameDecision } from "@/types/gameAPI";
-import type { GameScreen } from "@/types/gameAPI";
-import type { User } from "@/types/gameAPI";
 
 // NOTE: Backend not done yet, soz
 
 import { socket } from "@/features/socketio/init";
-import { userData } from "@/config/global";
 import { useDecisionContext } from "@/features/play/decision-context";
 
 type DecisionProps = {
