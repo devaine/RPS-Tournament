@@ -3,13 +3,17 @@ import { defineConfig } from "vite";
 import tsconfigPaths from "vite-tsconfig-paths";
 import react from "@vitejs/plugin-react";
 import tailwindcss from '@tailwindcss/vite'
+import { resolve } from "path";
 
 //dotenv.config({ path: ["./src/config/.env"] });
 
 export default defineConfig({
   plugins: [tsconfigPaths(), react(), tailwindcss()],
-  server: {
-    //port: Number(process.env.VITE_PORT) // Converted into a number
-   // port: Number(process.env.VITE_PORT),
-  },
+	build: {
+		rollupOptions: {
+			input : {
+				app: resolve(__dirname, "src/main.js")
+			}
+		}
+	}
 });

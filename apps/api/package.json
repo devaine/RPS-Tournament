@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+		"build": "npx tsc --project .",
     "dev": "tsx watch src/"
   },
   "license": "ISC",

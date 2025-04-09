@@ -4,6 +4,7 @@
   "tasks": {
     "build": {
       "dependsOn": ["^build"],
+			"inputs": ["apps/frontend", "apps/api"],
       "outputs": ["dist/**"]
     },
     "dev": {
