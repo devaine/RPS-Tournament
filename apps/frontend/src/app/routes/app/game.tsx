@@ -85,7 +85,7 @@ function gameSyncRetry() {
   });
 }
 
-function getPlayerChoice(choice: GameChoices) {
+async function getPlayerChoice(choice: GameChoices) {
   const promise = () =>
     new Promise((resolve) => {
       userData.choice = choice;
