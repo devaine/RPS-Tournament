@@ -18,8 +18,6 @@ function getRandomPlayer(array: string[]) {
 }
 
 export function gameManager(socket: Socket) {
-  // FOR ADMIN PAGE
-  // Fetch all socket ids
 	
   // NOTE: Fetches sockets and move sthem to "game_room"
   socket.on("startRound", async (callback) => {
@@ -32,12 +30,6 @@ export function gameManager(socket: Socket) {
     }
 
 		getRandomPlayer(listSockets)	
-    // FIX: Can't put second player in queue
-
-    // const player2 = listSockets[randomNumber(0, getSockets.length)]
-    //
-    // io.to(String(player2)).socketsJoin("game_room")
-    // io.to(String(player2)).socketsLeave("contestant_room")
   });
 
   // NOTE: Removes Players
@@ -96,7 +88,6 @@ export function gameManager(socket: Socket) {
     if (retryCount === 2) {
       io.to(String(listSockets[0])).emit("retrySync", "Play");
       io.to(String(listSockets[1])).emit("retrySync", "Play");
-			console.log(retryCount + " ASFNSOIAHFSAHF")
       retryCount = 0;
     } else {
       null;

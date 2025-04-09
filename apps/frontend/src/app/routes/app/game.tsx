@@ -75,9 +75,6 @@ const Game = () => {
           scissorsOnClick={() => {
             userData.choice = "scissors";
             socket.emit("setChoice", userData.choice);
-            socket.emit("play", (response: string) => {
-              console.log(response);
-            });
             setCurrentScreen("Decision");
           }}
         />
