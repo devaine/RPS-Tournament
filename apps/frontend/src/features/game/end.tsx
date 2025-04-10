@@ -5,6 +5,7 @@ import Divider from "@/components/ui/divider";
 import { TextLayout } from "@/components/layouts/text-layout";
 import { Button } from "@/components/ui/button";
 import { PlayerList } from "@/components/ui/lists";
+import type { User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -16,17 +17,17 @@ import { socket } from "@/features/socketio/init";
 // contestant room
 
 const End = () => {
-  const [winners, setWinners] = useState<string[]>([]);
+  const [winners, setWinners] = useState<User[]>([]);
 
   useEffect(() => {
     const fetchWinners = () => {
-      socket.emit("contestantList", (contestantNames: string[]) => {
-        setWinners(contestantNames);
+      socket.emit("contestantList", (contestants: User[]) => {
+        setWinners(contestants);
       });
     };
 
-    setInterval(fetchWinners, 1000);
-  }, [socket]);
+    fetchWinners();
+  }, [setWinners]);
   return (
     <TextLayout>
       <div className="flex flex-col items-center gap-4 p-4">

@@ -4,14 +4,11 @@ import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import type { GameDecision } from "@/types/gameAPI";
-import type { GameScreen } from "@/types/gameAPI";
-import type { User } from "@/types/gameAPI";
 
 // NOTE: Backend not done yet, soz
 
 import { socket } from "@/features/socketio/init";
-import { userData } from "@/config/global";
+import { useDecisionContext } from "@/features/play/decision-context";
 
 type DecisionProps = {
   enterOnClick: () => void;
@@ -19,18 +16,18 @@ type DecisionProps = {
 };
 
 async function tester() {
-	const promise = () => new Promise((resolve) => {
-		socket.on("gameResult", async (response: string) => {
-			console.log(response)
-			resolve(response)
-		})
-	})
-	console.log(await promise())
-	}
-
+  const promise = () =>
+    new Promise((resolve) => {
+      socket.on("gameResult", async (response: string) => {
+        console.log(response);
+        resolve(response);
+      });
+    });
+  console.log(await promise());
+}
 
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
-  const [decision, setDecision] = useState<GameDecision>("Loading...");
+  const { decisionState } = useDecisionContext();
 
   // Use effect for handing decision useState using socketio event listeners
   // when [var] changes, executes useEffect
@@ -38,39 +35,15 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // react will not return a promise as a function
   // async always returns promises
 
-	useEffect(() => {
-		tester()
-	}, [decision])
-	
-
-  //useEffect(() => {
-  //  const onWin = () => {
-  //    setDecision("YOU WON !!!");
-  //  };
-  //  const onLose = () => {
-  //    setDecision("YOU LOSE !!!");
-  //  };
-  //  const onTied = () => {
-  //    setDecision("YOU TIED !!!");
-  //  };
-
-  //  socket.on("win", onWin);
-  //  socket.on("lose", onLose);
-  //  socket.on("tied", onTied);
-
-  //  // Cleanup for event listeners
-  //  return () => {
-  //    socket.off("win", onWin);
-  //    socket.off("lose", onLose);
-  //    socket.off("tied", onTied);
-  //  };
-  //}, [decision]);
+  // useEffect(() => {
+  //   tester();
+  // }, [decision]);
 
   return (
     <GameLayout key="Decision">
-      <Announce text={decision} />
+      <Announce text={decisionState} />
       <MultiButtonLayout>
-        {decision === "YOU LOSE !!!" && (
+        {decisionState === "YOU LOSE !!!" && (
           <Button
             text="Go to Dashboard"
             link="/dashboard"
@@ -79,7 +52,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
             }}
           />
         )}
-        {decision === "YOU TIED !!!" && (
+        {decisionState === "YOU TIED !!!" && (
           <Button
             text="Ready to go again?"
             onClick={async () => {
@@ -88,7 +61,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
             }}
           />
         )}
-        {decision === "YOU WON !!!" && (
+        {decisionState === "YOU WON !!!" && (
           <Button text="Return to Lobby" onClick={leaveOnClick} />
         )}
       </MultiButtonLayout>

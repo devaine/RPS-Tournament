@@ -1,13 +1,16 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useTransition,
+} from "react";
 import { socket } from "@/features/socketio/init";
-
-// NOTE: This file is mostly used as functions to provide a universal way to access landing state (whether it should be set to register or game started)
-
 import type { GameDecision } from "@/types/gameAPI";
 
 type DecisionContextType = {
   decisionState: GameDecision;
-  setDecisionState: (newLanding: GameDecision) => void;
+  setDecisionState: (newDecision: GameDecision) => void;
 };
 
 export const DecisionContext = createContext<DecisionContextType | undefined>(
@@ -17,17 +20,43 @@ export const DecisionContext = createContext<DecisionContextType | undefined>(
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
   const [decisionState, setDecisionState] =
     useState<GameDecision>("Loading...");
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
-    socket.on("decision_update", (newLanding) => {
-      setDecisionState(newLanding);
+    const onWin = () => {
+      setDecisionState("YOU WON !!!");
+    };
+    const onLose = () => {
+      setDecisionState("YOU LOSE !!!");
+    };
+    const onTied = () => {
+      setDecisionState("YOU TIED !!!");
+    };
+
+    const onDecision = () => {
+      socket.on("gameResult", (response: string) => {
+        switch (response) {
+          case "winner":
+            onWin();
+            break;
+          case "loser":
+            onLose();
+            break;
+          case "tie":
+            onTied();
+            break;
+        }
+        console.log(response);
+      });
+    };
+
+    startTransition(() => {
+      onDecision();
     });
 
-    // Get initial state from server
-    socket.emit("get_initial_decision");
-
+    // Cleanup for event listeners
     return () => {
-      socket.off("decision_update");
+      socket.off("gameResult");
     };
   }, [decisionState]);
 
@@ -39,10 +68,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DecisionContext.Provider
-      value={{
-        decisionState: decisionState,
-        setDecisionState: handleSetDecisionState,
-      }}
+      value={{ decisionState, setDecisionState: handleSetDecisionState }}
     >
       {children}
     </DecisionContext.Provider>
