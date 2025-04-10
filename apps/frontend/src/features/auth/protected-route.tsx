@@ -24,11 +24,9 @@ export const GameProtectedRoute = ({ children }: ProtectedRouteProps) => {
 };
 
 export const RegisterProtectedRoute = ({ children }: ProtectedRouteProps) => {
-  const userData_storage = JSON.parse(
-    String(localStorage.getItem("student_info")),
-  );
+  const userData_storage = String(localStorage.getItem("student_info"));
 
-  if (userData_storage) {
+  if (userData_storage.match("avatar") ) {
     return <Navigate to="/game" replace />;
   }
   return children;

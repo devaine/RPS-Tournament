@@ -22,7 +22,7 @@ export function playManager(socket: Socket) {
       const player1_socket = io.of("/").sockets.get(String(playerArray[0]));
       const player2_socket = io.of("/").sockets.get(String(playerArray[1]));
 
-      await test(player1_socket, player2_socket);
+      await determine(player1_socket, player2_socket);
 
       console.log("\n\n\nAFFFFFFFFTEEEEEEERRRRRRR TEEEEST FUNCTION");
       console.log(player1_socket?.data.status + " is " + player1_socket?.id);
@@ -42,7 +42,7 @@ export function playManager(socket: Socket) {
   });
 }
 
-async function test(
+async function determine(
   player1: Socket | undefined,
   player2: Socket | undefined,
 ): Promise<void> {
@@ -63,10 +63,23 @@ async function test(
       console.log(player1.id + " player1 win");
       player1.data.status = "winner";
       player2.data.status = "loser";
+
+			player1.join("contestant_room")
+			player2.join("loser_room")
+
+			player1.leave("game_room")
+			player2.leave("game_room")
+
     } else {
       console.log(player2.id + " player2 win");
       player1.data.status = "loser";
       player2.data.status = "winner";
+
+			player1.join("loser_room")
+			player2.join("contestant_room")
+
+			player1.leave("game_room")
+			player2.leave("game_room")
     }
   }
 }

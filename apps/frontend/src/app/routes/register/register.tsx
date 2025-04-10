@@ -2,11 +2,15 @@ import React from "react";
 import { Title } from "@/components/ui/text";
 import { RegisterLayout } from "@/components/layouts/register-layout";
 import { avatars } from "@/config/avatars";
-import { IconButton, BackButton } from "@/components/ui/button";
+import { IconButton, BackButton, Button } from "@/components/ui/button";
 import { useNavigate } from "react-router";
 
 // Backend Imports
 import { userData } from "@/config/global"; // Global Variables
+
+function clearFinalBack() {
+	localStorage.clear()
+}
 
 const Register = () => {
   const navigate = useNavigate();
@@ -32,7 +36,9 @@ const Register = () => {
           />
         ))}
       </div>
-      <BackButton />
+			<Button
+			text="Back" color="background" link="/" onClick={clearFinalBack}
+			/>
     </RegisterLayout>
   );
 };

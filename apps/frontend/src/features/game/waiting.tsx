@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { type User } from "@/types/gameAPI";
+import { useNavigate } from "react-router";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -18,6 +19,7 @@ type WaitingProps = {
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
+	const navigate = useNavigate()
 
   const matchPlayerName = (players: User[]) => {
     for (let i = 0; i < players.length; i++) {
@@ -35,7 +37,18 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
           setPlayer(true);
         }
       });
+
+			socket.on("kickPlayer", (firstName: string) => {
+				const user_firstName = userData.name
+				if (user_firstName === firstName) {
+					localStorage.clear()	
+					socket.disconnect()
+					navigate("/")
+				}
+			})
+
     };
+
 
     setInterval(checkQueue, 100);
   }, [isPlayer]);
