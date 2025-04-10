@@ -3,6 +3,10 @@ import { io } from "./index";
 
 let previouslyJoinedRooms: string;
 
+export function updatePreviouslyJoinedRooms(room: string) {
+  previouslyJoinedRooms = room;
+}
+
 export function contestantManager(socket: Socket, playerCount: number) {
   socket.on("join_event", function (data) {
     console.log("a user " + socket.id + " connected!");
@@ -10,9 +14,13 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.id + " is the student id");
     console.log(data.avatar + " is the student avatar");
 
-    // Join a room (participant_room) with all other clients...
+    // // Join a room (participant_room) with all other clients...
+    // if (previouslyJoinedRooms) {
+    //   socket.emit("rejoin-rooms", previouslyJoinedRooms);
+    // } else {
     socket.join("contestant_room");
     previouslyJoinedRooms = "contestant_room";
+    // }
     console.log(data.name + " joined contestant room");
 
     // Assign the data from emit to socket
@@ -23,11 +31,6 @@ export function contestantManager(socket: Socket, playerCount: number) {
     playerCount++;
 
     console.log(data.status);
-  });
-  socket.on("connect", () => {
-    if (previouslyJoinedRooms) {
-      socket.emit("rejoin-rooms", previouslyJoinedRooms);
-    }
   });
 
   // Server-side

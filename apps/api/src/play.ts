@@ -1,6 +1,10 @@
 import { Socket } from "socket.io";
 import { type RemoteSocket, type DefaultEventsMap } from "socket.io";
 import { io } from "./index";
+import {
+  previouslyJoinedRooms,
+  updatePreviouslyJoinedRooms,
+} from "./contestants";
 
 var decisionCount = 0;
 var playerArray: string[] = [];
@@ -68,7 +72,7 @@ async function determine(
       player2.data.status = "winner";
 
       player1.join("contestant_room");
-      player2.join("loser_room");
+      // player2.join("loser_room");
 
       player1.leave("game_room");
       player2.leave("game_room");
@@ -77,7 +81,7 @@ async function determine(
       player1.data.status = "loser";
       player2.data.status = "winner";
 
-      player1.join("loser_room");
+      // player1.join("loser_room");
       player2.join("contestant_room");
 
       player1.leave("game_room");
