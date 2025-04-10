@@ -8,6 +8,7 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 
 import { socket } from "@/features/socketio/init";
 import { useDecisionContext } from "@/features/context/decision-context";
+import { userData } from "@/config/global";
 
 type DecisionProps = {
   enterOnClick: () => void;
@@ -33,6 +34,15 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // when [] is empty with every component update, executes useEffect
   // react will not return a promise as a function
   // async always returns promises
+  const disconnectSocket = () => {
+    socket.emit("leave_event", {
+      name: userData.name,
+      id: userData.id,
+    });
+
+    // Clears out all local browser data
+    localStorage.clear();
+  };
 
   return (
     <GameLayout key="Decision">
@@ -40,12 +50,10 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
       <MultiButtonLayout>
         {decisionState === "YOU LOSE !!!" && (
           <Button
-            text="Go to Dashboard"
-            link="/dashboard"
-            onClick={() => {
-              localStorage.setItem("status", "loser");
-							socket.disconnect()
-            }}
+            text="Leave Game"
+            link="/"
+            color="background"
+            onClick={disconnectSocket}
           />
         )}
         {decisionState === "YOU TIED !!!" && (
