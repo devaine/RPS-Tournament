@@ -35,15 +35,15 @@ const Game = () => {
         <Play
           key="Play"
           // TODO: Backend: Refactor for promises
-          rockOnClick={async () => {
+          rockOnClick={() => {
             getPlayerChoice("rock");
             setCurrentScreen("Decision");
           }}
-          paperOnClick={async () => {
+          paperOnClick={() => {
             getPlayerChoice("paper");
             setCurrentScreen("Decision");
           }}
-          scissorsOnClick={async () => {
+          scissorsOnClick={() => {
             getPlayerChoice("scissors");
             setCurrentScreen("Decision");
           }}
@@ -85,20 +85,9 @@ function gameSyncRetry() {
   });
 }
 
-async function getPlayerChoice(choice: GameChoices) {
-  return new Promise((resolve) => {
+function getPlayerChoice(choice: GameChoices) {
     userData.choice = choice;
-    socket.emit("play", userData.choice, (response: string) => {
-      resolve(response);
-    });
-  });
-}
-
-// For Handing the game itself, use promise.then wahtever
-function gamePlayPromise(choice: GameChoices) {
-  getPlayerChoice(choice).then((response) => {
-    socket.emit("gameResult", response);
-  });
+    socket.emit("play", userData.choice);
 }
 
 export default Game;

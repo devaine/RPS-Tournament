@@ -44,4 +44,6 @@ export function contestantManager(socket: Socket, playerCount: number) {
   socket.on("disconnect", () => {
     console.log("user: " + socket.id + " disconnected!");
   });
+
+	// TODO: Remove Players
 }

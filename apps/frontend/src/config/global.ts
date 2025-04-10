@@ -11,9 +11,9 @@ const useID = userData_storage === null ? undefined : userData_storage.id;
 const useAvatar =
   userData_storage === null ? undefined : userData_storage.avatar;
 const useChoice =
-  userData_storage === null ? undefined : userData_storage.avatar;
+  userData_storage === null ? undefined : userData_storage.choice;
 const useStatus =
-  userData_storage === null ? undefined : userData_storage.avatar;
+  userData_storage === null ? undefined : userData_storage.status;
 
 export const userData: User = {
   name: useName,

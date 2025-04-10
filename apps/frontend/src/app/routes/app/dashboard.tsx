@@ -21,6 +21,7 @@ if (socket.disconnected && userData.status != "loser") {
       name: userData.name,
       id: userData.id,
       avatar: userData.avatar,
+			status: userData.status
     });
   }
 }

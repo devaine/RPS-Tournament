@@ -18,6 +18,17 @@ type DecisionProps = {
   leaveOnClick: () => void;
 };
 
+async function tester() {
+	const promise = () => new Promise((resolve) => {
+		socket.on("gameResult", async (response: string) => {
+			console.log(response)
+			resolve(response)
+		})
+	})
+	console.log(await promise())
+	}
+
+
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const [decision, setDecision] = useState<GameDecision>("Loading...");
 
@@ -27,14 +38,10 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // react will not return a promise as a function
   // async always returns promises
 
-  useEffect(() => {
-    socket.on("gameResult", (response: string) => {
-      console.log(response);
-    });
-    return () => {
-      socket.off("gameResult");
-    };
-  });
+	useEffect(() => {
+		tester()
+	}, [decision])
+	
 
   //useEffect(() => {
   //  const onWin = () => {
