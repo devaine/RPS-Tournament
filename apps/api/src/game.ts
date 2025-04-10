@@ -55,15 +55,15 @@ export function gameManager(socket: Socket) {
     callback(list);
   });
 
-	socket.on("removeContestant", async (firstName: string) => {
-		const allSockets = await io.of("/").fetchSockets()
+  socket.on("removeContestant", async (firstName: string) => {
+    const allSockets = await io.of("/").fetchSockets();
 
-		for (const socket of allSockets) {
-			if(socket.data.name === firstName) {
-				socket.emit("kickPlayer", firstName)
-			}
-		}
-	})
+    for (const socket of allSockets) {
+      if (socket.data.name === firstName) {
+        socket.emit("kickPlayer", firstName);
+      }
+    }
+  });
 
   // NOTE: Basically just waits for a both sockets to answer
   socket.on("playerReady", async (callback) => {

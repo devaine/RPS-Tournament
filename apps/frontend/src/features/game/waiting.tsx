@@ -19,7 +19,7 @@ type WaitingProps = {
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
   const [isPlayer, setPlayer] = useState(false);
-	const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const matchPlayerName = (players: User[]) => {
     for (let i = 0; i < players.length; i++) {
@@ -38,17 +38,15 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
         }
       });
 
-			socket.on("kickPlayer", (firstName: string) => {
-				const user_firstName = userData.name
-				if (user_firstName === firstName) {
-					localStorage.clear()	
-					socket.disconnect()
-					navigate("/")
-				}
-			})
-
+      socket.on("kickPlayer", (firstName: string) => {
+        const user_firstName = userData.name;
+        if (user_firstName === firstName) {
+          localStorage.clear();
+          socket.disconnect();
+          navigate("/");
+        }
+      });
     };
-
 
     setInterval(checkQueue, 100);
   }, [isPlayer]);
