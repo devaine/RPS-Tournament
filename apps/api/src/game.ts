@@ -48,7 +48,7 @@ export function gameManager(socket: Socket) {
     io.to(String(player)).socketsJoin("contestant_room");
 
     const check = await io.in("game_room").fetchSockets();
-    const list = check.map(function(data) {
+    const list = check.map(function (data) {
       console.log(data.id);
       return data.id;
     });

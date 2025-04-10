@@ -4,14 +4,11 @@ import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import type { GameDecision } from "@/types/gameAPI";
-import type { GameScreen } from "@/types/gameAPI";
-import type { User } from "@/types/gameAPI";
 
 // NOTE: Backend not done yet, soz
 
 import { socket } from "@/features/socketio/init";
-import { userData } from "@/config/global";
+import { useDecisionContext } from "@/features/play/decision-context";
 
 type DecisionProps = {
   enterOnClick: () => void;
@@ -30,7 +27,7 @@ async function tester() {
 
 
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
-  const [decision, setDecision] = useState<GameDecision>("Loading...");
+  const { decisionState } = useDecisionContext();
 
   // Use effect for handing decision useState using socketio event listeners
   // when [var] changes, executes useEffect
@@ -68,9 +65,9 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
 
   return (
     <GameLayout key="Decision">
-      <Announce text={decision} />
+      <Announce text={decisionState} />
       <MultiButtonLayout>
-        {decision === "YOU LOSE !!!" && (
+        {decisionState === "YOU LOSE !!!" && (
           <Button
             text="Go to Dashboard"
             link="/dashboard"
@@ -79,7 +76,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
             }}
           />
         )}
-        {decision === "YOU TIED !!!" && (
+        {decisionState === "YOU TIED !!!" && (
           <Button
             text="Ready to go again?"
             onClick={async () => {
@@ -88,7 +85,7 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
             }}
           />
         )}
-        {decision === "YOU WON !!!" && (
+        {decisionState === "YOU WON !!!" && (
           <Button text="Return to Lobby" onClick={leaveOnClick} />
         )}
       </MultiButtonLayout>

@@ -52,10 +52,10 @@ const Dashboard = () => {
       });
     };
 
-    setInterval(fetchContestants, 1000);
-    setInterval(fetchPlayers, 1000);
-    setInterval(fetchLosers, 1000);
-  }, [socket]);
+    fetchContestants();
+    fetchPlayers();
+    fetchLosers();
+  }, [contestants, players, losers]);
 
   return (
     <TextLayout>

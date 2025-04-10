@@ -15,7 +15,7 @@ export const LandingContext = createContext<LandingContextType | undefined>(
 );
 
 export function LandingProvider({ children }: { children: React.ReactNode }) {
-  const [landingState, setLandingState] = useState<LandingScreen>("Register");
+  const [landingState, setLandingState] = useState<LandingScreen>();
 
   useEffect(() => {
     socket.on("landing_update", (newLanding) => {

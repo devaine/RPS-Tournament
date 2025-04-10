@@ -12,6 +12,7 @@ import type { GameChoices } from "@/types/gameAPI";
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
+import { DecisionProvider } from "@/features/play/decision-context";
 
 // TODO: Add user as parameter for game to function
 const Game = () => {
@@ -24,6 +25,7 @@ const Game = () => {
           leaveOnClick={() => {}}
           enterOnClick={async () => {
             setCurrentScreen("Ready");
+            socket.emit("set_decision", "YOU WON !!!");
             setCurrentScreen((await gameSync()) as GameScreen); // Settles for one game
             setCurrentScreen((await gameSyncRetry()) as GameScreen); // Settles for ties
           }}
@@ -50,15 +52,17 @@ const Game = () => {
         />
       )}
       {currentScreen === "Decision" && (
-        <Decision
-          key="Decision"
-          enterOnClick={() => {
-            setCurrentScreen("Ready");
-          }}
-          leaveOnClick={() => {
-            setCurrentScreen("Waiting");
-          }}
-        />
+        <DecisionProvider>
+          <Decision
+            key="Decision"
+            enterOnClick={() => {
+              setCurrentScreen("Ready");
+            }}
+            leaveOnClick={() => {
+              setCurrentScreen("Waiting");
+            }}
+          />
+        </DecisionProvider>
       )}
       {currentScreen === "End" && <End key="End" />}
     </AnimatePresence>

@@ -1,13 +1,10 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { socket } from "@/features/socketio/init";
-
-// NOTE: This file is mostly used as functions to provide a universal way to access landing state (whether it should be set to register or game started)
-
 import type { GameDecision } from "@/types/gameAPI";
 
 type DecisionContextType = {
   decisionState: GameDecision;
-  setDecisionState: (newLanding: GameDecision) => void;
+  setDecisionState: (newDecision: GameDecision) => void;
 };
 
 export const DecisionContext = createContext<DecisionContextType | undefined>(
@@ -19,15 +16,25 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
     useState<GameDecision>("Loading...");
 
   useEffect(() => {
-    socket.on("decision_update", (newLanding) => {
-      setDecisionState(newLanding);
-    });
+    const onWin = () => {
+      setDecisionState("YOU WON !!!");
+    };
+    const onLose = () => {
+      setDecisionState("YOU LOSE !!!");
+    };
+    const onTied = () => {
+      setDecisionState("YOU TIED !!!");
+    };
 
-    // Get initial state from server
-    socket.emit("get_initial_decision");
+    socket.on("win", onWin);
+    socket.on("lose", onLose);
+    socket.on("tied", onTied);
 
+    // Cleanup for event listeners
     return () => {
-      socket.off("decision_update");
+      socket.off("win", onWin);
+      socket.off("lose", onLose);
+      socket.off("tied", onTied);
     };
   }, [decisionState]);
 
@@ -39,10 +46,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
 
   return (
     <DecisionContext.Provider
-      value={{
-        decisionState: decisionState,
-        setDecisionState: handleSetDecisionState,
-      }}
+      value={{ decisionState, setDecisionState: handleSetDecisionState }}
     >
       {children}
     </DecisionContext.Provider>
