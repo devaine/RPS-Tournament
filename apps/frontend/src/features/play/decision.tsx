@@ -34,10 +34,9 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
           <Button
             text="Go to Dashboard"
             link="/dashboard"
-            onClick={() => {
+            onClick={async () => {
               localStorage.setItem("status", "loser");
 							socket.disconnect()
-							navigate("/")
             }}
           />
         )}
