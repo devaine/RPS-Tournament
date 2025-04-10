@@ -21,8 +21,8 @@ build-and-push:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
-    - docker buildx build -t $registry_server/rps-developers/rps-tournament:dev .
-    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
+    - docker buildx build -t $registry_server/rps-developers/rps-tournament .
+    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament
 
   after_script:
     - docker logout $registry_server
@@ -50,8 +50,8 @@ deploy:
 
 
   script:
-    - docker pull $registry_server/rps-developers/rps-tournament:dev
-    - docker stack deploy --prune -c docker-stack.yml rps-dev --with-registry-auth
+    - docker pull $registry_server/rps-developers/rps-tournament
+    - docker stack deploy --prune -c docker-stack.yml rps --with-registry-auth
 
   after_script:
     - docker context use default
