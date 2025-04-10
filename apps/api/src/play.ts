@@ -29,8 +29,10 @@ export function playManager(socket: Socket) {
       console.log(player2_socket?.data.status + " is " + player2_socket?.id);
 
       if (player1_socket && player2_socket) {
-        player1_socket.emit("gameResult", player1_socket?.data.status);
-        player2_socket.emit("gameResult", player2_socket?.data.status);
+        setTimeout(() => {
+          player1_socket.emit("gameResult", player1_socket?.data.status);
+          player2_socket.emit("gameResult", player2_socket?.data.status);
+        }, 100);
       }
 
       // Cleanup, empty everything
