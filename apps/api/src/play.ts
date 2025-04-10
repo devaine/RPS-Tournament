@@ -63,6 +63,13 @@ async function determine(
       console.log(player1.id + " player1 win");
       player1.data.status = "winner";
       player2.data.status = "loser";
+    } else {
+      console.log(player2.id + " player2 win");
+      player1.data.status = "loser";
+      player2.data.status = "winner";
+    }
+  }
+}
 
 			player1.join("contestant_room")
 			player2.join("loser_room")
