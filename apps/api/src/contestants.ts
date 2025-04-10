@@ -14,13 +14,13 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.id + " is the student id");
     console.log(data.avatar + " is the student avatar");
 
-    // // Join a room (participant_room) with all other clients...
-    // if (previouslyJoinedRooms) {
-    //   socket.emit("rejoin-rooms", previouslyJoinedRooms);
-    // } else {
-    socket.join("contestant_room");
-    previouslyJoinedRooms = "contestant_room";
-    // }
+    // Join a room (participant_room) with all other clients...
+    if (previouslyJoinedRooms) {
+      socket.emit("rejoin-rooms", previouslyJoinedRooms);
+    } else {
+      socket.join("contestant_room");
+      previouslyJoinedRooms = "contestant_room";
+    }
     console.log(data.name + " joined contestant room");
 
     // Assign the data from emit to socket
