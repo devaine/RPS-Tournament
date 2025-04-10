@@ -1,12 +1,7 @@
-import React, {
-  useState,
-  useEffect,
-  createContext,
-  useContext,
-  useTransition,
-} from "react";
+import React, { useState, useEffect, createContext, useContext } from "react";
 import { socket } from "@/features/socketio/init";
 import type { GameDecision } from "@/types/gameAPI";
+import { useNavigate } from "react-router";
 
 type DecisionContextType = {
   decisionState: GameDecision;
@@ -18,8 +13,8 @@ export const DecisionContext = createContext<DecisionContextType | undefined>(
 );
 
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
-  const [decisionState, setDecisionState] =
-    useState<GameDecision>("Loading...");
+  const [decisionState, setDecisionState] = useState<GameDecision>("...");
+  const navigate = useNavigate();
 
   useEffect(() => {
     const onWin = () => {

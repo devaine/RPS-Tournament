@@ -34,10 +34,6 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // react will not return a promise as a function
   // async always returns promises
 
-  // useEffect(() => {
-  //   tester();
-  // }, [decision]);
-
   return (
     <GameLayout key="Decision">
       <Announce text={decisionState} />
