@@ -2,7 +2,7 @@ import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
 import helmet from "helmet";
-import { PORT, URL, FRONTEND_PORT } from "./config";
+import { PORT, URL } from "./config";
 import { gameManager } from "./game";
 import { contestantManager } from "./contestants";
 import { playManager } from "./play";
@@ -25,11 +25,11 @@ const httpServer = createServer(app);
 
 // NOTE: Initializes SocketIO (Server-Side)
 export const io = new Server(httpServer, {
-  //connectionStateRecovery: { maxDisconnectionDuration: 120000 },
-  //cors: {
-  //  origin: URL + ":" + PORT, // References Frontend
-  //  methods: ["GET", "POST"],
-  //},
+  connectionStateRecovery: { maxDisconnectionDuration: 120000 },
+  cors: {
+    origin: URL,
+    methods: ["GET", "POST"],
+  },
 });
 
 app.use(helmet(), express.json());

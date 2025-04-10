@@ -46,6 +46,8 @@ deploy:
     - printf "Host deploy\nPort $SSH_PORT\nHostname $SSH_HOST\nIdentityFile ~/.ssh/$SSH_USER\nUser $SSH_USER" > ~/.ssh/config
     - docker context create rps --docker "host=ssh://deploy"
     - docker context use rps
+    - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin # For pulling image
+
 
   script:
     - docker pull $registry_server/rps-developers/rps-tournament:dev

@@ -6,7 +6,7 @@ WORKDIR /rps-dev
 
 RUN npm i #--omit=dev <- use that arg for production
 
-EXPOSE 5173
+EXPOSE 3001
 
 RUN npm run build
 
