@@ -1,4 +1,10 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, {
+  useState,
+  useEffect,
+  createContext,
+  useContext,
+  useTransition,
+} from "react";
 import { socket } from "@/features/socketio/init";
 import type { GameDecision } from "@/types/gameAPI";
 
@@ -14,6 +20,7 @@ export const DecisionContext = createContext<DecisionContextType | undefined>(
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
   const [decisionState, setDecisionState] =
     useState<GameDecision>("Loading...");
+  const [isPending, startTransition] = useTransition();
 
   useEffect(() => {
     const onWin = () => {
@@ -39,11 +46,13 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
             onTied();
             break;
         }
+        console.log(response);
       });
     };
 
-    onDecision();
-    console.log(decisionState);
+    startTransition(() => {
+      onDecision();
+    });
 
     // Cleanup for event listeners
     return () => {
