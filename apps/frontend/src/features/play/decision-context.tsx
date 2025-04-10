@@ -19,7 +19,7 @@ export const DecisionContext = createContext<DecisionContextType | undefined>(
 
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
   const [decisionState, setDecisionState] =
-    useState<GameDecision>("Loading...");
+    useState<GameDecision>("...");
 
   useEffect(() => {
     const onWin = () => {

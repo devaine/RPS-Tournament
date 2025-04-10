@@ -19,6 +19,7 @@ dist
 .turbo/cache
 .turbo/daemon
 turbo-build.log
+turbo-host.log
 # debug
 npm-debug.log*
 yarn-debug.log*

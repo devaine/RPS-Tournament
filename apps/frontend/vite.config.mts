@@ -12,7 +12,7 @@ export default defineConfig({
 	build: {
 		rollupOptions: {
 			input : {
-				app: resolve(__dirname, "src/main.js")
+				app: resolve(__dirname, "index.html")
 			}
 		}
 	}

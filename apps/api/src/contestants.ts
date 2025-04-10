@@ -1,5 +1,4 @@
 import { Socket } from "socket.io";
-import { landingScreen, type LandingScreen } from "./config";
 import { io } from "./index";
 
 export function contestantManager(socket: Socket, playerCount: number) {
