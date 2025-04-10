@@ -1,14 +1,12 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { TVLayout } from "@/components/layouts/tv-layout";
-import Game from "@/app/routes/app/game";
-import { Announce, Heading, Title } from "@/components/ui/text";
+import { Announce, Title } from "@/components/ui/text";
 import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import type { User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
-import { userData } from "@/config/global";
 import { Avatar } from "@/components/ui/avatar";
 import { PlayerList } from "@/components/ui/lists";
 

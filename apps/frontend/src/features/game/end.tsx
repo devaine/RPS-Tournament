@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { Title, Heading } from "@/components/ui/text";
 import Divider from "@/components/ui/divider";
 import { TextLayout } from "@/components/layouts/text-layout";
-import { Button } from "@/components/ui/button";
 import { PlayerList } from "@/components/ui/lists";
 import type { User } from "@/types/gameAPI";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
+import About from "@/app/routes/app/about";
 
 // Needed for reconnecting
 
@@ -42,7 +42,7 @@ const End = () => {
             <Heading text="Loading Winner Data" />
           )}
         </div>
-        <Button text="About" link="/about" />
+        <About />
       </div>
     </TextLayout>
   );

@@ -22,6 +22,6 @@ export type GameDecision =
   | "YOU WON !!!"
   | "YOU LOSE !!!"
   | "YOU TIED !!!"
-  | "Loading...";
+  | "...";
 
 export type GameChoices = "rock" | "paper" | "scissors" | "";

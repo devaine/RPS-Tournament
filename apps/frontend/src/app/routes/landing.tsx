@@ -6,7 +6,7 @@ import { GameStartedScreen } from "@/features/game/start";
 import {
   LandingProvider,
   useLandingContext,
-} from "@/features/game/landing-context";
+} from "@/features/context/landing-context";
 
 const Landing = () => {
   return (

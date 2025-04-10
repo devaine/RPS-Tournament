@@ -1,23 +1,29 @@
 import { Socket } from "socket.io";
-import { landingScreen, type LandingScreen } from "./config";
-import type { GameDecision } from "./config";
+import {
+  landingScreen,
+  type LandingScreen,
+  gameScreen,
+  type GameScreen,
+} from "./config";
+import type { } from "./config";
 import { io } from "./index";
 
-let globalLandingState: string = "Register";
+let globalLandingState: LandingScreen = "Register";
+let globalGameState: GameScreen = "Waiting";
 
 export function contextManager(socket: Socket) {
-  landingStateManger(socket);
-  decisionStateManager(socket);
+  landingStateManager(socket);
+  gameStateManager(socket);
 }
 
-function landingStateManger(socket: Socket) {
+function landingStateManager(socket: Socket) {
   // Send current state to new connections
-  socket.emit("landing_update", landingScreen);
+  socket.emit("landing_update", globalLandingState);
 
   io.emit("landing_update", globalLandingState);
 
   socket.on("get_initial_landing", () => {
-    socket.emit("landing-state-update", globalLandingState);
+    socket.emit("set_landing", globalLandingState);
   });
 
   socket.on("start_game", async () => {
@@ -32,9 +38,24 @@ function landingStateManger(socket: Socket) {
   });
 }
 
-// NOTE: not in use, keeping in case of future use
-function decisionStateManager(socket: Socket) {
-  socket.on("get_initial_decision", () => {
-    socket.emit("win");
+function gameStateManager(socket: Socket) {
+  // Send current state to new connections
+  socket.emit("game_update", globalGameState);
+
+  io.emit("game_update", globalGameState);
+
+  socket.on("get_initial_game", () => {
+    socket.emit("set_game", globalGameState);
+  });
+
+  socket.on("end_game", async () => {
+    globalGameState = "End";
+    io.emit("game_update", globalGameState);
+  });
+
+  // Handle state changes from clients
+  socket.on("set_game", (newGame: GameScreen) => {
+    // Broadcast to all connected clients
+    io.emit("state_update", newGame);
   });
 }

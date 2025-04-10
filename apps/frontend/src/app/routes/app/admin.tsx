@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
-import { Title, Heading, Text } from "@/components/ui/text";
+import { Title, Heading } from "@/components/ui/text";
 import { Button } from "@/components/ui/button";
 import Dashboard from "@/app/routes/app/dashboard";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-import type { User } from "@/types/gameAPI";
 import { Input } from "@/components/ui/input";
 import { Formik } from "formik";
 import { AnimatePresence } from "framer-motion";
@@ -13,7 +12,6 @@ import type { AdminScreen } from "@/types/gameAPI";
 import { AdminLogin } from "@/features/auth/admin-login";
 
 import { socket } from "@/features/socketio/init";
-import { useLandingContext } from "@/features/game/landing-context";
 import Divider from "@/components/ui/divider";
 
 // SocketIO Stuff

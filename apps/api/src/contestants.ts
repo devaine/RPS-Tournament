@@ -10,8 +10,6 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.avatar + " is the student avatar");
 
     // Join a room (participant_room) with all other clients...
-    // FIX: Add conditional to not set room if already in room
-    // Low Priority
     socket.join("contestant_room");
     console.log(data.name + " joined contestant room");
 
@@ -40,10 +38,14 @@ export function contestantManager(socket: Socket, playerCount: number) {
     socket.disconnect();
   });
 
+  socket.on("remove_contestant", function (data) {
+    io.to("contestant_room").emit("remove_contestant", data);
+  });
+
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {
     console.log("user: " + socket.id + " disconnected!");
   });
 
-	// TODO: Remove Players
+  // TODO: Remove Players
 }

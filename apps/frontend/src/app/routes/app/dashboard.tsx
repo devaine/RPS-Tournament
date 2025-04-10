@@ -1,16 +1,15 @@
-import React from "react";
-import { useEffect, useState } from "react";
-import { Title, Statistic, Heading } from "@/components/ui/text";
+import React, { useEffect, useState } from "react";
+import { Title, Heading } from "@/components/ui/text";
 import { TextLayout } from "@/components/layouts/text-layout";
 import Divider from "@/components/ui/divider";
 import { PlayerList } from "@/components/ui/lists";
-import { BackButton } from "@/components/ui/button";
-import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import type { User } from "@/types/gameAPI";
+import { useNavigate } from "react-router";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
+import { Button } from "@/components/ui/button";
 
 // NOTE: Backend: Make sure that when proctected routes are in place
 // that players without user data are sent to "/"
@@ -21,7 +20,7 @@ if (socket.disconnected && userData.status != "loser") {
       name: userData.name,
       id: userData.id,
       avatar: userData.avatar,
-			status: userData.status
+      status: userData.status,
     });
   }
 }
@@ -30,6 +29,7 @@ const Dashboard = () => {
   const [contestants, setContestants] = useState<User[]>([]);
   const [players, setPlayers] = useState<User[]>([]);
   const [losers, setLosers] = useState<User[]>([]);
+  const navigate = useNavigate();
 
   // UseEffect runs when [socket] changes, fetching contestants each time
   // TODO: Make string of contestants return ALL contestants
@@ -81,7 +81,15 @@ const Dashboard = () => {
             <Heading text="No Losers Found :D" />
           )}
         </div>
-        {localStorage.getItem("status") !== "loser" && <BackButton />}
+        {localStorage.getItem("status") !== "loser" && (
+          <Button
+            text="Back"
+            color="background"
+            onClick={() => {
+              navigate("/");
+            }}
+          />
+        )}
       </div>
     </TextLayout>
   );

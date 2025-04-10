@@ -1,7 +1,6 @@
 import React from "react";
 import { Heading, TextBox } from "@/components/ui/text";
 import { TextLayout } from "@/components/layouts/text-layout";
-import { BackButton } from "@/components/ui/button";
 
 const About = () => {
   return (
@@ -21,7 +20,6 @@ const About = () => {
         <TextBox text="AANHPI" />
         <TextBox text="Tabletop Club" />
         <TextBox text="Computer Science Club (obviously)" />
-        <BackButton />
       </div>
     </TextLayout>
   );

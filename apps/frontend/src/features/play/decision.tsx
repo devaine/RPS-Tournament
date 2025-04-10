@@ -1,5 +1,4 @@
 import React from "react";
-import { useEffect, useState } from "react";
 import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
@@ -8,7 +7,7 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 // NOTE: Backend not done yet, soz
 
 import { socket } from "@/features/socketio/init";
-import { useDecisionContext } from "@/features/play/decision-context";
+import { useDecisionContext } from "@/features/context/decision-context";
 
 type DecisionProps = {
   enterOnClick: () => void;
@@ -34,10 +33,6 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // when [] is empty with every component update, executes useEffect
   // react will not return a promise as a function
   // async always returns promises
-
-  // useEffect(() => {
-  //   tester();
-  // }, [decision]);
 
   return (
     <GameLayout key="Decision">
