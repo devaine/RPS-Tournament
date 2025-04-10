@@ -1,20 +1,20 @@
 import { Socket } from "socket.io";
 import { io } from "./index";
 
+let previouslyJoinedRooms: string;
+
 export function contestantManager(socket: Socket, playerCount: number) {
   socket.on("join_event", function (data) {
     console.log("a user " + socket.id + " connected!");
     console.log(data.name + " is the name");
     console.log(data.id + " is the student id");
     console.log(data.avatar + " is the student avatar");
-    if (isSocketInRoom(socket, "loser_room")) {
-      socket.join("loser_room");
-      console.log(data.name + " joined loser room");
-    } else if (isSocketInRoom(socket, "contestant_room") === false) {
-      // Join a room (participant_room) with all other clients...
-      socket.join("contestant_room");
-      console.log(data.name + " joined contestant room");
-    }
+
+    // Join a room (participant_room) with all other clients...
+    socket.join("contestant_room");
+    previouslyJoinedRooms = "contestant_room";
+    console.log(data.name + " joined contestant room");
+
     // Assign the data from emit to socket
     socket.data.name = data.name;
     socket.data.id = data.id;
@@ -24,14 +24,16 @@ export function contestantManager(socket: Socket, playerCount: number) {
 
     console.log(data.status);
   });
+  socket.on("connect", () => {
+    if (previouslyJoinedRooms) {
+      socket.emit("rejoin-rooms", previouslyJoinedRooms);
+    }
+  });
 
-  function isSocketInRoom(socket: Socket, roomName: string) {
-    // Get all rooms the socket is currently in
-    const socketRooms = Array.from(socket.rooms || []);
-
-    // Check if the room exists in the socket's rooms
-    return socketRooms.includes(roomName);
-  }
+  // Server-side
+  socket.on("rejoin-rooms", (rooms) => {
+    rooms.forEach((room: string) => socket.join(room));
+  });
 
   // NOTE: Listener "leave_event" is for people who
   // press the "Leave Game" button in the UI
