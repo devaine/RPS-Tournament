@@ -16,15 +16,15 @@ type DecisionProps = {
 };
 
 async function tester() {
-	const promise = () => new Promise((resolve) => {
-		socket.on("gameResult", async (response: string) => {
-			console.log(response)
-			resolve(response)
-		})
-	})
-	console.log(await promise())
-	}
-
+  const promise = () =>
+    new Promise((resolve) => {
+      socket.on("gameResult", async (response: string) => {
+        console.log(response);
+        resolve(response);
+      });
+    });
+  console.log(await promise());
+}
 
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const { decisionState } = useDecisionContext();
@@ -35,33 +35,9 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   // react will not return a promise as a function
   // async always returns promises
 
-	useEffect(() => {
-		tester()
-	}, [decision])
-	
-
-  //useEffect(() => {
-  //  const onWin = () => {
-  //    setDecision("YOU WON !!!");
-  //  };
-  //  const onLose = () => {
-  //    setDecision("YOU LOSE !!!");
-  //  };
-  //  const onTied = () => {
-  //    setDecision("YOU TIED !!!");
-  //  };
-
-  //  socket.on("win", onWin);
-  //  socket.on("lose", onLose);
-  //  socket.on("tied", onTied);
-
-  //  // Cleanup for event listeners
-  //  return () => {
-  //    socket.off("win", onWin);
-  //    socket.off("lose", onLose);
-  //    socket.off("tied", onTied);
-  //  };
-  //}, [decision]);
+  // useEffect(() => {
+  //   tester();
+  // }, [decision]);
 
   return (
     <GameLayout key="Decision">

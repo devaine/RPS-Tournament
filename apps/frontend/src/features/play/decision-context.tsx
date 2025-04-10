@@ -26,15 +26,28 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
       setDecisionState("YOU TIED !!!");
     };
 
-    socket.on("win", onWin);
-    socket.on("lose", onLose);
-    socket.on("tied", onTied);
+    const onDecision = () => {
+      socket.on("gameResult", (response: string) => {
+        switch (response) {
+          case "winner":
+            onWin();
+            break;
+          case "loser":
+            onLose();
+            break;
+          case "tie":
+            onTied();
+            break;
+        }
+      });
+    };
+
+    onDecision();
+    console.log(decisionState);
 
     // Cleanup for event listeners
     return () => {
-      socket.off("win", onWin);
-      socket.off("lose", onLose);
-      socket.off("tied", onTied);
+      socket.off("gameResult");
     };
   }, [decisionState]);
 
