@@ -7,11 +7,14 @@ export function contestantManager(socket: Socket, playerCount: number) {
     console.log(data.name + " is the name");
     console.log(data.id + " is the student id");
     console.log(data.avatar + " is the student avatar");
-
-    // Join a room (participant_room) with all other clients...
-    socket.join("contestant_room");
-    console.log(data.name + " joined contestant room");
-
+    if (isSocketInRoom(socket, "loser_room")) {
+      socket.join("loser_room");
+      console.log(data.name + " joined loser room");
+    } else if (isSocketInRoom(socket, "contestant_room") === false) {
+      // Join a room (participant_room) with all other clients...
+      socket.join("contestant_room");
+      console.log(data.name + " joined contestant room");
+    }
     // Assign the data from emit to socket
     socket.data.name = data.name;
     socket.data.id = data.id;
@@ -19,33 +22,16 @@ export function contestantManager(socket: Socket, playerCount: number) {
 
     playerCount++;
 
-		console.log(data.status)
+    console.log(data.status);
   });
 
-	socket.on("join", (data) => {
-    // Join a room (participant_room) with all other clients...
-    socket.join("room");
-    console.log(data.name + " joined contestant room");
-	})
+  function isSocketInRoom(socket: Socket, roomName: string) {
+    // Get all rooms the socket is currently in
+    const socketRooms = Array.from(socket.rooms || []);
 
-	socket.on("join_event_loser", function (data) {
-    console.log("a user " + socket.id + " connected!");
-    console.log(data.name + " is the name");
-    console.log(data.id + " is the student id");
-    console.log(data.avatar + " is the student avatar");
-
-    // Join a room (participant_room) with all other clients...
-    socket.join("loser_room");
-    console.log(data.name + " joined losers room");
-
-    // Assign the data from emit to socket
-    socket.data.name = data.name;
-    socket.data.id = data.id;
-    socket.data.avatar = data.avatar;
-
-    playerCount++;
-  });
-
+    // Check if the room exists in the socket's rooms
+    return socketRooms.includes(roomName);
+  }
 
   // NOTE: Listener "leave_event" is for people who
   // press the "Leave Game" button in the UI
