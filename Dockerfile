@@ -8,5 +8,6 @@ RUN npm i #--omit=dev <- use that arg for production
 
 EXPOSE 5173
 
-CMD ["npm", "run", "build"]
+RUN npm run build
+
 CMD ["npm", "run", "host"]
