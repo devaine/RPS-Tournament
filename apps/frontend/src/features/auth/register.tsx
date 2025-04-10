@@ -22,7 +22,7 @@ const RegisterScreen = () => {
     name: Yup.string()
       .matches(/^[a-z ,.'-]+$/i)
       .required(), // Regex for Names (Only Letters)
-    id: Yup.string().matches(/^\d*$/, "Only Numbers").required(), // Regex for ID's (Only Numbers)
+    id: Yup.string().matches(/^\d*$/, "Only Numbers").length(7).required(), // Regex for ID's (Only Numbers)
   });
   return (
     <Formik
