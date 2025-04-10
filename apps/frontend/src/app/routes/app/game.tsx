@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { AnimatePresence } from "framer-motion";
+import React from "react";
 import Play from "@/features/play/play";
 import Waiting from "@/features/game/waiting";
 import Decision from "@/features/play/decision";
@@ -25,7 +24,6 @@ const Game = () => {
 
 const GameRouter = () => {
   const { gameState, setGameState } = useGameContext();
-  console.log(gameState);
 
   switch (gameState) {
     case "Waiting":
@@ -117,8 +115,8 @@ function gameSyncRetry() {
 }
 
 function getPlayerChoice(choice: GameChoices) {
-    userData.choice = choice;
-    socket.emit("play", userData.choice);
+  userData.choice = choice;
+  socket.emit("play", userData.choice);
 }
 
 export default Game;

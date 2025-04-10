@@ -40,7 +40,6 @@ function endGame() {
   });
 }
 
-
 export const Admin = () => {
   const [currentScreen, setCurrentScreen] = useState<AdminScreen>("Login");
   return (
@@ -101,9 +100,9 @@ const removeContestant = () => {
       <Formik
         initialValues={{ name: "" }}
         onSubmit={(values) => {
-					console.log(values.name)
-					socket.emit("removeContestant", values.name)
-				}}
+          console.log(values.name);
+          socket.emit("removeContestant", values.name);
+        }}
         validationSchema={validationSchema}
       >
         {({ values, handleChange, handleSubmit }) => (

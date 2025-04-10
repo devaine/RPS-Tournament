@@ -14,12 +14,6 @@ export type GameDecision =
   | "YOU TIED !!!"
   | "...";
 
-// Global variable for setting landing screen
-export let landingScreen: LandingScreen = "Register";
-
-// Global variable for setting game screen
-export let gameScreen: GameScreen = "Waiting";
-
 export type User = {
   name: string;
   id: number;

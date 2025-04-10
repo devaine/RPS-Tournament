@@ -1,10 +1,5 @@
 import { Socket } from "socket.io";
-import {
-  landingScreen,
-  type LandingScreen,
-  gameScreen,
-  type GameScreen,
-} from "./config";
+import { type LandingScreen, type GameScreen } from "./config";
 import type { } from "./config";
 import { io } from "./index";
 
@@ -34,7 +29,7 @@ function landingStateManager(socket: Socket) {
   // Handle state changes from clients
   socket.on("set_landing", (newLanding: LandingScreen) => {
     // Broadcast to all connected clients
-    io.emit("state_update", newLanding);
+    io.emit("landing_update", newLanding);
   });
 }
 
