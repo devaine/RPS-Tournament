@@ -28,6 +28,8 @@ export function playManager(socket: Socket) {
 			console.log(player1_socket?.data.status + " is " + player1_socket?.id)
 			console.log(player2_socket?.data.status + " is " + player2_socket?.id)
 
+			player1_socket?.emit("gameResult", player1_socket.data.status)
+			player2_socket?.emit("gameResult", player2_socket.data.status)
 
 			// Cleanup, empty everything
 			decisionCount = 0
@@ -60,60 +62,6 @@ async function test(player1: Socket | undefined, player2: Socket | undefined): P
 	}
 }
 
-//function decideWinner(
-//  player1:
-//    | Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
-//    | undefined,
-//  player2:
-//    | Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
-//    | undefined,
-//): Promise<string[]> {
-//  // NOTE: Check if player1 and player2 exist because (like findSocket)
-//  // they can possibly not exist, also check if `choice` is undefined (as in
-//  // undecided)
-//  var orderOfWin: string[] = [];
-//
-//  if (
-//    !player1 ||
-//    !player2 ||
-//    player1.data.choice === undefined ||
-//    player2.data.choice === undefined
-//  )
-//    if (player1 && player2) {
-//      // Actual game logic, probably sucks compared to other implementations but who cares
-//      // Ties
-//      if (player1.data.choice === player2.data.choice) {
-//        player1.data.choice = undefined;
-//        player2.data.choice = undefined;
-//        tieSend(player1, player2);
-//      } else if (
-//        (player1.data.choice === "rock" &&
-//          player2.data.choice === "scissors") ||
-//        (player1.data.choice === "paper" && player2.data.choice === "rock") ||
-//        (player1.data.choice === "scissors" && player2.data.choice === "paper")
-//      ) {
-//        orderOfWin.push(player1.id);
-//        orderOfWin.push(player2.id);
-//
-//        player1.data.choice = undefined;
-//        player2.data.choice = undefined;
-//        console.log(orderOfWin);
-//
-//        //return orderOfWin;
-//      } else {
-//        orderOfWin.push(player2.id);
-//        orderOfWin.push(player1.id);
-//
-//        player1.data.choice = undefined;
-//        player2.data.choice = undefined;
-//
-//        console.log(orderOfWin);
-//        //return orderOfWin;
-//      }
-//    }
-//  //return [];
-//}
-
 function tieSend(
   player1:
     | Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap, any>
@@ -123,7 +71,7 @@ function tieSend(
     | undefined,
 ) {
   if (player1 && player2) {
-    io.to(player1.id).emit("game_outcome", "YOU TIED !!!");
-    io.to(player2.id).emit("game_outcome", "YOU TIED !!!");
+    io.to(player1.id).emit("settle_ties", "YOU TIED !!!");
+    io.to(player2.id).emit("settle_ties", "YOU TIED !!!");
   }
 }
