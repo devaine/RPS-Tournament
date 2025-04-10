@@ -20,10 +20,6 @@ export function contestantManager(socket: Socket, playerCount: number) {
     playerCount++;
 
 		console.log(data.status)
-		if(data.status === "loser" && socket.in("contestant_room")) {
-			socket.join("loser_room")
-			socket.leave("contestant_room")
-		}
   });
 
 	socket.on("join_event_loser", function (data) {

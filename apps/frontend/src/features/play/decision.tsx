@@ -8,22 +8,14 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 
 import { socket } from "@/features/socketio/init";
 import { useDecisionContext } from "@/features/context/decision-context";
+import { useNavigate } from "react-router";
 
 type DecisionProps = {
   enterOnClick: () => void;
   leaveOnClick: () => void;
 };
 
-async function tester() {
-  const promise = () =>
-    new Promise((resolve) => {
-      socket.on("gameResult", async (response: string) => {
-        console.log(response);
-        resolve(response);
-      });
-    });
-  console.log(await promise());
-}
+const navigate = useNavigate()
 
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
   const { decisionState } = useDecisionContext();
@@ -44,6 +36,8 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
             link="/dashboard"
             onClick={() => {
               localStorage.setItem("status", "loser");
+							socket.disconnect()
+							navigate("/")
             }}
           />
         )}
