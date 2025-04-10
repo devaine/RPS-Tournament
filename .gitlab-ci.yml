@@ -48,6 +48,7 @@ deploy:
     - docker context use rps
 
   script:
+    - docker pull $registry_server/rps-developers/rps-tournament:dev
     - docker stack deploy --prune -c docker-stack.yml rps-dev --with-registry-auth
 
   after_script:
