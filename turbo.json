@@ -3,7 +3,7 @@
   "ui": "tui",
   "tasks": {
     "build": {
-      "dependsOn": ["^build"],
+			"dependsOn": ["^build"],
 			"inputs": ["apps/frontend", "apps/api"],
       "outputs": ["dist/**"]
     },
@@ -12,8 +12,7 @@
       "persistent": true
     },
 		"host": {
-      "cache": false,
-      "persistent": true
+			"dependsOn": ["^build"]
     }
   },
   "remoteCache": {}

@@ -9,6 +9,8 @@ import { playManager } from "./play";
 import { listManager } from "./list";
 import { contextManager } from "./context";
 
+import { join } from "path"
+
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
 // Finding values
@@ -23,18 +25,20 @@ const httpServer = createServer(app);
 
 // NOTE: Initializes SocketIO (Server-Side)
 export const io = new Server(httpServer, {
-  connectionStateRecovery: { maxDisconnectionDuration: 120000 },
-  cors: {
-    origin: URL + ":" + FRONTEND_PORT, // References Frontend
-    methods: ["GET", "POST"],
-  },
+  //connectionStateRecovery: { maxDisconnectionDuration: 120000 },
+  //cors: {
+  //  origin: URL + ":" + PORT, // References Frontend
+  //  methods: ["GET", "POST"],
+  //},
 });
 
 app.use(helmet(), express.json());
 
+app.use(express.static(join(__dirname, "../../frontend/dist")))
+
 // NOTE: Express Stuff, not used yet
-app.get("/", (req, res) => {
-  res.json("hello");
+app.get("/*", (req, res) => {
+	res.sendFile(join(__dirname, "../../frontend/dist/index.html"))
 });
 
 var playerCount = 0;
