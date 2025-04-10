@@ -33,7 +33,7 @@ export function GameProvider({ children }: { children: React.ReactNode }) {
   const handleSetGameState = (newGame: GameScreen) => {
     setGameState(newGame);
     // Notify server about the screen change
-    socket?.emit("decision_update", newGame);
+    socket.emit("decision_update", newGame);
   };
 
   return (

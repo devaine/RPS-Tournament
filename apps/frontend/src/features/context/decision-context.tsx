@@ -52,7 +52,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
   const handleSetDecisionState = (newDecision: GameDecision) => {
     setDecisionState(newDecision);
     // Notify server about the screen change
-    socket?.emit("decision_update", newDecision);
+    socket.emit("decision_update", newDecision);
   };
 
   return (
