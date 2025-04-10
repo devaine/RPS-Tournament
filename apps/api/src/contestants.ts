@@ -22,6 +22,12 @@ export function contestantManager(socket: Socket, playerCount: number) {
 		console.log(data.status)
   });
 
+	socket.on("join", (data) => {
+    // Join a room (participant_room) with all other clients...
+    socket.join("room");
+    console.log(data.name + " joined contestant room");
+	})
+
 	socket.on("join_event_loser", function (data) {
     console.log("a user " + socket.id + " connected!");
     console.log(data.name + " is the name");

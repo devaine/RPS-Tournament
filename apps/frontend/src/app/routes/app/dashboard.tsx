@@ -16,7 +16,7 @@ import { Button } from "@/components/ui/button";
 if (socket.disconnected ) {
   socket.connect();
   if (userData.name != undefined && userData.id != undefined) {
-    socket.emit("join_event", {
+    socket.emit("join", {
       name: userData.name,
       id: userData.id,
       avatar: userData.avatar,
