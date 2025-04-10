@@ -7,6 +7,7 @@ import { Avatar } from "@/components/ui/avatar";
 // Backend Imports
 import { userData } from "@/config/global";
 import { socket } from "@/features/socketio/init";
+import { setTokenSourceMapRange } from "typescript";
 
 const ConfirmUser = () => {
   function joinEvent() {
@@ -17,7 +18,7 @@ const ConfirmUser = () => {
       id: userData.id,
       avatar: userData.avatar,
       choice: userData.choice,
-      status: userData.status,
+      status: localStorage.getItem("status"),
     });
 
     localStorage.setItem("student_info", JSON.stringify(userData));

@@ -27,7 +27,7 @@ const httpServer = createServer(app);
 export const io = new Server(httpServer, {
   connectionStateRecovery: { maxDisconnectionDuration: 120000 },
   cors: {
-    origin: URL,
+    origin: URL, // Ref to frontend
     methods: ["GET", "POST"],
   },
 });
@@ -56,5 +56,5 @@ io.on("connection", (socket) => {
 });
 
 httpServer.listen(PORT, () => {
-  console.log("Server listening on " + URL + ":" + PORT);
+  console.log("Server listening on " + URL);
 });

@@ -1,7 +1,7 @@
 // SERVER VARIABLES
 export const PORT = 3002;
 export const URL = "https://rps.devdoes.work";
-// export const URL = "http://10.162.167.86"; // For LSC testing
+//export const URL = "http://localhost:5173"
 
 export type LandingScreen = "Register" | "Game Started";
 

@@ -13,16 +13,17 @@ import { Button } from "@/components/ui/button";
 
 // NOTE: Backend: Make sure that when proctected routes are in place
 // that players without user data are sent to "/"
-if (socket.disconnected && userData.status != "loser") {
+if (socket.disconnected ) {
   socket.connect();
   if (userData.name != undefined && userData.id != undefined) {
     socket.emit("join_event", {
       name: userData.name,
       id: userData.id,
       avatar: userData.avatar,
-      status: userData.status,
+      status: localStorage.getItem("status"),
     });
-  }
+		console.log(localStorage.getItem("status"))
+	}
 }
 
 const Dashboard = () => {
