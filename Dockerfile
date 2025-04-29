@@ -6,7 +6,10 @@ WORKDIR /rps-dev
 
 RUN npm i #--omit=dev <- use that arg for production
 
-EXPOSE 3002
+# Port 3001 = dev website
+# Port 3002 = prod website
+
+EXPOSE 3001 
 
 RUN npm run clean
 
