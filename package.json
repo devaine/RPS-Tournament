@@ -6,7 +6,8 @@
     "dev": "turbo dev",
     "lint": "turbo lint",
 		"host": "turbo host",
-    "format": "prettier --write \"**/*.{ts,tsx,md}\""
+    "format": "prettier --write \"**/*.{ts,tsx,md}\"",
+		"clean": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r"
   },
   "license": "ISC",
   "workspaces": [
