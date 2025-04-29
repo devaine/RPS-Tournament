@@ -3,16 +3,16 @@
   "ui": "stream",
   "tasks": {
     "build": {
-			"dependsOn": ["^build"],
-			"inputs": ["apps/frontend", "apps/api"],
-      "outputs": ["dist/**"]
+	"dependsOn": ["^build"],
+	"inputs": ["apps/frontend", "apps/api"],
+	"outputs": ["dist/**"]
     },
     "dev": {
       "cache": false,
       "persistent": true
     },
-		"host": {
-			"dependsOn": ["^build"]
+    "host": {
+	"dependsOn": ["^build"]
     }
   },
   "remoteCache": {}
