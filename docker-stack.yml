@@ -1,5 +1,5 @@
 services:
-  frontend:
+  fullstack:
     image: cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
 
     ports:
