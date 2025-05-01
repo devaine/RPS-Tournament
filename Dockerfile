@@ -12,7 +12,8 @@ EXPOSE 3001
 
 # Secrets go to .env
 RUN --mount=type=secret,id=dev_url \
-    echo $(cat /run/secrets/dev_url) >> .env
+    export DEV_URL=$(cat /run/secrets/dev_url) && \
+		echo $DEV_URL >> .env
 
 RUN npm run format
 

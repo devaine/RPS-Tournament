@@ -9,9 +9,9 @@ services:
       update_config:
         order: stop-first
 
-    secrets:
-      - dev_url
-
-secrets:
-  dev_url:
-    external: true
+#    secrets:
+#      - dev_url
+#
+#secrets:
+#  dev_url:
+#    external: true
