@@ -1,9 +1,9 @@
 import dotenv from "dotenv"
-dotenv.config({ path: ["../../../.env"] });
+dotenv.config({ path: ["../../.env"] });
 
 // SERVER VARIABLES
 export const PORT = 3002;
-export const URL = process.env.DEV_URL || process.env.PROD_URL || "http://localhost:3000";
+export const URL = process.env.DEV_URL || process.env.PROD_URL || "http://localhost:3002";
 
 export type LandingScreen = "Register" | "Game Started";
 

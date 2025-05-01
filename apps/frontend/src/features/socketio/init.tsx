@@ -1,6 +1,6 @@
 import { io } from "socket.io-client";
 import dotenv from "dotenv"
-dotenv.config({ path: ["../../../../../.env"] });
+dotenv.config({ path: ["../../.env"] });
 
 // NOTE: URL to connec to SocketIO backend, not frontend port
 const URL =

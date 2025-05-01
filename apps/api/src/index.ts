@@ -15,21 +15,16 @@ import { join } from "path";
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
 // Finding values
 
-/* NOTE: FOR PRODUCTION
- * Instead of a URL + PORT seperately,
- * just create a domain to connect to
- */
-
 const app = express();
 const httpServer = createServer(app);
 
 // NOTE: Initializes SocketIO (Server-Side)
 export const io = new Server(httpServer, {
-  connectionStateRecovery: { maxDisconnectionDuration: 120000 },
-  cors: {
-    origin: URL, // Ref to frontend
-    methods: ["GET", "POST"],
-  },
+	connectionStateRecovery: { maxDisconnectionDuration: 120000 },
+	cors: {
+		origin: URL, // Ref to frontend
+		methods: ["GET", "POST"],
+	},
 });
 
 app.use(helmet(), express.json());
@@ -38,7 +33,7 @@ app.use(express.static(join(__dirname, "../../frontend/dist")));
 
 // NOTE: Express Stuff, not used yet
 app.get("/*", (req, res) => {
-  res.sendFile(join(__dirname, "../../frontend/dist/index.html"));
+	res.sendFile(join(__dirname, "../../frontend/dist/index.html"));
 });
 
 var playerCount = 0;
@@ -47,14 +42,16 @@ var playerCount = 0;
  *	 If "join_event" is true (from client-end) grab data from client
  */
 io.on("connection", (socket) => {
-  // Functions for handling game and contestants
-  gameManager(socket);
-  contestantManager(socket, playerCount);
-  playManager(socket);
-  listManager(socket);
-  contextManager(socket);
+	// Functions for handling game and contestants
+	gameManager(socket);
+	contestantManager(socket, playerCount);
+	playManager(socket);
+	listManager(socket);
+	contextManager(socket);
 });
 
 httpServer.listen(PORT, () => {
-  console.log("Server listening on " + URL);
+	console.log("Server listening on " + URL);
+	console.log(URL + " is the url")
+	console.log(PORT + " is the port")
 });

@@ -2,18 +2,19 @@
   "globalDependencies": ["tsconfig.json"],
   "ui": "stream",
   "tasks": {
-    "build": {
-	"dependsOn": ["^build"],
-	"inputs": ["apps/frontend", "apps/api"],
-	"outputs": ["dist/**"]
-    },
-    "dev": {
-      "cache": false,
-      "persistent": true
-    },
-    "host": {
-	"dependsOn": ["^build"]
-    }
+		"build": {
+			"dependsOn": ["^build"],
+			"inputs": ["apps/frontend", "apps/api"],
+			"outputs": ["apps/**/dist/**"]
+		},
+		"dev": {
+			"cache": false,
+			"persistent": true
+		},
+		"host": {
+			"dependsOn": ["^build"],
+			"inputs": ["apps/api/dist"]
+		}
   },
   "remoteCache": {}
 }
