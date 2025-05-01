@@ -11,9 +11,8 @@ RUN npm i #--omit=dev <- use that arg for production
 EXPOSE 3001 
 
 # Secrets go to .env
-RUN --mount=type=secret,id=dev_url \
-    export DEV_URL=$(cat /run/secrets/dev_url) && \
-		echo $DEV_URL >> .env
+RUN --mount=type=secret,id=zuuxfyps6wik3ox9eis1ntoi9,env=DEV_URL \
+		echo $DEV_URL >> .env \
 
 RUN npm run format
 
