@@ -9,7 +9,7 @@ import { playManager } from "./play";
 import { listManager } from "./list";
 import { contextManager } from "./context";
 
-import { join } from "path"
+import { join } from "path";
 
 // REFERENCES
 // Assigning clients with data: https://stackoverflow.com/questions/53602435/assigning-usernames-to-socket-io-ids
@@ -34,11 +34,11 @@ export const io = new Server(httpServer, {
 
 app.use(helmet(), express.json());
 
-app.use(express.static(join(__dirname, "../../frontend/dist")))
+app.use(express.static(join(__dirname, "../../frontend/dist")));
 
 // NOTE: Express Stuff, not used yet
 app.get("/*", (req, res) => {
-	res.sendFile(join(__dirname, "../../frontend/dist/index.html"))
+  res.sendFile(join(__dirname, "../../frontend/dist/index.html"));
 });
 
 var playerCount = 0;

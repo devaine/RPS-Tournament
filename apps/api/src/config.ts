@@ -1,7 +1,9 @@
+import "dotenv/config";
+
 // SERVER VARIABLES
 export const PORT = 3002;
-export const URL = "https://rps.devdoes.work";
-//export const URL = "http://localhost:5173"
+export const URL =
+  process.env.DEV_URL || process.env.PROD_URL || "http://localhost:3000";
 
 export type LandingScreen = "Register" | "Game Started";
 

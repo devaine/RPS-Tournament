@@ -9,7 +9,7 @@ type InputProps = {
   value: string;
   placeholder: string;
   maxLength?: number;
-	inputMode?: "numeric";
+  inputMode?: "numeric";
 };
 
 export const Input = ({
@@ -20,7 +20,7 @@ export const Input = ({
   value,
   placeholder,
   maxLength,
-	inputMode
+  inputMode,
 }: InputProps) => {
   return (
     <div className="flex flex-col text-left gap-2">
@@ -40,7 +40,7 @@ export const Input = ({
         placeholder={placeholder}
         className="text-paragraph text-3xl px-4 py-2 box-shadow-trans-retract placeholder-paragraph/25 bg-secondary/75 font-jersey-10 "
         maxLength={maxLength}
-				inputMode={inputMode}
+        inputMode={inputMode}
       />
     </div>
   );

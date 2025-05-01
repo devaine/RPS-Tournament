@@ -2,9 +2,16 @@ services:
   fullstack:
     image: cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
 
+    environment:
+      - DEV_URL_FILE=/run/secrets/dev_url
+
     ports:
       - 3001:3001
 
     deploy:
       update_config:
         order: stop-first
+
+secrets:
+  dev_url:
+    external: true

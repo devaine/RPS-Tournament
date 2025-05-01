@@ -9,7 +9,7 @@ import { useNavigate } from "react-router";
 import { userData } from "@/config/global"; // Global Variables
 
 function clearFinalBack() {
-	localStorage.clear()
+  localStorage.clear();
 }
 
 const Register = () => {
@@ -36,9 +36,12 @@ const Register = () => {
           />
         ))}
       </div>
-			<Button
-			text="Back" color="background" link="/" onClick={clearFinalBack}
-			/>
+      <Button
+        text="Back"
+        color="background"
+        link="/"
+        onClick={clearFinalBack}
+      />
     </RegisterLayout>
   );
 };

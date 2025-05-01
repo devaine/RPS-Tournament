@@ -7,7 +7,7 @@
     "lint": "turbo lint",
 		"host": "turbo host",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"clean": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r"
+		"clean": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r && find . -path ./node_modules -prune -o -name 'node_modules' | xargs rm -rf "
   },
   "license": "ISC",
   "workspaces": [

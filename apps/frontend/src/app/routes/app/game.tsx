@@ -30,7 +30,7 @@ const GameRouter = () => {
       return (
         <Waiting
           key="Waiting"
-          leaveOnClick={() => { }}
+          leaveOnClick={() => {}}
           enterOnClick={async () => {
             setGameState("Ready");
             socket.emit("set_decision", "YOU WON !!!");
@@ -81,7 +81,7 @@ const GameRouter = () => {
       return (
         <Waiting
           key="Waiting"
-          leaveOnClick={() => { }}
+          leaveOnClick={() => {}}
           enterOnClick={async () => {
             setGameState("Ready");
             socket.emit("set_decision", "YOU WON !!!");
@@ -101,7 +101,7 @@ function gameSync() {
       return response;
     });
 
-    socket.on("tie_retry", () => { });
+    socket.on("tie_retry", () => {});
   });
 }
 

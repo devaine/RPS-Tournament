@@ -7,13 +7,13 @@ import { GameProvider } from "@/features/context/game-context";
 const App = () => {
   return (
     <div>
-		<LandingProvider>
-			<DecisionProvider>
-				<GameProvider>
-					<Router />
-				</GameProvider>
-			</DecisionProvider>
-		</LandingProvider>
+      <LandingProvider>
+        <DecisionProvider>
+          <GameProvider>
+            <Router />
+          </GameProvider>
+        </DecisionProvider>
+      </LandingProvider>
     </div>
   );
 };

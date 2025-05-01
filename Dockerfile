@@ -11,7 +11,8 @@ RUN npm i #--omit=dev <- use that arg for production
 
 EXPOSE 3001 
 
-RUN npm run clean
+RUN --mount=type=secret,id=dev_url,env=DEV_URL \
+	cat $DEV_URL >> .env
 
 RUN npm run format
 

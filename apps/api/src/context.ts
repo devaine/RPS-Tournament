@@ -1,6 +1,6 @@
 import { Socket } from "socket.io";
 import { type LandingScreen, type GameScreen } from "./config";
-import type { } from "./config";
+import type {} from "./config";
 import { io } from "./index";
 
 let globalLandingState: LandingScreen = "Register";
