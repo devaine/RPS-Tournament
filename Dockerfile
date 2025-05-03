@@ -4,14 +4,14 @@ COPY . /rps-dev
 
 WORKDIR /rps-dev
 
-RUN --mount=type=secret,id=DEV_URL,env=DEV_URL \
-	export | cut -c12- | grep DEV_URL >> .env
+# For .env
+RUN --mount=type=secret,id=DEV_URL echo DEV_URL=$(cat /run/secrets/DEV_URL) >> .env
 
 RUN npm i #--omit=dev <- use that arg for production
 
-# Port 3001 = dev website
-# Port 3002 = prod website
-EXPOSE 3001 
+# Port 3002 = dev website
+# Port 3003 = prod website
+EXPOSE 3002
 
 RUN npm run format
 
