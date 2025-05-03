@@ -22,7 +22,7 @@ export default defineConfig({
 	},
 	// Defines envrionmental files across all src code b/c prefix is usually "VITE"
 	define: {
-		'import.meta.env.DEV_URL': process.env.DEV_URL,
-		'import.meta.env.PROD_URL': process.env.PROD_URL
+		'import.meta.env.DEV_URL': JSON.stringify(process.env.DEV_URL),
+		'import.meta.env.PROD_URL': JSON.stringify(process.env.PROD_URL)
 	}
 });
