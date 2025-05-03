@@ -5,7 +5,9 @@
 		"build": {
 			"dependsOn": ["^build"],
 			"inputs": ["apps/frontend", "apps/api"],
-			"outputs": ["apps/**/dist/**"]
+			"outputs": ["dist"],
+			"cache": false,
+			"persistent": false
 		},
 		"dev": {
 			"cache": false,

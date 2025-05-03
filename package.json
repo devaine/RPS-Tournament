@@ -5,11 +5,10 @@
     "build": "turbo build",
     "dev": "turbo dev",
     "lint": "turbo lint",
-		"host": "turbo host",
+    "host": "turbo host",
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
-		"clean-dist": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r",
-		"clean-all": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r && find . -path ./node_modules -prune -o -name 'node_modules' | xargs rm -rf "
-
+    "clean-dist": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r",
+    "clean-all": "find apps/ -type d -name 'dist' -print0 | xargs -r0 -- rm -r && find . -path ./node_modules -prune -o -name 'node_modules' | xargs rm -rf "
   },
   "license": "ISC",
   "workspaces": [
@@ -24,7 +23,7 @@
   "dependencies": {
     "dotenv": "^16.4.7",
     "tsx": "^4.19.2",
-    "turbo": "^2.4.0",
+    "turbo": "^2.5.2",
     "typescript": "^5.7.3"
   },
   "packageManager": ">=npm@10.9.0"

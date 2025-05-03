@@ -18,29 +18,26 @@ import { join } from "path";
 const app = express();
 const httpServer = createServer(app);
 
-// NOTE: Initializes SocketIO (Server-Side)
+// Initializes SocketIO (Server-Side)
 export const io = new Server(httpServer, {
-	connectionStateRecovery: { maxDisconnectionDuration: 120000 },
 	cors: {
-		origin: URL, // Ref to frontend
-		methods: ["GET", "POST"],
+		origin: URL
 	},
+	connectionStateRecovery: { maxDisconnectionDuration: 120000 },
 });
 
-app.use(helmet(), express.json());
+app.use(express.json());
 
+// NOTE: Statically use the built code from Vite from the Frontend
 app.use(express.static(join(__dirname, "../../frontend/dist")));
-
-// NOTE: Express Stuff, not used yet
 app.get("/*", (req, res) => {
-	res.sendFile(join(__dirname, "../../frontend/dist/index.html"));
+	// Handles the HTML file across the entire website
+	res.sendFile(__dirname + "../../frontend/dist/index.html");
 });
 
 var playerCount = 0;
 
-/* NOTE: When there's a connection ("connection") open up listeners
- *	 If "join_event" is true (from client-end) grab data from client
- */
+// NOTE: SocketIO Main Initialization
 io.on("connection", (socket) => {
 	// Functions for handling game and contestants
 	gameManager(socket);

@@ -2,6 +2,7 @@
 	"name": "frontend",
 	"license": "ISC",
 	"private": true,
+	"main": "./src/main.tsx",
 	"scripts": {
 		"dev": "vite --host 0.0.0.0",
 		"build": "tsc --project . && vite build",
