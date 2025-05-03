@@ -3,7 +3,7 @@ services:
     image: cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
 
     ports:
-      - 3001:3001
+      - 3002:3002
 
     deploy:
       update_config:
