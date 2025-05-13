@@ -1,68 +1,50 @@
 import { Socket } from "socket.io";
 import { io } from "./index";
 
-let previouslyJoinedRooms: string;
+// NOTE: This file helps handle contestant movement between rooms
 
-export function updatePreviouslyJoinedRooms(room: string) {
-  previouslyJoinedRooms = room;
-}
+export function contestantHandler(socket: Socket) {
+	// NOTE: Listener "join_event" is for people who are joining the event
+	// for the first fime (it can also be for rejoins)
+	socket.on("join_event", async function(data) {
+		if (!socket.rooms.has("contestant_room")) {
+			socket.join("contestant_room")
 
-export function contestantManager(socket: Socket, playerCount: number) {
-  socket.on("join_event", function (data) {
-    console.log("a user " + socket.id + " connected!");
-    console.log(data.name + " is the name");
-    console.log(data.id + " is the student id");
-    console.log(data.avatar + " is the student avatar");
+			// Assign the data from emit to socket
+			socket.data.name = data.name;
+			socket.data.id = data.id;
+			socket.data.avatar = data.avatar;
 
-    // Join a room (participant_room) with all other clients...
-    if (previouslyJoinedRooms) {
-      socket.emit("rejoin-rooms", previouslyJoinedRooms);
-    } else {
-      socket.join("contestant_room");
-      previouslyJoinedRooms = "contestant_room";
-    }
-    console.log(data.name + " joined contestant room");
+			const fetchSockets = await io.in("contestant_room").fetchSockets();
+			const socketList: string[] = [];
 
-    // Assign the data from emit to socket
-    socket.data.name = data.name;
-    socket.data.id = data.id;
-    socket.data.avatar = data.avatar;
+			// Sends all socket ids into socketList
+			for (const socket of fetchSockets) {
+				socketList.push(socket.data.name);
+			}
 
-    playerCount++;
+			console.log(socket.data.name + " has joined \"contestant_room\" ")
+			console.log("active players: " + socketList + "\n")
+		}
+	});
 
-    console.log(data.status);
-  });
+	// NOTE: Listener "leave_event" is for people who
+	// press the "Leave Game" button in the UI
+	socket.on("leave_event", function(data) {
+		if (socket.rooms.has("contestant_room")) {
+			socket.leave("contestant_room");
+		}
 
-  // Server-side
-  socket.on("rejoin-rooms", (rooms) => {
-    rooms.forEach((room: string) => socket.join(room));
-  });
+		console.log("a user " + socket.id + " left the event!");
+		console.log(data.name + " is the name");
+		console.log(data.id + " is the student id");
 
-  // NOTE: Listener "leave_event" is for people who
-  // press the "Leave Game" button in the UI
-  socket.on("leave_event", function (data) {
-    if (socket.rooms.has("contestant_room")) {
-      socket.leave("contestant_room");
-    }
+		socket.disconnect();
+	});
 
-    playerCount--;
+	// Handles genuine disconnection (refreshes + crashes etc.)
+	socket.on("disconnect", () => {
+		console.log("user: " + socket.id + " disconnected!");
+	});
 
-    console.log("a user " + socket.id + " left the event!");
-    console.log("playerCount: " + playerCount);
-    console.log(data.name + " is the name");
-    console.log(data.id + " is the student id");
-
-    socket.disconnect();
-  });
-
-  socket.on("remove_contestant", function (data) {
-    io.to("contestant_room").emit("remove_contestant", data);
-  });
-
-  // Handles genuine disconnection (refreshes + crashes etc.)
-  socket.on("disconnect", () => {
-    console.log("user: " + socket.id + " disconnected!");
-  });
-
-  // TODO: Remove Players
 }

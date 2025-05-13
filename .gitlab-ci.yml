@@ -18,8 +18,7 @@ build-and-push:
     - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
 
   script:
-    # uncomment if DEV_URL isn't exposed
-    #- export DEV_URL=$DEV_URL
+    # NOTE: Add "--secret 'id=VARIABLE_NAME'" if you're using a variable from GitLab
     - docker buildx build --secret "id=DEV_URL" -t $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH .
     - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
 

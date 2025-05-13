@@ -17,111 +17,111 @@ import Divider from "@/components/ui/divider";
 // SocketIO Stuff
 
 function startRound() {
-  socket.emit("startRound", (response: object) => {
-    console.log(response);
-  });
+	socket.emit("startRound", (response: object) => {
+		console.log(response);
+	});
 }
-
+// TODO: Update to movePlayer or something else (see game.ts)
 function removePlayer() {
-  socket.emit("removePlayer", (response: object) => {
-    console.log(response);
-  });
+	socket.emit("removePlayer", (response: object) => {
+		console.log(response);
+	});
 }
 
 function startGame() {
-  socket.emit("start_game", (response: object) => {
-    console.log(response);
-  });
+	socket.emit("start_game", (response: object) => {
+		console.log(response);
+	});
 }
 
 function endGame() {
-  socket.emit("end_game", (response: object) => {
-    console.log(response);
-  });
+	socket.emit("end_game", (response: object) => {
+		console.log(response);
+	});
 }
 
 export const Admin = () => {
-  const [currentScreen, setCurrentScreen] = useState<AdminScreen>("Login");
-  return (
-    <AnimatePresence mode="wait">
-      {currentScreen === "Login" && (
-        <AdminLogin onSubmit={() => setCurrentScreen("Admin")} />
-      )}
-      {currentScreen === "Admin" && <AdminScreen />}
-    </AnimatePresence>
-  );
+	const [currentScreen, setCurrentScreen] = useState<AdminScreen>("Login");
+	return (
+		<AnimatePresence mode="wait">
+			{currentScreen === "Login" && (
+				<AdminLogin onSubmit={() => setCurrentScreen("Admin")} />
+			)}
+			{currentScreen === "Admin" && <AdminScreen />}
+		</AnimatePresence>
+	);
 };
 
 const AdminScreen = () => {
-  /* NOTE: Start not only starts the game but prevents new players from joining */
+	/* NOTE: Start not only starts the game but prevents new players from joining */
 
-  // FIX: UseContext not working to set landing page
-  // const { updateLanding } = useLandingContext();
+	// FIX: UseContext not working to set landing page
+	// const { updateLanding } = useLandingContext();
 
-  return (
-    <div className="flex flex-col items-between">
-      <div className="text-center">
-        <Title text="ROCK PAPER SCISSORS ADMIN" />
-      </div>
-      <div className="flex min-w-screen gap-8 p-4">
-        <div className="flex flex-col basis-1/3 gap-4">
-          <Title text="Management" />
-          <Divider />
-          <div className="flex flex-col gap-2">
-            <Heading text="Round" />
-            <MultiButtonLayout horizontal={true}>
-              <Button text="Start Round" onClick={startRound} />
-              <Button text="Remove Player" onClick={removePlayer} />
-            </MultiButtonLayout>
-            <Heading text="Game" />
-            <MultiButtonLayout horizontal={true}>
-              <Button text="Start" onClick={startGame} />
-              <Button text="End" color="background" onClick={endGame} />
-            </MultiButtonLayout>
-            <Heading text="Contestants" />
-            {removeContestant()}
-          </div>
-        </div>
-        <div className="basis-full">
-          <Dashboard />
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div className="flex flex-col items-between">
+			<div className="text-center">
+				<Title text="ROCK PAPER SCISSORS ADMIN" />
+			</div>
+			<div className="flex min-w-screen gap-8 p-4">
+				<div className="flex flex-col basis-1/3 gap-4">
+					<Title text="Management" />
+					<Divider />
+					<div className="flex flex-col gap-2">
+						<Heading text="Round" />
+						<MultiButtonLayout horizontal={true}>
+							<Button text="Start Round" onClick={startRound} />
+							<Button text="Remove Player" onClick={removePlayer} />
+						</MultiButtonLayout>
+						<Heading text="Game" />
+						<MultiButtonLayout horizontal={true}>
+							<Button text="Start" onClick={startGame} />
+							<Button text="End" color="background" onClick={endGame} />
+						</MultiButtonLayout>
+						<Heading text="Contestants" />
+						{removeContestant()}
+					</div>
+				</div>
+				<div className="basis-full">
+					<Dashboard />
+				</div>
+			</div>
+		</div>
+	);
 };
 
 const removeContestant = () => {
-  const validationSchema = Yup.object().shape({
-    name: Yup.string().required(),
-  });
+	const validationSchema = Yup.object().shape({
+		name: Yup.string().required(),
+	});
 
-  return (
-    <MultiButtonLayout horizontal={true}>
-      <Formik
-        initialValues={{ name: "" }}
-        onSubmit={(values) => {
-          console.log(values.name);
-          socket.emit("removeContestant", values.name);
-        }}
-        validationSchema={validationSchema}
-      >
-        {({ values, handleChange, handleSubmit }) => (
-          <form onSubmit={handleSubmit} className="flex gap-4 items-end">
-            <Input
-              id="name"
-              type="text"
-              label="Remove Contestant by First Name"
-              onChange={handleChange}
-              value={values.name}
-              placeholder="Bogos"
-              maxLength={30}
-            />
-            <Button type="submit" text="Enter" />
-          </form>
-        )}
-      </Formik>
-    </MultiButtonLayout>
-  );
+	return (
+		<MultiButtonLayout horizontal={true}>
+			<Formik
+				initialValues={{ name: "" }}
+				onSubmit={(values) => {
+					console.log(values.name);
+					socket.emit("removeContestant", values.name);
+				}}
+				validationSchema={validationSchema}
+			>
+				{({ values, handleChange, handleSubmit }) => (
+					<form onSubmit={handleSubmit} className="flex gap-4 items-end">
+						<Input
+							id="name"
+							type="text"
+							label="Remove Contestant by First Name"
+							onChange={handleChange}
+							value={values.name}
+							placeholder="Bogos"
+							maxLength={30}
+						/>
+						<Button type="submit" text="Enter" />
+					</form>
+				)}
+			</Formik>
+		</MultiButtonLayout>
+	);
 };
 
 export default Admin;

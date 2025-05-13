@@ -3,8 +3,9 @@ dotenv.config({ path: ["../../.env"] });
 
 // SERVER VARIABLES
 export const PORT = 3002;
-export const URL = process.env.DEV_URL || process.env.PROD_URL || "http://localhost:3002";
+export const URL = process.env.DEV_URL || process.env.PROD_URL || "http://localhost:5173";
 
+// GAME VARIABLES
 export type LandingScreen = "Register" | "Game Started";
 
 export type GameScreen = "Waiting" | "Play" | "Decision" | "End" | "Ready";

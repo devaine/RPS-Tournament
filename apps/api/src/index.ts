@@ -1,11 +1,10 @@
 import express from "express";
 import { createServer } from "node:http";
 import { Server } from "socket.io";
-import helmet from "helmet";
 import { PORT, URL } from "./config";
-import { gameManager } from "./game";
-import { contestantManager } from "./contestants";
-import { playManager } from "./play";
+import { readyHandler } from "./game";
+import { contestantHandler } from "./contestants";
+import { playRPS } from "./play";
 import { listManager } from "./list";
 import { contextManager } from "./context";
 
@@ -39,10 +38,12 @@ var playerCount = 0;
 
 // NOTE: SocketIO Main Initialization
 io.on("connection", (socket) => {
+	console.log(socket.id + " has connected to the server!")
+
 	// Functions for handling game and contestants
-	gameManager(socket);
-	contestantManager(socket, playerCount);
-	playManager(socket);
+	readyHandler(socket);
+	contestantHandler(socket);
+	playRPS(socket);
 	listManager(socket);
 	contextManager(socket);
 });

@@ -6,7 +6,7 @@ import { io } from "./index";
 var count = 0;
 var retryCount = 0;
 
-export function readyHandler(socket: Socket) {
+export function syncClient(socket: Socket) {
 	// NOTE: Listens to two glients in "game_room", after both have called on this listener
 	// (a.k.a pressed the "Ready" button), backend emits a listener on the frontend 
 	// this helps for "synchronization" for both clients

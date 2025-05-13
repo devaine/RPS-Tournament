@@ -6,49 +6,49 @@ import { socket } from "@/features/socketio/init";
 import type { GameScreen } from "@/types/gameAPI";
 
 type GameContextType = {
-  gameState: GameScreen | undefined;
-  setGameState: (newGame: GameScreen) => void;
+	gameState: GameScreen | undefined;
+	setGameState: (newGame: GameScreen) => void;
 };
 
 export const GameContext = createContext<GameContextType | undefined>(
-  undefined,
+	undefined,
 );
 
 export function GameProvider({ children }: { children: React.ReactNode }) {
-  const [gameState, setGameState] = useState<GameScreen>();
+	const [gameState, setGameState] = useState<GameScreen>();
 
-  useEffect(() => {
-    socket.on("game_update", (newGame) => {
-      setGameState(newGame);
-    });
+	useEffect(() => {
+		socket.on("game_update", (newGame) => {
+			setGameState(newGame);
+		});
 
-    // Get initial state from server
-    socket.emit("get_initial_game");
+		// Get initial state from server
+		socket.emit("get_initial_game");
 
-    return () => {
-      socket.off("game_update");
-    };
-  }, [gameState]);
+		return () => {
+			socket.off("game_update");
+		};
+	}, [gameState]);
 
-  const handleSetGameState = (newGame: GameScreen) => {
-    setGameState(newGame);
-    // Notify server about the screen change
-    socket.emit("decision_update", newGame);
-  };
+	const handleSetGameState = (newGame: GameScreen) => {
+		setGameState(newGame);
+		// Notify server about the screen change
+		socket.emit("decision_update", newGame);
+	};
 
-  return (
-    <GameContext.Provider
-      value={{ gameState: gameState, setGameState: handleSetGameState }}
-    >
-      {children}
-    </GameContext.Provider>
-  );
+	return (
+		<GameContext.Provider
+			value={{ gameState: gameState, setGameState: handleSetGameState }}
+		>
+			{children}
+		</GameContext.Provider>
+	);
 }
 
 export const useGameContext = () => {
-  const context = useContext(GameContext);
-  if (context === undefined) {
-    throw new Error("useGameContext must be used within a GameProvider");
-  }
-  return context;
+	const context = useContext(GameContext);
+	if (context === undefined) {
+		throw new Error("useGameContext must be used within a GameProvider");
+	}
+	return context;
 };
