@@ -1,21 +1,35 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { TVLayout } from "@/components/layouts/tv-layout";
-import { Announce, Title } from "@/components/ui/text";
-import { TextBoxLayout } from "@/components/layouts/text-box-layout";
+import { Announce } from "@/components/ui/text";
 import type { User } from "@/types/gameAPI";
+import { Player, EmptyPlayer } from "@/components/ui/player";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
-import { Avatar } from "@/components/ui/avatar";
 import { PlayerList } from "@/components/ui/lists";
 
-// TODO: Make this prototype actually do stuff
+/* NOTE: PSUEDOCODE BECAUSE IDK WHAT I'M DOING
+ *
+ * Goals of this page:
+ * 1. Display the two players in the game
+ * 2. Display the contestants watching the game
+ * 3. Display countdown once game starts (get to potentially)
+ * 4. Display the choices of the players and which choice they selected (get to potentially)
+ * TODO: 5. Display the results of the game once game is finished
+ * 6. Reset the game
+ *
+ * How to achieve these goals:
+ *
+ * For 5,
+ * */
+
 const TV = () => {
   const [players, setPlayers] = useState<User[]>([]);
   const [contestants, setContestants] = useState<User[]>([]);
 
   useEffect(() => {
+    console.log("effect ping");
     const fetchContestants = () => {
       socket.emit("contestantList", (contestants: User[]) => {
         setContestants(contestants);
@@ -28,47 +42,22 @@ const TV = () => {
       });
     };
 
-    fetchContestants();
-    fetchPlayers();
+    return () => {
+      fetchContestants();
+      fetchPlayers();
+    };
   }, [contestants, players]);
 
   return (
     <div className="flex flex-col h-min-screen justify-evenly">
       <TVLayout>
-        {players.length > 0
-          ? displayPlayer({ index: 0, players: players })
-          : displayEmptyPlayer()}
+        {players.length > 0 ? <Player {...players[0]} /> : <EmptyPlayer />}
         <Announce text="VS" />
-        {players.length > 1
-          ? displayPlayer({ index: 1, players: players })
-          : displayEmptyPlayer()}
+        {players.length > 0 ? <Player {...players[1]} /> : <EmptyPlayer />}
       </TVLayout>
       <PlayerList header="Spectators" players={contestants} />
     </div>
   );
 };
-
-type DisplayPlayerProps = {
-  index: number;
-  players: User[];
-};
-
-const displayPlayer = ({ index, players }: DisplayPlayerProps) => (
-  <div className="flex flex-col gap-4">
-    <Avatar src={players[index].avatar} />
-    <TextBoxLayout>
-      <Title text={players[index].name} />
-    </TextBoxLayout>
-  </div>
-);
-
-const displayEmptyPlayer = () => (
-  <div className="flex flex-col gap-4">
-    <Avatar src={""} />
-    <TextBoxLayout>
-      <Title text={""} />
-    </TextBoxLayout>
-  </div>
-);
 
 export default TV;
