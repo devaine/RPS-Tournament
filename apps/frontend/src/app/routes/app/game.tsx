@@ -84,7 +84,6 @@ const GameRouter = () => {
 					leaveOnClick={() => { }}
 					enterOnClick={async () => {
 						setGameState("Ready");
-						socket.emit("set_decision", "YOU WON !!!");
 						setGameState((await gameSync()) as GameScreen); // Settles for one game
 						setGameState((await gameSyncRetry()) as GameScreen); // Settles for ties
 					}}

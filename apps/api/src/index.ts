@@ -7,6 +7,7 @@ import { contestantHandler } from "./contestants";
 import { playRPS } from "./play";
 import { listManager } from "./list";
 import { contextManager } from "./context";
+import { admin } from "./admin";
 
 import { join } from "path";
 
@@ -20,7 +21,7 @@ const httpServer = createServer(app);
 // Initializes SocketIO (Server-Side)
 export const io = new Server(httpServer, {
 	cors: {
-		origin: URL
+		origin: URL,
 	},
 	connectionStateRecovery: { maxDisconnectionDuration: 120000 },
 });
@@ -38,7 +39,7 @@ var playerCount = 0;
 
 // NOTE: SocketIO Main Initialization
 io.on("connection", (socket) => {
-	console.log(socket.id + " has connected to the server!")
+	console.log(socket.id + " has connected to the server!");
 
 	// Functions for handling game and contestants
 	readyHandler(socket);
@@ -46,10 +47,11 @@ io.on("connection", (socket) => {
 	playRPS(socket);
 	listManager(socket);
 	contextManager(socket);
+	admin(socket);
 });
 
 httpServer.listen(PORT, () => {
 	console.log("Server listening on " + URL);
-	console.log(URL + " is the url")
-	console.log(PORT + " is the port")
+	console.log(URL + " is the url");
+	console.log(PORT + " is the port");
 });

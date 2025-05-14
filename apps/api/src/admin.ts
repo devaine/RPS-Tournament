@@ -1,5 +1,5 @@
-import { Socket } from "socket.io"
-import { io } from "./index"
+import { Socket } from "socket.io";
+import { io } from "./index";
 
 function randomNumber(min: number, max: number) {
 	return Math.floor(Math.random() * (max - min) + min);
@@ -45,7 +45,7 @@ export function admin(socket: Socket) {
 		io.to(String(player)).socketsJoin("contestant_room");
 
 		const check = await io.in("game_room").fetchSockets();
-		const list = check.map(function(data) {
+		const list = check.map(function (data) {
 			console.log(data.id);
 			return data.id;
 		});
@@ -57,13 +57,16 @@ export function admin(socket: Socket) {
 	// for frontend add another box for a numbered list to select.
 	socket.on("removeContestant", async (name: string) => {
 		// Get all sockets from the socketio server (except admins / non-players)
-		const allSockets = await io.of("/").in("contestant_room").in("game_room").in("loser_room").fetchSockets();
+		const allSockets = await io
+			.of("/")
+			.in("contestant_room")
+			.in("game_room")
+			.in("loser_room")
+			.fetchSockets();
 
 		for (const socket of allSockets) {
-			const socketName: string = socket.data.name
-			if (socketName.includes(name))
-				socket.disconnect()
+			const socketName: string = socket.data.name;
+			if (socketName.includes(name)) socket.disconnect();
 		}
 	});
-
 }

@@ -7,8 +7,8 @@ var decisionCount = 0;
 var playerArray: string[] = [];
 
 export function playRPS(socket: Socket) {
-	// NOTE: Listens to input of choics for RPS & emits results to clients
-	socket.on("playRPS", async (choice: string) => {
+	// NOTE: Listens to input of choices for RPS & emits results to clients
+	socket.on("Play", async (choice: string) => {
 		decisionCount++;
 		socket.data.choice = choice;
 
@@ -47,8 +47,7 @@ export function playRPS(socket: Socket) {
 	});
 }
 
-
-// NOTE: Functionality of Rock-Paper-Scissors with movement to rooms respective to 
+// NOTE: Functionality of Rock-Paper-Scissors with movement to rooms respective to
 // whether they won or lost
 async function determine(
 	player1: Socket | undefined,
@@ -59,7 +58,6 @@ async function determine(
 			player1.data.status = "tie";
 			player2.data.status = "tie";
 			console.log("tie");
-
 		} else if (
 			(player1.data.choice === "rock" && player2.data.choice === "scissors") ||
 			(player1.data.choice === "paper" && player2.data.choice === "rock") ||
@@ -74,7 +72,6 @@ async function determine(
 
 			player1.leave("game_room");
 			player2.leave("game_room");
-
 		} else {
 			player1.data.status = "loser";
 			player2.data.status = "winner";
