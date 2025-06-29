@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 const URL = import.meta.env.DEV_URL || import.meta.env.PROD_URL || "http://localhost:3002";
 
 const socket = io(URL, {
-	autoConnect: false,
+	autoConnect: true,
 });
 
 export { socket };

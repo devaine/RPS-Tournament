@@ -6,12 +6,18 @@ import End from "@/features/game/end";
 import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameChoices } from "@/types/gameAPI";
-import { GameProvider, useGameContext } from "@/features/context/game-context";
+import { GameProvider, useGameContext } from "@/hooks/game-context";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
-import { DecisionProvider } from "@/features/context/decision-context";
+import { DecisionProvider } from "@/hooks/decision-context";
+
+/* NOTE: What this file does:
+	* Basically, its a subrouter for the other pages of the website.
+	* Uses the context from `hooks/game-context` 
+	* to determine the current state of the page
+*/
 
 // TODO: Add user as parameter for game to function
 const Game = () => {
@@ -26,22 +32,21 @@ const GameRouter = () => {
 	const { gameState, setGameState } = useGameContext();
 
 	switch (gameState) {
-		case "Waiting":
+		case "Waiting": // Waits for ready button to update
 			return (
 				<Waiting
 					key="Waiting"
 					leaveOnClick={() => { }}
 					enterOnClick={async () => {
 						setGameState("Ready");
-						socket.emit("set_decision", "YOU WON !!!");
 						setGameState((await gameSync()) as GameScreen); // Settles for one game
 						setGameState((await gameSyncRetry()) as GameScreen); // Settles for ties
 					}}
 				/>
 			);
-		case "Ready":
+		case "Ready": // "Waiting for opponent"
 			return <Ready />;
-		case "Play":
+		case "Play": // Actual rock paper scissors game
 			/* All onCLicks set user choice, activate play socket event listener, and set screen to decision */
 			return (
 				<Play
@@ -61,7 +66,7 @@ const GameRouter = () => {
 					}}
 				/>
 			);
-		case "Decision":
+		case "Decision": // "..." (waits for backend to declare the winner)
 			return (
 				<DecisionProvider>
 					<Decision
@@ -75,7 +80,7 @@ const GameRouter = () => {
 					/>
 				</DecisionProvider>
 			);
-		case "End":
+		case "End": // End credits with winner data and all
 			return <End />;
 		default:
 			return (

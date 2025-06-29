@@ -1,21 +1,18 @@
 import React from "react";
 import Router from "./router";
-import { LandingProvider } from "@/features/context/landing-context";
-import { DecisionProvider } from "@/features/context/decision-context";
-import { GameProvider } from "@/features/context/game-context";
+import { DecisionProvider } from "@/hooks/decision-context";
+import { GameProvider } from "@/hooks/game-context";
 
 const App = () => {
-  return (
-    <div>
-      <LandingProvider>
-        <DecisionProvider>
-          <GameProvider>
-            <Router />
-          </GameProvider>
-        </DecisionProvider>
-      </LandingProvider>
-    </div>
-  );
+	return (
+		<div>
+			<DecisionProvider>
+				<GameProvider>
+					<Router />
+				</GameProvider>
+			</DecisionProvider>
+		</div>
+	);
 };
 
 export default App;

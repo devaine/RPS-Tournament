@@ -1,32 +1,40 @@
-import { Socket } from "socket.io";
 import { io } from "./index";
+import type { User } from "./config";
 
-export function listManager(socket: Socket) {
-	// Fetch data for all sockets in rooms & find their data
-	socket.on("contestantList", async (callback) => {
-		const getSockets = await io.in("contestant_room").fetchSockets();
-		const getContestants = getSockets.map(function(value) {
-			return value.data;
-		});
+/* NOTE: This file:
+ * Purpose: Used for every client (winners, losers, admins, everyone),
+ *  to see a realtime list of the chosen players
+ * Perhaps on a 1 second interval for performance benefits.
+ */
 
-		callback(getContestants.filter(Boolean));
-	});
+async function getInfo() {
+  const getContestants = await io.in("contestant_room").fetchSockets();
+  let contestantArr: User[] = [];
+  getContestants.map(function (value) {
+    contestantArr.push(value.data);
+  });
 
-	socket.on("playerList", async (callback) => {
-		const getSockets = await io.in("game_room").fetchSockets();
-		const getPlayers = getSockets.map(function(value) {
-			return value.data;
-		});
+  io.emit("contestantList", contestantArr);
 
-		callback(getPlayers.filter(Boolean));
-	});
+  const getPlayers = await io.in("game_room").fetchSockets();
+  let playerArr: User[] = [];
+  getPlayers.map(function (value) {
+    playerArr.push(value.data);
+  });
 
-	socket.on("loserList", async (callback) => {
-		const getSockets = await io.in("loser_room").fetchSockets();
-		const getLosers = getSockets.map(function(value) {
-			return value.data;
-		});
+  io.emit("playerList", playerArr);
 
-		callback(getLosers.filter(Boolean));
-	});
+  const getLosers = await io.in("loser_room").fetchSockets();
+  let loserArr: User[] = [];
+  getLosers.map(function (value) {
+    loserArr.push(value.data);
+  });
+
+  io.emit("loserList", loserArr);
+}
+
+export async function listClients() {
+  getInfo();
+  await new Promise((r) => setTimeout(r, 100));
+  listClients();
 }

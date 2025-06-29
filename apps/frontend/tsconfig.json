@@ -19,7 +19,8 @@
 		"paths": {
 			"@/*": ["src/*"]
 		},
-		"outDir": "distjs"
+		"outDir": "distjs",
+		"types": ["vite/client"]
   },
   "include": ["src", "vite-env.d.ts"]
 }

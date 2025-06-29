@@ -17,27 +17,20 @@ import Divider from "@/components/ui/divider";
 // SocketIO Stuff
 
 function startRound() {
-	socket.emit("startRound", (response: object) => {
-		console.log(response);
-	});
+	socket.emit("startRound");
 }
+
 // TODO: Update to movePlayer or something else (see game.ts)
 function removePlayer() {
-	socket.emit("removePlayer", (response: object) => {
-		console.log(response);
-	});
+	socket.emit("removePlayer");
 }
 
 function startGame() {
-	socket.emit("start_game", (response: object) => {
-		console.log(response);
-	});
+	socket.emit("startGame")
 }
 
 function endGame() {
-	socket.emit("end_game", (response: object) => {
-		console.log(response);
-	});
+	socket.emit("endGame")
 }
 
 export const Admin = () => {
@@ -54,9 +47,6 @@ export const Admin = () => {
 
 const AdminScreen = () => {
 	/* NOTE: Start not only starts the game but prevents new players from joining */
-
-	// FIX: UseContext not working to set landing page
-	// const { updateLanding } = useLandingContext();
 
 	return (
 		<div className="flex flex-col items-between">

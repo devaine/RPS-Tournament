@@ -4,20 +4,20 @@ import { Avatar } from "@/components/ui/avatar";
 import { TextBoxLayout } from "@/components/layouts/text-box-layout";
 import type { User } from "@/types/gameAPI";
 
-export const Player = (player: IntrinsicAttributes & User) => (
-  <div className="flex flex-col gap-4">
-    <Avatar src={player.avatar} />
-    <TextBoxLayout>
-      <Title text={player.name} />
-    </TextBoxLayout>
-  </div>
+export const Player = (player: User) => (
+	<div className="flex flex-col gap-4">
+		<Avatar src={player.avatar} />
+		<TextBoxLayout>
+			<Title text={player.name} />
+		</TextBoxLayout>
+	</div>
 );
 
 export const EmptyPlayer = () => (
-  <div className="flex flex-col gap-4">
-    <Avatar src={""} />
-    <TextBoxLayout>
-      <Title text={""} />
-    </TextBoxLayout>
-  </div>
+	<div className="flex flex-col gap-4">
+		<Avatar src={""} />
+		<TextBoxLayout>
+			<Title text={""} />
+		</TextBoxLayout>
+	</div>
 );
