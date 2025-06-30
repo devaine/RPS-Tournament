@@ -24,6 +24,7 @@ export type User = {
 };
 
 export type LandingScreen = "Register" | "Game Started";
+
 export type GameScreen = "Waiting" | "Play" | "Decision" | "End" | "Ready";
 
 export type GameChoices = "rock" | "paper" | "scissors" | "";
