@@ -9,32 +9,32 @@ import { userData } from "@/config/global";
 import { socket } from "@/features/socketio/init";
 import { setTokenSourceMapRange } from "typescript";
 
+function joinEvent() {
+  localStorage.setItem("status", "contestant");
+  socket.emit("join_event", {
+    name: userData.name,
+    id: userData.id,
+    avatar: userData.avatar,
+    choice: userData.choice,
+    status: localStorage.getItem("status"),
+  });
+
+  localStorage.setItem("student_info", JSON.stringify(userData));
+}
+
 const ConfirmUser = () => {
-	function joinEvent() {
-		localStorage.setItem("status", "contestant")
-		socket.emit("join_event", {
-			name: userData.name,
-			id: userData.id,
-			avatar: userData.avatar,
-			choice: userData.choice,
-			status: localStorage.getItem("status"),
-		});
-
-		localStorage.setItem("student_info", JSON.stringify(userData));
-	}
-
-	return (
-		<RegisterLayout>
-			<Title text="Ready to join?" />
-			<Heading text={userData.name} />
-			<Heading text={String(userData.id)} />
-			<Avatar src={userData.avatar!} />
-			<div className="flex gap-4">
-				<BackButton />
-				<Button text="Yes" link="/game" onClick={() => joinEvent()}></Button>
-			</div>
-		</RegisterLayout>
-	);
+  return (
+    <RegisterLayout>
+      <Title text="Ready to join?" />
+      <Heading text={userData.name} />
+      <Heading text={String(userData.id)} />
+      <Avatar src={userData.avatar!} />
+      <div className="flex gap-4">
+        <BackButton />
+        <Button text="Yes" link="/game" onClick={() => joinEvent()}></Button>
+      </div>
+    </RegisterLayout>
+  );
 };
 
 export default ConfirmUser;
