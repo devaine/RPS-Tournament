@@ -12,7 +12,7 @@ export type Icon = {
   alt: string;
 };
 
-export type UserStatus = "Contestant" | "Loser" | "Admin" | "Winner";
+export type UserStatus = "Player" | "Contestant" | "Loser" | "Admin" | "Winner";
 
 export type AdminScreen = "Login" | "Admin";
 
