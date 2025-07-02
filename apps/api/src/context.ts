@@ -1,5 +1,4 @@
 import { Socket } from "socket.io";
-import { type LandingScreen, type GameScreen } from "./config";
 import {
   io,
   updateLandingState,
@@ -27,24 +26,15 @@ function landingStateManager(socket: Socket) {
   });
 }
 
+// FOR: game-context.tsx
 function gameStateManager(socket: Socket) {
   // Send current state to new connections
-  socket.emit("game_update", currentGameState);
-
-  io.emit("game_update", currentGameState);
-
-  socket.on("get_initial_game", () => {
-    socket.emit("set_game", currentGameState);
-  });
-
-  socket.on("end_game", async () => {
-    currentGameState = "End";
-    io.emit("game_update", currentGameState);
-  });
-
-  // Handle state changes from clients
-  socket.on("set_game", (newGame: GameScreen) => {
-    // Broadcast to all connected clients
-    io.emit("state_update", newGame);
+  socket.on("endGame", async () => {
+    console.log("listener endgame ping");
+    updateGameState("End");
+    io.emit("updateGameState", currentGameState);
   });
 }
+
+// FOR player-context.tsx
+function playerStateManager(socket: Socket) {}

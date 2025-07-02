@@ -6,6 +6,8 @@ import { GameLayout } from "@/components/layouts/game-layout";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { type User } from "@/types/gameAPI";
 import { useNavigate } from "react-router";
+import { useGameContext } from "@/hooks/game-context"
+import { PlayerProvider } from "@/hooks/player-context";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
@@ -18,25 +20,18 @@ type WaitingProps = {
 };
 
 function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
-	const status = JSON.stringify(localStorage.getItem("status"))
+	// TODO: This should be moved to game-context or to a different hook file.
 
-	if (socket.disconnected) {
-		socket.connect();
-
-		if (!(status.includes("admin") || status.includes("loser"))) {
-			console.log("testset")
-			socket.emit("join_event", {
-				name: userData.name,
-				id: userData.id,
-				avatar: userData.avatar,
-				choice: userData.choice,
-				status: localStorage.getItem("status"),
-			});
-		}
-	}
-
-	const [isPlayer, setPlayer] = useState(false);
+	const [isPlayer, setPlayer] = useState(true);
 	const navigate = useNavigate();
+
+	// Helps change the state of gameState to "Ready" when
+	// chonen contestant presses "Ready"
+	const { setGameState } = useGameContext()
+
+	const handleGameState = () => {
+		setGameState("Ready")
+	}
 
 	const matchPlayerName = (players: User[]) => {
 		for (let i = 0; i < players.length; i++) {
@@ -47,6 +42,8 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
 		return false;
 	};
 
+	// TODO: This could be much more efficient, especially for kicking players
+	// could be a try-catch statement
 	useEffect(() => {
 		const checkQueue = () => {
 			socket.emit("playerList", (players: User[]) => {
@@ -59,7 +56,6 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
 				const user_firstName = userData.name;
 				if (user_firstName === firstName) {
 					localStorage.clear();
-					socket.disconnect();
 					navigate("/");
 				}
 			});
@@ -85,9 +81,7 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
 				{isPlayer && (
 					<Button
 						text="Ready?"
-						onClick={() => {
-							enterOnClick();
-						}}
+						onClick={() => { handleGameState() }}
 					/>
 				)}
 				<Button

@@ -2,7 +2,6 @@ import React from "react";
 import Play from "@/features/play/play";
 import Waiting from "@/features/game/waiting";
 import Decision from "@/features/play/decision";
-import End from "@/features/game/end";
 import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameChoices } from "@/types/gameAPI";
@@ -12,6 +11,7 @@ import { GameProvider, useGameContext } from "@/hooks/game-context";
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 import { DecisionProvider } from "@/hooks/decision-context";
+import { PlayerProvider } from "@/hooks/player-context";
 
 /* NOTE: What this file does:
 	* Basically, its a subrouter for the other pages of the website.
@@ -22,23 +22,22 @@ import { DecisionProvider } from "@/hooks/decision-context";
 // TODO: Add user as parameter for game to function
 const Game = () => {
 	return (
-		<GameProvider>
-			<GameRouter />
-		</GameProvider>
+		<GameRouter />
 	);
 };
+
+// TODO: This is messy. Try to use hooks for enterOnClick so make it much more readable.
 
 const GameRouter = () => {
 	const { gameState, setGameState } = useGameContext();
 
 	switch (gameState) {
-		case "Waiting": // Waits for ready button to update
+		case "Waiting": // menu for dashboard and leaving the game... (default)
 			return (
 				<Waiting
 					key="Waiting"
 					leaveOnClick={() => { }}
 					enterOnClick={async () => {
-						setGameState("Ready");
 						setGameState((await gameSync()) as GameScreen); // Settles for one game
 						setGameState((await gameSyncRetry()) as GameScreen); // Settles for ties
 					}}
@@ -51,17 +50,16 @@ const GameRouter = () => {
 			return (
 				<Play
 					key="Play"
-					// TODO: Backend: Refactor for promises
 					rockOnClick={() => {
-						getPlayerChoice("rock");
+						getPlayerChoice("Rock");
 						setGameState("Decision");
 					}}
 					paperOnClick={() => {
-						getPlayerChoice("paper");
+						getPlayerChoice("Paper");
 						setGameState("Decision");
 					}}
 					scissorsOnClick={() => {
-						getPlayerChoice("scissors");
+						getPlayerChoice("Scissors");
 						setGameState("Decision");
 					}}
 				/>
@@ -80,8 +78,6 @@ const GameRouter = () => {
 					/>
 				</DecisionProvider>
 			);
-		case "End": // End credits with winner data and all
-			return <End />;
 		default:
 			return (
 				<Waiting

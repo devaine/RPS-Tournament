@@ -40,8 +40,6 @@ export function LandingProvider({ children }: { children: React.ReactNode }) {
 
 	const handleSetLandingState = (newLanding: LandingScreen | undefined) => {
 		setLandingState(newLanding);
-		// Notify server about the screen change
-		socket.emit("decision_update", newLanding);
 	};
 
 	return (

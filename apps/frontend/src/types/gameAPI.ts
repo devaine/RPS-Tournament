@@ -2,8 +2,8 @@ export type User = {
   name: string;
   id: number;
   avatar: string;
-  status?: string;
-  choice?: string;
+  status?: UserStatus;
+  choice?: GameChoices;
 };
 
 export type Icon = {
@@ -12,11 +12,13 @@ export type Icon = {
   alt: string;
 };
 
+export type UserStatus = "Contestant" | "Loser" | "Admin" | "Winner";
+
 export type AdminScreen = "Login" | "Admin";
 
 export type LandingScreen = "Register" | "Game Started";
 
-export type GameScreen = "Waiting" | "Play" | "Decision" | "End" | "Ready";
+export type GameScreen = "Waiting" | "Play" | "Decision" | "Ready";
 
 export type GameDecision =
   | "YOU WON !!!"
@@ -24,4 +26,4 @@ export type GameDecision =
   | "YOU TIED !!!"
   | "...";
 
-export type GameChoices = "rock" | "paper" | "scissors" | "";
+export type GameChoices = "Rock" | "Paper" | "Scissors" | "";

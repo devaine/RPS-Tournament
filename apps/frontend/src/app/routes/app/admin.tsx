@@ -22,15 +22,18 @@ function startRound() {
 
 // TODO: Update to movePlayer or something else (see game.ts)
 function removePlayer() {
-  socket.emit("removePlayer");
+	socket.emit("removePlayer");
+	console.log("removed player!")
 }
 
 function startGame() {
-  socket.emit("startGame");
+	socket.emit("startGame")
+	console.log("started game")
 }
 
 function endGame() {
-  socket.emit("endGame");
+	socket.emit("endGame")
+	console.log("ended game")
 }
 
 export const Admin = () => {

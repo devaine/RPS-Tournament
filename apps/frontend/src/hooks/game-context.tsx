@@ -1,7 +1,8 @@
 import React, { useState, useEffect, createContext, useContext } from "react";
 import { socket } from "@/features/socketio/init";
 
-// NOTE: This file is mostly used as functions to provide a universal way to access landing state (whether it should be set to register or game started)
+// NOTE: This file is mostly used to update/indicate the current state 
+// of the <Game/> page 
 
 import type { GameScreen } from "@/types/gameAPI";
 
@@ -14,26 +15,24 @@ export const GameContext = createContext<GameContextType | undefined>(
 	undefined,
 );
 
+/* NOTE: What this function does it actually fetch from backend
+	* to know whether the game is still ongoing or whether it has already
+	* ended
+	*
+*/
+
+// TODO: Find a way to universally redirect all clients to the End Screen
+// Update: You could probably use this to create checks:
 export function GameProvider({ children }: { children: React.ReactNode }) {
 	const [gameState, setGameState] = useState<GameScreen>();
 
+
 	useEffect(() => {
-		socket.on("game_update", (newGame) => {
-			setGameState(newGame);
-		});
 
-		// Get initial state from server
-		socket.emit("get_initial_game");
-
-		return () => {
-			socket.off("game_update");
-		};
-	}, [gameState]);
+	}, []);
 
 	const handleSetGameState = (newGame: GameScreen) => {
 		setGameState(newGame);
-		// Notify server about the screen change
-		socket.emit("decision_update", newGame);
 	};
 
 	return (

@@ -8,7 +8,8 @@
 import { playRPS } from "./play";
 import { syncClient } from "./sync";
 import { contestantHandler } from "./contestants";
-import { listClients } from "./list";
+//import { listClients } from "./list";
+import { dashboardManager } from "./list";
 import { contextManager } from "./context";
 import { admin } from "./admin";
 import { LandingScreen, GameScreen, PORT, URL } from "./config";
@@ -50,9 +51,10 @@ io.on("connection", (socket) => {
   playRPS(socket);
   contextManager(socket);
   admin(socket);
+  dashboardManager(socket);
 });
 
-listClients();
+//listClients();
 
 // Uses `config.ts` to host backend.
 httpServer.listen(PORT, () => {
@@ -63,6 +65,7 @@ httpServer.listen(PORT, () => {
 
 // EXPORTS
 
+// CONTEXT EXPORTS
 // Initial state of the landing page
 export let currentLandingState: LandingScreen = "Register";
 

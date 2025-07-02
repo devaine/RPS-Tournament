@@ -1,5 +1,7 @@
 import { Socket } from "socket.io";
-import { io } from "./index";
+import { io, player1, player2 } from "./index";
+
+// TODO: Practically just improve this by choosing two random players, (could be imported from index.ts)
 
 function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
@@ -7,15 +9,22 @@ function randomNumber(min: number, max: number) {
 
 // NOTE: Moves two random players from "contestant_room" to "game_room"
 function getRandomPlayer(array: string[]) {
-  for (var x = 0; x <= 2; x++) {
-    const player = array[randomNumber(0, array.length)];
-    io.to(String(player)).socketsJoin("game_room");
-    io.to(String(player)).socketsLeave("contestant_room");
+  let randomPlayer1 = array[randomNumber(0, array.length - 1)];
+  let randomPlayer2 = array[randomNumber(0, array.length - 1)];
+
+  if (randomPlayer1 === randomPlayer2 || randomPlayer2 === randomPlayer1) {
+    getRandomPlayer(array);
   }
+
+  io.to(String(randomPlayer1)).socketsJoin("game_room");
+  io.to(String(randomPlayer1)).socketsLeave("contestant_room");
+
+  io.to(String(randomPlayer2)).socketsJoin("game_room");
+  io.to(String(randomPlayer2)).socketsLeave("contestant_room");
 }
 
 export function admin(socket: Socket) {
-  // NOTE: Fetches sockets and move sthem to "game_room"
+  // NOTE: Fetches sockets and moves them to "game_room"
   socket.on("startRound", async () => {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const listSockets: string[] = [];

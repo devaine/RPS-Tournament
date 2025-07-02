@@ -8,65 +8,55 @@ import { useNavigate } from "react-router";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
-import { userData } from "@/config/global";
 import { Button } from "@/components/ui/button";
 
 const Dashboard = () => {
-	// NOTE: Backend: Make sure that when proctected routes are in place
-	// that players without user data are sent to "/"
-	const status = JSON.stringify(localStorage.getItem("status"));
-
-	if (socket.disconnected) {
-		socket.connect();
-
-		const isNotAdmin = !status.includes("admin");
-		const isLoser = status.includes("loser");
-		const isContestant = status.includes("contestant");
-
-		// Conditions for appearing on dashboard
-		// Otherwise, user can see dashboard but cannot see themselves
-		if ((isNotAdmin || isLoser) && isContestant) {
-			socket.emit("join_event", {
-				name: userData.name,
-				id: userData.id,
-				avatar: userData.avatar,
-				choice: userData.choice,
-				status: localStorage.getItem("status"),
-			});
-		}
-	}
-
 	const navigate = useNavigate();
 
-	// UseEffect runs when [socket] changes, fetching contestants each time
-	// TODO: Make string of contestants return ALL contestants
 	const [contestants, setContestants] = useState<User[]>([])
 	const [players, setPlayers] = useState<User[]>([])
 	const [losers, setLosers] = useState<User[]>([])
 
+	// NOTE: Emmits upon dashboard launch first before anything else.
 	useEffect(() => {
-		const fetchContestants = (contestants: User[]) => {
-			setContestants(contestants);
-		}
+		socket.emit("contestantList", (contestants: User[]) => {
+			setContestants(contestants)
+		});
 
-		const fetchPlayers = (players: User[]) => {
+		socket.emit("playerList", (players: User[]) => {
 			setPlayers(players)
-		}
+		})
 
-		const fetchLosers = (losers: User[]) => {
+		socket.emit("loserList", (losers: User[]) => {
 			setLosers(losers)
+		})
+
+	}, [])
+
+	useEffect(() => {
+		// NOTE: After emitting, grab all other values upon joining / leaving / disconnecting the event.
+		const fetchContestants = (newContestants: User[]) => {
+			setContestants(newContestants)
 		}
 
-		socket.on("contestantList", fetchContestants);
-		socket.on("playerList", fetchPlayers)
-		socket.on("loserList", fetchLosers)
+		const fetchPlayers = (newPlayers: User[]) => {
+			setPlayers(newPlayers)
+		}
+
+		const fetchLosers = (newLosers: User[]) => {
+			setLosers(newLosers)
+		}
+
+		socket.on("updateContestantList", fetchContestants)
+		socket.on("updatePlayerList", fetchPlayers)
+		socket.on("updateLoserList", fetchLosers)
 
 		return () => {
-			socket.off("contestantList", fetchContestants)
-			socket.off("playerList", fetchPlayers)
-			socket.off("loserList", fetchLosers)
+			socket.off("updateContestantList", fetchContestants)
+			socket.off("updatePlayerList", fetchPlayers)
+			socket.off("updateLoserList", fetchLosers)
 		}
-	}, [socket]);
+	}, [contestants, players, losers]);
 
 	return (
 		<TextLayout>
@@ -102,7 +92,7 @@ const Dashboard = () => {
 					/>
 				)}
 			</div>
-		</TextLayout>
+		</TextLayout >
 	);
 };
 
