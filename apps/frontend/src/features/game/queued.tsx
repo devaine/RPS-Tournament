@@ -7,21 +7,18 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 import { type User } from "@/types/gameAPI";
 import { useNavigate } from "react-router";
 import { useGameContext } from "@/hooks/game-context";
-import { PlayerProvider } from "@/hooks/player-context";
-
-// TODO: Migrate this logic to queue.tsx
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 
 // NOTE: Backend: Figure out what to do here on the props
-type WaitingProps = {
+type QueuedProps = {
   enterOnClick: () => void;
   leaveOnClick: () => void;
 };
 
-function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
+function Waiting({ enterOnClick, leaveOnClick }: QueuedProps) {
   // TODO: This should be moved to game-context or to a different hook file.
 
   const [isPlayer, setPlayer] = useState(true);
@@ -78,20 +75,13 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
 
   return (
     <GameLayout>
-      <Heading text={"Waiting to enter the ring..."} />
+      <Heading text={"YOU'RE IN QUEUE BUDDY BOY"} />
       <MultiButtonLayout>
-        {isPlayer && (
-          <Button
-            text="Ready?"
-            onClick={() => {
-              handleGameState();
-            }}
-          />
-        )}
         <Button
-          text="Go to Dashboard"
-          link="/dashboard"
-          onClick={leaveOnClick}
+          text="Ready?"
+          onClick={() => {
+            handleGameState();
+          }}
         />
         <Button
           text="Leave Game"
@@ -103,4 +93,5 @@ function Waiting({ enterOnClick, leaveOnClick }: WaitingProps) {
     </GameLayout>
   );
 }
+
 export default Waiting;
