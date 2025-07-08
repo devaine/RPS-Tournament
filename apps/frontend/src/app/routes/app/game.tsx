@@ -1,19 +1,15 @@
 import React from "react";
 import Play from "@/features/play/play";
-import Waiting from "@/features/game/waiting";
+import Lobby from "@/features/lobby/components/waiting";
 import Decision from "@/features/play/decision";
-import Ready from "@/features/play/ready";
 import type { GameScreen } from "@/types/gameAPI";
 import type { GameChoices } from "@/types/gameAPI";
-import Kicked from "@/features/game/kicked";
-import Queued from "@/features/game/queued";
 
 // Backend Imports
 import { socket } from "@/features/socketio/init";
 import { userData } from "@/config/global";
 import { DecisionProvider } from "@/hooks/decision-context";
 import { GameProvider, useGameContext } from "@/hooks/game-context";
-import { PlayerProvider } from "@/hooks/player-context";
 
 /* NOTE: What this file does:
  * Basically, its a subrouter for the other pages of the website.
@@ -32,24 +28,17 @@ const GameRouter = () => {
   const { gameState, setGameState } = useGameContext();
 
   switch (gameState) {
-    /* For when players have to leave / forced to leave */
-    case "Kicked":
-      return <Kicked />;
-    case "Waiting": // menu for dashboard and leaving the game... (default)
+    case "Lobby": // menu for dashboard and leaving the game... (default)
       return (
-        <Waiting
-          key="Waiting"
-          leaveOnClick={() => {}}
-          enterOnClick={async () => {
+        <Lobby
+          key="Lobby"
+          leaveOnClick={disconnectSocket}
+          readyOnClick={async () => {
             setGameState((await gameSync()) as GameScreen); // Settles for one game
             setGameState((await gameSyncRetry()) as GameScreen); // Settles for ties
           }}
         />
       );
-    case "Queued":
-      return <Queued />;
-    case "Ready": // "Waiting for opponent"
-      return <Ready />;
     case "Play": // Actual rock paper scissors game
       /* All onCLicks set user choice, activate play socket event listener, and set screen to decision */
       return (
@@ -78,17 +67,17 @@ const GameRouter = () => {
               setGameState("Ready");
             }}
             leaveOnClick={() => {
-              setGameState("Waiting");
+              setGameState("Lobby");
             }}
           />
         </DecisionProvider>
       );
     default:
       return (
-        <Waiting
-          key="Waiting"
-          leaveOnClick={() => {}}
-          enterOnClick={async () => {
+        <Lobby
+          key="Lobby"
+          leaveOnClick={disconnectSocket}
+          readyOnClick={async () => {
             setGameState("Ready");
             setGameState((await gameSync()) as GameScreen); // Settles for one game
             setGameState((await gameSyncRetry()) as GameScreen); // Settles for ties
@@ -97,6 +86,16 @@ const GameRouter = () => {
       );
   }
 };
+
+function disconnectSocket() {
+  socket.emit("leave_event", {
+    name: userData.name,
+    id: userData.id,
+  });
+
+  // Clears out all local browser data
+  localStorage.clear();
+}
 
 function gameSync() {
   return new Promise((resolve) => {

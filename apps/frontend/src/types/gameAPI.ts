@@ -18,13 +18,10 @@ export type AdminScreen = "Login" | "Admin";
 
 export type LandingScreen = "Register" | "Game Started";
 
-export type GameScreen =
-  | "Kicked"
-  | "Waiting"
-  | "Queued"
-  | "Play"
-  | "Decision"
-  | "Ready";
+export type GameScreen = "Lobby" | "Play" | "Decision" | "End" | "Ready";
+
+// Temporary void type to avoid errors
+export type LobbyScreen = "Waiting" | "Queued" | "Kicked" | void;
 
 export type GameDecision =
   | "YOU WON !!!"

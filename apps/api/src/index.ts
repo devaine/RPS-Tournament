@@ -75,10 +75,10 @@ export const updateLandingState = (newState: LandingScreen) => {
 };
 
 // Initial state of the <Game/> page, not to be confused with
-export let currentGameState: GameScreen = "Waiting";
+export let currentGameState: GameScreen = "Lobby";
 
 // Mutator method for changing the variable of currentGameState across backend code
-// Options: ("Waiting" | "Play" | "Decision" | "End" | "Ready")
+// Options: ("Lobby" | "Play" | "Decision" | "End" | "Ready")
 export const updateGameState = (newState: GameScreen) => {
   currentGameState = newState;
 };
