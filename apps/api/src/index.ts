@@ -8,7 +8,6 @@
 import { playRPS } from "./play";
 import { syncClient } from "./sync";
 import { contestantHandler } from "./contestants";
-//import { listClients } from "./list";
 import { dashboardManager } from "./list";
 import { contextManager } from "./context";
 import { admin } from "./admin";
@@ -53,8 +52,6 @@ io.on("connection", (socket) => {
   admin(socket);
   dashboardManager(socket);
 });
-
-//listClients();
 
 // Uses `config.ts` to host backend.
 httpServer.listen(PORT, () => {

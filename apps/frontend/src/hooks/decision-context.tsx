@@ -3,71 +3,58 @@ import { socket } from "@/features/socketio/init";
 import type { GameDecision } from "@/types/gameAPI";
 
 type DecisionContextType = {
-  decisionState: GameDecision;
-  setDecisionState: (newDecision: GameDecision) => void;
+	decisionState: GameDecision;
+	setDecisionState: (newDecision: GameDecision) => void;
 };
 
 export const DecisionContext = createContext<DecisionContextType | undefined>(
-  undefined,
+	undefined,
 );
 
 export function DecisionProvider({ children }: { children: React.ReactNode }) {
-  const [decisionState, setDecisionState] = useState<GameDecision>("...");
+	const [decisionState, setDecisionState] = useState<GameDecision>("...");
 
-  useEffect(() => {
-    const onWin = () => {
-      setDecisionState("YOU WON !!!");
-    };
-    const onLose = () => {
-      setDecisionState("YOU LOSE !!!");
-    };
-    const onTied = () => {
-      setDecisionState("YOU TIED !!!");
-    };
+	// NOTE: This waits for a response from the backend
+	// to determine the Winner and Loser
+	useEffect(() => {
+		const onResult = (response: string) => {
+			switch (response) {
+				case "Winner":
+					setDecisionState("YOU WON !!!");
+					break;
+				case "Loser":
+					setDecisionState("YOU LOSE !!!");
+					break;
+				case "Tie":
+					setDecisionState("YOU TIED !!!");
+					break;
+			}
+		}
 
-    const onDecision = () => {
-      socket.on("gameResult", (response: string) => {
-        switch (response) {
-          case "winner":
-            onWin();
-            break;
-          case "loser":
-            onLose();
-            break;
-          case "tie":
-            onTied();
-            break;
-        }
-      });
-    };
+		socket.on("decisionResult", onResult)
 
-    onDecision();
+		return () => {
+			socket.off("decisionResult", onResult);
+		};
+	}, []);
 
-    // Cleanup for event listeners
-    return () => {
-      socket.off("gameResult");
-    };
-  }, [decisionState]);
+	const handleSetDecisionState = (newDecision: GameDecision) => {
+		setDecisionState(newDecision);
+	};
 
-  const handleSetDecisionState = (newDecision: GameDecision) => {
-    setDecisionState(newDecision);
-    // Notify server about the screen change
-    socket.emit("decision_update", newDecision);
-  };
-
-  return (
-    <DecisionContext.Provider
-      value={{ decisionState, setDecisionState: handleSetDecisionState }}
-    >
-      {children}
-    </DecisionContext.Provider>
-  );
+	return (
+		<DecisionContext.Provider
+			value={{ decisionState, setDecisionState: handleSetDecisionState }}
+		>
+			{children}
+		</DecisionContext.Provider>
+	);
 }
 
 export const useDecisionContext = () => {
-  const context = useContext(DecisionContext);
-  if (context === undefined) {
-    throw new Error("useDecisionContext must be used within a LandingProvider");
-  }
-  return context;
+	const context = useContext(DecisionContext);
+	if (context === undefined) {
+		throw new Error("useDecisionContext must be used within a LandingProvider");
+	}
+	return context;
 };

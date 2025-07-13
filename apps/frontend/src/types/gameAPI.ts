@@ -21,7 +21,7 @@ export type LandingScreen = "Register" | "Game Started";
 export type GameScreen = "Lobby" | "Play" | "Decision" | "End" | "Ready";
 
 // Temporary void type to avoid errors
-export type LobbyScreen = "Waiting" | "Queued" | "Kicked" | void;
+export type LobbyScreen = "Waiting" | "Queued" | "Kicked";
 
 export type GameDecision =
   | "YOU WON !!!"

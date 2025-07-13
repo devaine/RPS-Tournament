@@ -1,9 +1,12 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, createContext, useContext } from "react";
+import { useNavigate } from "react-router";
 import { socket } from "@/features/socketio/init";
 import { type UserStatus } from "@/types/gameAPI";
 import { userData } from "@/config/global";
 
-// NOTE: This file manages the state of playerState
+// NOTE: This file manages the state of playerState in order to determine
+// whether is a player's constant data (from localStorage) determines if they're a
+// contestant or not.
 
 type PlayerContextType = {
 	playerState: UserStatus | undefined;
@@ -14,8 +17,20 @@ const PlayerContext = createContext<PlayerContextType | undefined>(undefined);
 
 export function PlayerProvider({ children }: { children: React.ReactNode }) {
 	const [playerState, setPlayerState] = useState<UserStatus>();
+	// FIX: useNavigate() may be used only in the context of a <Router> component.
+	//const navigate = useNavigate();
 
 	admitUser();
+
+	// TODO: Kicking players should be here, as it kicks players across the entire
+	// application, although it should refined more.
+	socket.on("kickPlayer", (firstName: string) => {
+		const user_firstName = userData.name;
+		if (user_firstName === firstName) {
+			localStorage.clear();
+			//navigate("/");
+		}
+	});
 
 	const handleSetPlayerState = (newPlayer: UserStatus | undefined) => {
 		setPlayerState(newPlayer);

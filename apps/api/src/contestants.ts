@@ -36,9 +36,10 @@ export function contestantHandler(socket: Socket) {
   // NOTE: Listener "leave_event" is for people who
   // press the "Leave Game" button in the UI
   socket.on("leave_event", function (data) {
-    if (socket.rooms.has("contestant_room")) {
-      socket.leave("contestant_room");
-    }
+    // Leave all possible rooms available.
+    socket.leave("contestant_room");
+    socket.leave("game_room");
+    socket.leave("loser_room");
 
     console.log("a user " + socket.id + " left the event!");
     console.log(data.name + " is the name");

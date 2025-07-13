@@ -1,8 +1,11 @@
 import { Socket } from "socket.io";
 import { io } from "./index";
+import { sendListsAnyway } from "./list";
 
 /* NOTE: This file:
  * Serves actual game functionality of Rock-Paper-Scissors
+ * And does the handing of player ID's and player movement
+ * based off the determine() method.
  */
 
 var decisionCount = 0;
@@ -16,31 +19,11 @@ export function playRPS(socket: Socket) {
 
     // Waits until both players have made their choice
     if (decisionCount === 2) {
-      const getSockets = await io.in("game_room").fetchSockets();
-
-      for (let players of getSockets) {
-        playerArray.push(String(players.id)); // Gets IDs for both players
-      }
-
-      // Socket Objects
-      // Gets the socket based off ID
-      const player1_socket = io.of("/").sockets.get(String(playerArray[0]));
-      const player2_socket = io.of("/").sockets.get(String(playerArray[1]));
-
       // Determines winner and loser and socket movement to rooms
-      await determine(player1_socket, player2_socket);
+      await getPlayerIDs();
+      await determine();
 
-      // Debugging
-      console.log(player1_socket?.data.status + " is " + player1_socket?.id);
-      console.log(player2_socket?.data.status + " is " + player2_socket?.id);
-
-      if (player1_socket && player2_socket) {
-        // Send results with a small delay (prevent bugs)
-        setTimeout(() => {
-          player1_socket.emit("gameResult", player1_socket?.data.status);
-          player2_socket.emit("gameResult", player2_socket?.data.status);
-        }, 100);
-      }
+      sendListsAnyway(); // Updates the lists.
 
       // Cleanup, empty everything
       decisionCount = 0;
@@ -49,41 +32,54 @@ export function playRPS(socket: Socket) {
   });
 }
 
+async function getPlayerIDs() {
+  const getSockets = await io.in("game_room").fetchSockets();
+  for (let players of getSockets) {
+    playerArray.push(String(players.id));
+  }
+}
+
 // NOTE: Functionality of Rock-Paper-Scissors with movement to rooms respective to
-// whether they won or lost
-async function determine(
-  player1: Socket | undefined,
-  player2: Socket | undefined,
-): Promise<void> {
+// whether they won or lost or if they tied.
+async function determine() {
+  const player1 = io.of("/").sockets.get(String(playerArray[0]));
+  const player2 = io.of("/").sockets.get(String(playerArray[1]));
+
   if (player1 && player2) {
+    // Handles ties.
     if (player1.data.choice === player2.data.choice) {
-      player1.data.status = "tie";
-      player2.data.status = "tie";
-      console.log("tie");
+      player1.data.status = "Tie";
+      player2.data.status = "Tie";
+
+      player1.emit("decisionResult", player1.data.status);
+      player2.emit("decisionResult", player2.data.status);
     } else if (
-      (player1.data.choice === "rock" && player2.data.choice === "scissors") ||
-      (player1.data.choice === "paper" && player2.data.choice === "rock") ||
-      (player1.data.choice === "scissors" && player2.data.choice === "paper")
+      // Handles winners and losers on both ends.
+      (player1.data.choice === "Rock" && player2.data.choice === "Scissors") ||
+      (player1.data.choice === "Paper" && player2.data.choice === "Rock") ||
+      (player1.data.choice === "Scissors" && player2.data.choice === "Paper")
     ) {
-      player1.data.status = "winner";
-      player2.data.status = "loser";
-      console.log(player1.id + " player1 win");
+      player1.data.status = "Winner";
+      player2.data.status = "Loser";
+
+      player1.emit("decisionResult", player1.data.status);
+      player2.emit("decisionResult", player2.data.status);
 
       player1.join("contestant_room");
       player2.join("loser_room");
 
-      player1.leave("game_room");
-      player2.leave("game_room");
+      io.socketsLeave("game_room");
     } else {
-      player1.data.status = "loser";
-      player2.data.status = "winner";
-      console.log(player2.id + " player2 win");
+      player1.data.status = "Loser";
+      player2.data.status = "Winner";
+
+      player1.emit("decisionResult", player1.data.status);
+      player2.emit("decisionResult", player2.data.status);
 
       player1.join("loser_room");
       player2.join("contestant_room");
 
-      player1.leave("game_room");
-      player2.leave("game_room");
+      io.socketsLeave("game_room");
     }
   }
 }

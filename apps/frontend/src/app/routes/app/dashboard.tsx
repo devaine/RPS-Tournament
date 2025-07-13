@@ -77,7 +77,7 @@ const Dashboard = () => {
 						<Heading text="No Contestants Found" />
 					)}
 					{losers.length > 0 ? (
-						<PlayerList header="Lost Contestants" players={contestants} />
+						<PlayerList header="Lost Contestants" players={losers} />
 					) : (
 						<Heading text="No Losers Found :D" />
 					)}

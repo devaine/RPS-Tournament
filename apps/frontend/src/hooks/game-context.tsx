@@ -18,7 +18,6 @@ export const GameContext = createContext<GameContextType | undefined>(
 /* NOTE: What this function does it actually fetch from backend
 	* to know whether the game is still ongoing or whether it has already
 	* ended
-	*
 */
 
 // TODO: Find a way to universally redirect all clients to the End Screen
@@ -26,10 +25,23 @@ export const GameContext = createContext<GameContextType | undefined>(
 export function GameProvider({ children }: { children: React.ReactNode }) {
 	const [gameState, setGameState] = useState<GameScreen>();
 
+	if (gameState === "Ready") {
+		socket.emit("playerReady")
+	}
 
+	// NOTE: This useEffect is usually activated for
+	// when both players have pressed the "ready" button
+	// and gameState changes to "Play"
 	useEffect(() => {
+		const updateGameState = (newState: GameScreen) => {
+			setGameState(newState)
+		}
 
-	}, []);
+		socket.on("updateGameState", updateGameState)
+		return () => {
+			socket.off("updateGameState", updateGameState)
+		}
+	}, [gameState])
 
 	const handleSetGameState = (newGame: GameScreen) => {
 		setGameState(newGame);

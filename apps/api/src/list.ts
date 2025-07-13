@@ -93,3 +93,12 @@ export async function dashboardManager(socket: Socket) {
     );
   });
 }
+
+// NOTE: In any case, if these lists need to be used by other files.
+export async function sendListsAnyway() {
+  sendToFrontend(
+    await fetchContestants(),
+    await fetchPlayers(),
+    await fetchLosers(),
+  );
+}

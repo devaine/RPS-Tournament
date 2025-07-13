@@ -8,7 +8,7 @@ import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
 
 import { socket } from "@/features/socketio/init";
 import { useDecisionContext } from "@/hooks/decision-context";
-import { userData } from "@/config/global";
+import { useGameContext } from "@/hooks/game-context";
 
 type DecisionProps = {
 	enterOnClick: () => void;
@@ -17,21 +17,11 @@ type DecisionProps = {
 
 function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
 	const { decisionState } = useDecisionContext();
+	const { setGameState } = useGameContext();
 
-	// Use effect for handing decision useState using socketio event listeners
-	// when [var] changes, executes useEffect
-	// when [] is empty with every component update, executes useEffect
-	// react will not return a promise as a function
-	// async always returns promises
-	const disconnectSocket = () => {
-		socket.emit("leave_event", {
-			name: userData.name,
-			id: userData.id,
-		});
-
-		// Clears out all local browser data
-		localStorage.clear();
-	};
+	function readyUp() {
+		setGameState("Ready")
+	}
 
 	return (
 		<GameLayout key="Decision">
@@ -42,16 +32,17 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
 						text="Leave Game"
 						link="/"
 						color="background"
-						onClick={disconnectSocket}
+						onClick={() => {
+							// Resets player's data in frontend 
+							// and protected route moves them to Landing
+							localStorage.clear()
+						}}
 					/>
 				)}
 				{decisionState === "YOU TIED !!!" && (
 					<Button
 						text="Ready to go again?"
-						onClick={async () => {
-							socket.emit("readyAgain");
-							enterOnClick();
-						}}
+						onClick={readyUp}
 					/>
 				)}
 				{decisionState === "YOU WON !!!" && (

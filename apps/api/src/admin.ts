@@ -1,5 +1,7 @@
 import { Socket } from "socket.io";
-import { io, player1, player2 } from "./index";
+import { io } from "./index";
+import { sendListsAnyway } from "./list";
+import { lobbyStateManger } from "./context";
 
 // TODO: Practically just improve this by choosing two random players, (could be imported from index.ts)
 
@@ -7,59 +9,61 @@ function randomNumber(min: number, max: number) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
-// NOTE: Moves two random players from "contestant_room" to "game_room"
-function getRandomPlayer(array: string[]) {
-  let randomPlayer1 = array[randomNumber(0, array.length - 1)];
-  let randomPlayer2 = array[randomNumber(0, array.length - 1)];
+// NOTE: Gets 2 random players, moves them to the contestant room,
+// and changes their state to "Queued" in the Frontend
+
+function getRandomPlayers(array: string[]) {
+  let randomPlayer1 = String(array[randomNumber(0, array.length)]);
+  let randomPlayer2 = String(array[randomNumber(0, array.length)]);
 
   if (randomPlayer1 === randomPlayer2 || randomPlayer2 === randomPlayer1) {
-    getRandomPlayer(array);
+    getRandomPlayers(array);
+    console.log("same player, trying again");
   }
 
-  io.to(String(randomPlayer1)).socketsJoin("game_room");
-  io.to(String(randomPlayer1)).socketsLeave("contestant_room");
+  io.to(randomPlayer1).socketsJoin("game_room");
+  io.to(randomPlayer1).socketsLeave("contestant_room");
+  lobbyStateManger(randomPlayer1, "Queued");
 
-  io.to(String(randomPlayer2)).socketsJoin("game_room");
-  io.to(String(randomPlayer2)).socketsLeave("contestant_room");
+  io.to(randomPlayer2).socketsJoin("game_room");
+  io.to(randomPlayer2).socketsLeave("contestant_room");
+  lobbyStateManger(randomPlayer2, "Queued");
 }
 
 export function admin(socket: Socket) {
-  // NOTE: Fetches sockets and moves them to "game_room"
+  // NOTE: Fetches sockets and moves them to "game_room" <--- NEEDS UPDATING
   socket.on("startRound", async () => {
     const getSockets = await io.in("contestant_room").fetchSockets();
     const listSockets: string[] = [];
 
-    // Sends all socket ids into a array
     for (const socket of getSockets) {
       listSockets.push(socket.id);
     }
 
-    getRandomPlayer(listSockets);
+    // Round starts if more than 1 player
+    if (listSockets.length > 1) {
+      getRandomPlayers(listSockets);
+      sendListsAnyway(); // Manually updates all lists.
+    }
   });
 
-  // TODO: I want to change this
-  // perhaps we could try to rename this as "movePlayer"
-  // so we can move players to different rooms as the admin pleases
-  socket.on("removePlayer", async (callback) => {
+  // Removes the latest player from the game_room
+  socket.on("removePlayer", async () => {
     const getSockets = await io.in("game_room").fetchSockets();
     const listSockets: string[] = [];
 
-    // Sends all socket ids into a array
     for (const socket of getSockets) {
       listSockets.push(socket.id);
     }
 
-    const player = listSockets[randomNumber(0, getSockets.length)];
+    const lastPlayer: string = String(listSockets[getSockets.length - 1]);
 
-    io.to(String(player)).socketsLeave("game_room");
-    io.to(String(player)).socketsJoin("contestant_room");
+    io.to(lastPlayer).socketsLeave("game_room");
+    io.to(lastPlayer).socketsJoin("contestant_room");
 
-    const check = await io.in("game_room").fetchSockets();
-    const list = check.map(function (data) {
-      console.log(data.id);
-      return data.id;
-    });
-    callback(list);
+    io.to(lastPlayer).emit("updateLobbyState", "Waiting");
+
+    sendListsAnyway();
   });
 
   // NOTE: Removes any contestant in the game

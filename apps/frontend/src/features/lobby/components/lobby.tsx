@@ -6,32 +6,47 @@ import { useEffect, useState } from "react";
 import Queued from "@/features/lobby/components/queued";
 import Waiting from "@/features/lobby/components/waiting";
 
-// Type Imports
-import { LobbyScreen } from "@/types/gameAPI";
-
 // API Imports
-import { checkQueue } from "@/features/lobby/api/check-queue";
+import { useGameContext } from "@/hooks/game-context";
+import { useLobbyContext } from "@/hooks/lobby-context";
+import { socket } from "@/features/socketio/init";
+import { userData } from "@/config/global";
 
-type LobbyProps = {
-  readyOnClick: () => void;
-  leaveOnClick: () => void;
-};
+const Lobby = () => {
+	return (
+		<LobbyRouter />
+	)
+}
 
-function Lobby({ readyOnClick, leaveOnClick }: LobbyProps) {
-  const [lobbyScreen, setLobbyScreen] = useState<LobbyScreen>("Waiting");
+const LobbyRouter = () => {
+	const { lobbyState } = useLobbyContext();
+	const { setGameState } = useGameContext();
 
-  useEffect(() => {
-    setInterval(checkQueue, 100);
+	function readyUp() {
+		setGameState("Ready")
+	}
 
-    setLobbyScreen(checkQueue());
-  }, [lobbyScreen]);
+	function disconnectSocket() {
+		socket.emit("leave_event", {
+			name: userData.name,
+			id: userData.id,
+		});
 
-  switch (lobbyScreen) {
-    case "Queued":
-      return <Queued readyOnClick={readyOnClick} leaveOnClick={leaveOnClick} />;
-    case "Waiting":
-      return <Waiting leaveOnClick={leaveOnClick} />;
-  }
+		// Clears out all local browser data
+		localStorage.clear();
+		console.log('left event!!')
+	}
+
+	switch (lobbyState) {
+		case "Queued":
+			return <Queued readyOnClick={readyUp} leaveOnClick={disconnectSocket} />;
+		case "Waiting":
+			return <Waiting leaveOnClick={disconnectSocket} />;
+		default:
+			return <Waiting leaveOnClick={disconnectSocket} />;
+
+	}
+
 }
 
 export default Lobby;

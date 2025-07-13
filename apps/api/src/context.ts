@@ -6,6 +6,7 @@ import {
   currentGameState,
   updateGameState,
 } from "./index";
+import { type LobbyScreen } from "./config";
 
 export function contextManager(socket: Socket) {
   landingStateManager(socket);
@@ -38,3 +39,7 @@ function gameStateManager(socket: Socket) {
 
 // FOR player-context.tsx
 function playerStateManager(socket: Socket) {}
+
+export function lobbyStateManger(id: string, chosenStatus: LobbyScreen) {
+  io.to(id).emit("updateLobbyState", chosenStatus);
+}
