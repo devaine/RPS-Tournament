@@ -7,8 +7,4 @@ const socket = io(URL, {
 	autoConnect: true,
 });
 
-if (socket.connected) {
-	console.log("socketio connected!")
-}
-
 export { socket };

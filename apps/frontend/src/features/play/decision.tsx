@@ -3,10 +3,6 @@ import { Announce } from "@/components/ui/text";
 import { GameLayout } from "@/components/layouts/game-layout";
 import { Button } from "@/components/ui/button";
 import { MultiButtonLayout } from "@/components/layouts/multi-button-layout";
-
-// NOTE: Backend not done yet, soz
-
-import { socket } from "@/features/socketio/init";
 import { useDecisionContext } from "@/hooks/decision-context";
 import { useGameContext } from "@/hooks/game-context";
 
@@ -15,7 +11,7 @@ type DecisionProps = {
 	leaveOnClick: () => void;
 };
 
-function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
+function Decision({ leaveOnClick }: DecisionProps) {
 	const { decisionState } = useDecisionContext();
 	const { setGameState } = useGameContext();
 
@@ -28,16 +24,14 @@ function Decision({ enterOnClick, leaveOnClick }: DecisionProps) {
 			<Announce text={decisionState} />
 			<MultiButtonLayout>
 				{decisionState === "YOU LOSE !!!" && (
-					<Button
-						text="Leave Game"
-						link="/"
-						color="background"
-						onClick={() => {
-							// Resets player's data in frontend 
-							// and protected route moves them to Landing
-							localStorage.clear()
-						}}
-					/>
+					<MultiButtonLayout>
+						<Button text="Go to Dashboard" link="/dashboard" />
+						<Button
+							text="Leave Game"
+							link="/"
+							color="background"
+						/>
+					</MultiButtonLayout>
 				)}
 				{decisionState === "YOU TIED !!!" && (
 					<Button

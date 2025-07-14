@@ -15,9 +15,14 @@ import {
 } from "@/features/auth/protected-route";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
+/* NOTE: What <Register/GameProtectedRoute> does is
+* protect <Register/> & <Game/> pages from unauthorized
+* users when game has started by 
+* redirecting them to the <Landing/> page
+*/
+
 const routes = createBrowserRouter([
 	{
-		// NOTE: Protect landing page from users when game has started
 		path: "/",
 		element: (
 			<RegisterProtectedRoute>
@@ -28,8 +33,6 @@ const routes = createBrowserRouter([
 	{
 		path: "/register",
 		element: (
-			// NOTE: Protect register & Game pages from users when game has started
-			// by redirecting users to the landing page
 			<GameProtectedRoute>
 				<Register />
 			</GameProtectedRoute>

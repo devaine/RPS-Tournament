@@ -15,6 +15,7 @@ export const GameContext = createContext<GameContextType | undefined>(
 	undefined,
 );
 
+
 /* NOTE: What this function does it actually fetch from backend
 	* to know whether the game is still ongoing or whether it has already
 	* ended

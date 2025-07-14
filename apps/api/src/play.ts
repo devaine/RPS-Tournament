@@ -23,7 +23,8 @@ export function playRPS(socket: Socket) {
       await getPlayerIDs();
       await determine();
 
-      sendListsAnyway(); // Updates the lists.
+      // Updates the lists.
+      sendListsAnyway();
 
       // Cleanup, empty everything
       decisionCount = 0;

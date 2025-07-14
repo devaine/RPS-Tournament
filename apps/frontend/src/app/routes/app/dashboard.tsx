@@ -82,7 +82,7 @@ const Dashboard = () => {
 						<Heading text="No Losers Found :D" />
 					)}
 				</div>
-				{localStorage.getItem("status") !== "loser" && (
+				{localStorage.getItem("status") !== "Loser" && (
 					<Button
 						text="Back"
 						color="background"

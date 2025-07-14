@@ -18,7 +18,7 @@ export const GameProtectedRoute = ({ children }: ProtectedRouteProps) => {
 		return <Navigate to="/" replace />;
 	}
 
-	const userIsLoser = localStorage.getItem("status") === "loser";
+	const userIsLoser = localStorage.getItem("status") === "Loser";
 	if (userIsLoser) {
 		console.log(userData.status);
 		return <Navigate to="/dashboard" replace />;

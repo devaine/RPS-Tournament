@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { io } from "./index";
+import { io, emptyReadyArray, readyArray } from "./index";
 
 /* NOTE: This file:
  * Waits for two chosen players to press the "ready" button from the frontend.
@@ -10,7 +10,6 @@ import { io } from "./index";
 // RPS functionality is finished for sending/recieving messages.
 
 // Ready counter for any intial game with two players
-var readyCount = 0;
 
 export function syncClient(socket: Socket) {
   // NOTE: Listens to two clients in "game_room", after both have called on this listener
@@ -24,12 +23,12 @@ export function syncClient(socket: Socket) {
       listSockets.push(socket.id);
     }
 
-    readyCount++;
+    readyArray.push(socket.id);
 
-    if (readyCount === 2) {
+    if (readyArray.length === 2) {
       io.to(String(listSockets[0])).emit("updateGameState", "Play");
       io.to(String(listSockets[1])).emit("updateGameState", "Play");
-      readyCount = 0;
+      emptyReadyArray();
     } else {
       null;
     }

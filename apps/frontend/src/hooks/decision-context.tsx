@@ -24,6 +24,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
 					break;
 				case "Loser":
 					setDecisionState("YOU LOSE !!!");
+					localStorage.setItem("status", "Loser"); // Sets the Player to "Loser" status
 					break;
 				case "Tie":
 					setDecisionState("YOU TIED !!!");

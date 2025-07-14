@@ -79,3 +79,12 @@ export let currentGameState: GameScreen = "Lobby";
 export const updateGameState = (newState: GameScreen) => {
   currentGameState = newState;
 };
+
+// This array will determines is both players are ready,
+// the syncronization functionality, and if there is a need
+// for a player to be removed.
+export let readyArray: string[] = [];
+
+export const emptyReadyArray = () => {
+  readyArray = [];
+};

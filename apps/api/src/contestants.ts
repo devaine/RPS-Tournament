@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { io } from "./index";
+import { io, readyArray } from "./index";
 import { type User } from "./config";
 // NOTE: This file helps handle contestant movement between rooms
 
@@ -48,6 +48,9 @@ export function contestantHandler(socket: Socket) {
 
   // Handles genuine disconnection (refreshes + crashes etc.)
   socket.on("disconnect", () => {
+    if (readyArray.includes(socket.id)) {
+      readyArray.pop();
+    }
     console.log("user: " + socket.id + " disconnected!");
   });
 }

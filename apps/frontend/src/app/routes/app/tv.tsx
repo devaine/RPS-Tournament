@@ -25,39 +25,51 @@ import { PlayerList } from "@/components/ui/lists";
  * */
 
 const TV = () => {
-  const [players, setPlayers] = useState<User[]>([]);
-  const [contestants, setContestants] = useState<User[]>([]);
+	const [players, setPlayers] = useState<User[]>([]);
+	const [contestants, setContestants] = useState<User[]>([]);
 
-  useEffect(() => {
-    console.log("effect ping");
-    const fetchContestants = () => {
-      socket.emit("contestantList", (contestants: User[]) => {
-        setContestants(contestants);
-      });
-    };
+	useEffect(() => {
+		socket.emit("contestantList", (contestants: User[]) => {
+			setContestants(contestants)
+		});
 
-    const fetchPlayers = () => {
-      socket.emit("playerList", (players: User[]) => {
-        setPlayers(players);
-      });
-    };
+		socket.emit("playerList", (players: User[]) => {
+			setPlayers(players)
+		})
 
-    return () => {
-      fetchContestants();
-      fetchPlayers();
-    };
-  }, [contestants, players]);
+	}, [])
 
-  return (
-    <div className="flex flex-col h-min-screen justify-evenly">
-      <TVLayout>
-        {players.length > 0 ? <Player {...players[0]} /> : <EmptyPlayer />}
-        <Announce text="VS" />
-        {players.length > 0 ? <Player {...players[1]} /> : <EmptyPlayer />}
-      </TVLayout>
-      <PlayerList header="Spectators" players={contestants} />
-    </div>
-  );
+	useEffect(() => {
+		const fetchContestants = (newContestants: User[]) => {
+			setContestants(newContestants)
+		}
+
+		const fetchPlayers = (newPlayers: User[]) => {
+			setPlayers(newPlayers)
+		}
+
+		socket.on("updateContestantList", fetchContestants)
+		socket.on("updatePlayerList", fetchPlayers)
+
+		return () => {
+			socket.off("updateContestantList", fetchContestants)
+			socket.off("updatePlayerList", fetchPlayers)
+		}
+	}, [contestants, players]);
+
+
+
+
+	return (
+		<div className="flex flex-col h-min-screen justify-evenly">
+			<TVLayout>
+				{players.length > 0 ? <Player {...players[0]} /> : <EmptyPlayer />}
+				<Announce text="VS" />
+				{players.length > 0 ? <Player {...players[1]} /> : <EmptyPlayer />}
+			</TVLayout>
+			<PlayerList header="Spectators" players={contestants} />
+		</div>
+	);
 };
 
 export default TV;

@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { io } from "./index";
+import { io, readyArray } from "./index";
 import { sendListsAnyway } from "./list";
 import { lobbyStateManger } from "./context";
 
@@ -49,21 +49,30 @@ export function admin(socket: Socket) {
 
   // Removes the latest player from the game_room
   socket.on("removePlayer", async () => {
-    const getSockets = await io.in("game_room").fetchSockets();
-    const listSockets: string[] = [];
+    const getGameSockets = await io.in("game_room").fetchSockets();
+    const listGameSockets: string[] = [];
 
-    for (const socket of getSockets) {
-      listSockets.push(socket.id);
+    for (const socket of getGameSockets) {
+      listGameSockets.push(socket.id);
     }
 
-    const lastPlayer: string = String(listSockets[getSockets.length - 1]);
+    const lastPlayer: string = String(
+      listGameSockets[getGameSockets.length - 1],
+    );
 
+    //if (getGameSockets.length > 0 && getReadySockets.includes(lastPlayer)) {
     io.to(lastPlayer).socketsLeave("game_room");
     io.to(lastPlayer).socketsJoin("contestant_room");
 
+    // Updates the screens of a removed player.
     io.to(lastPlayer).emit("updateLobbyState", "Waiting");
+    io.to(lastPlayer).emit("updateGameState", "Lobby");
+
+    // If someone has readied then removed from ready array.
+    if (readyArray.length > 0) readyArray.pop();
 
     sendListsAnyway();
+    //}
   });
 
   // NOTE: Removes any contestant in the game

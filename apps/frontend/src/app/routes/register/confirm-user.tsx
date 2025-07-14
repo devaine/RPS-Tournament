@@ -7,7 +7,6 @@ import { Avatar } from "@/components/ui/avatar";
 // Backend Imports
 import { userData } from "@/config/global";
 import { socket } from "@/features/socketio/init";
-import { setTokenSourceMapRange } from "typescript";
 
 function joinEvent() {
 	localStorage.setItem("status", "Contestant");
