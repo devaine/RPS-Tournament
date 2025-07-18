@@ -21,6 +21,7 @@ export function DecisionProvider({ children }: { children: React.ReactNode }) {
 			switch (response) {
 				case "Winner":
 					setDecisionState("YOU WON !!!");
+					localStorage.setItem("queueStatus", "Waiting")
 					break;
 				case "Loser":
 					setDecisionState("YOU LOSE !!!");
