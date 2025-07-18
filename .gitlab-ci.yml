@@ -20,7 +20,7 @@ build-and-push:
   script:
     # NOTE: Add "--secret 'id=VARIABLE_NAME'" if you're using a variable from GitLab
     - docker buildx build --secret "id=DEV_URL" -t $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH .
-    - docker push cicd-registry.devdoes.work/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
+    - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
 
   after_script:
     - docker logout $registry_server
