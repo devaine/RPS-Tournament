@@ -8,7 +8,40 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 
 ## Features
 
-- Create Players
+- Create Players with 7-digit IDs
+- Randomly choosing two contestants to FIGHT
+- Rock Paper Scissors Functionality _(obv)_
+- End Game screen to show top 3 players and credit to its creators
+- _More features are presented within the Frontend and API `README.md` files_
+
+## Setup
+
+### Requirements
+
+- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+
+### Option 1: Local Host
+
+Install dependencies:
+
+```sh
+npm i # npm install but lazier
+```
+
+Run app:
+
+```sh
+npm run dev # hosts both api and frontend using turbo
+```
+
+### Option 2: Remote Host
+
+_later_
+
+## Documentation
+
+- [API](./apps/api/README.md)
+- [FrontEnd](./apps/frontend/README.md)
 
 ## Tech Stack
 
@@ -28,23 +61,15 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 - [ExpressJS](https://expressjs.com/) for hosting backend
 - [SocketIO](https://socket.io/) for communications between Frontend and Backend
 
-## Requirements
+## Creators
 
-- [npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)
+### Developers
 
-## Local Host Setup
+- _Remind me to add these when this becomes a GH Repo_
 
-Install dependencies:
+### Artists
 
-```sh
-npm i # npm install but lazier
-```
-
-Run app:
-
-```sh
-npm run dev # hosts both api and frontend using turbo
-```
+- _Remind me to ask for consent_
 
 ## Links
 
