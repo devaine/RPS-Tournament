@@ -1,4 +1,10 @@
-import { io } from "./index";
+import {
+  io,
+  winnersArray,
+  losersArray,
+  updateLosersArray,
+  updateWinnersArray,
+} from "./index";
 import type { User } from "./config";
 import { Socket } from "socket.io";
 
@@ -44,12 +50,41 @@ async function fetchPlayers() {
 
 async function fetchLosers() {
   const getLosers = await io.in("loser_room").fetchSockets();
-  let loserArr: User[] = [];
+  let updatedLoserArr: User[] = [];
   getLosers.map(function (value) {
-    loserArr.push(value.data);
+    updatedLoserArr.push(value.data);
   });
 
-  return loserArr;
+  // Find missing loser users in losersArray from loserArr
+  let missingLosersArray = updatedLoserArr.filter(
+    (users) => !losersArray.includes(users),
+  );
+
+  let newLosersArray = [...losersArray, ...missingLosersArray];
+
+  updateLosersArray(newLosersArray);
+
+  return newLosersArray;
+}
+
+async function fetchWinners() {
+  const getWinners = await io.in("winner_room").fetchSockets();
+  let updatedWinnerArr: User[] = [];
+
+  getWinners.map((value) => {
+    updatedWinnerArr.push(value.data);
+  });
+
+  // Find missing loser users in losersArray from loserArr
+  let missingWinnersArray = updatedWinnerArr.filter(
+    (users) => !winnersArray.includes(users),
+  );
+
+  let newWinnersArray = [...winnersArray, ...missingWinnersArray];
+
+  updateWinnersArray(newWinnersArray);
+
+  return newWinnersArray;
 }
 
 export async function dashboardManager(socket: Socket) {
@@ -67,6 +102,11 @@ export async function dashboardManager(socket: Socket) {
     callback(await fetchLosers());
   });
 
+  // For winners
+  socket.on("winnerList", async (callback) => {
+    callback(await fetchWinners());
+  });
+
   // INFO: Listens for when contestants join, leave, or disconnect
   // from the event.
   socket.on("join_event", async () => {
@@ -78,6 +118,14 @@ export async function dashboardManager(socket: Socket) {
   });
 
   socket.on("leave_event", async () => {
+    sendToFrontend(
+      await fetchContestants(),
+      await fetchPlayers(),
+      await fetchLosers(),
+    );
+  });
+
+  socket.on("player_join", async () => {
     sendToFrontend(
       await fetchContestants(),
       await fetchPlayers(),

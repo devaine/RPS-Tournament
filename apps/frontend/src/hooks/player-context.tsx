@@ -1,7 +1,7 @@
 import React, { useState, createContext, useContext } from "react";
 import { useNavigate } from "react-router";
 import { socket } from "@/features/socketio/init";
-import { type UserStatus } from "@/types/gameAPI";
+import { LobbyScreen, type UserStatus } from "@/types/gameAPI";
 import { userData } from "@/config/global";
 
 // NOTE: This file manages the state of playerState in order to determine
@@ -51,12 +51,14 @@ const admitUser = () => {
 	try {
 		// Status begings as null, breaks program if it doesn't exist
 		const status: UserStatus = localStorage.getItem("status") as UserStatus;
+		const queueStatus = localStorage.getItem("queueStatus") as LobbyScreen;
 
 		const ifNotAdmin = !status.includes("Admin");
 		const ifNotLoser = !status.includes("Loser");
 		const ifContestant = status.includes("Contestant");
+		const ifPlayer = queueStatus.includes("Queued")
 
-		if ((ifNotAdmin || ifNotLoser) && ifContestant) {
+		if ((ifNotAdmin || ifNotLoser) && ifContestant && !(ifPlayer)) {
 			socket.emit("join_event", {
 				name: userData.name,
 				id: userData.id,
@@ -65,6 +67,17 @@ const admitUser = () => {
 				status: status,
 			});
 			console.log("joined game!!");
+		}
+
+		if (ifPlayer && ifNotLoser) {
+			socket.emit("player_join", {
+				name: userData.name,
+				id: userData.id,
+				avatar: userData.avatar,
+				choice: userData.choice,
+				status: userData.status
+			})
+			console.log("joined as contestant!")
 		}
 	} catch {
 		console.log("Client doesn't have any player data! Resuming...");

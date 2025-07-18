@@ -14,6 +14,7 @@ import {
 	RegisterProtectedRoute,
 } from "@/features/auth/protected-route";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { GameProvider } from "@/hooks/game-context";
 
 /* NOTE: What <Register/GameProtectedRoute> does is
 * protect <Register/> & <Game/> pages from unauthorized
@@ -82,9 +83,9 @@ const routes = createBrowserRouter([
 
 const Router = () => {
 	return (
-		<div>
+		<GameProvider>
 			<RouterProvider router={routes} />
-		</div>
+		</GameProvider>
 	);
 };
 export default Router;

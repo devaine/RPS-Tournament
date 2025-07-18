@@ -11,7 +11,7 @@ import { contestantHandler } from "./contestants";
 import { dashboardManager } from "./list";
 import { contextManager } from "./context";
 import { admin } from "./admin";
-import { LandingScreen, GameScreen, PORT, URL } from "./config";
+import { LandingScreen, GameScreen, PORT, URL, type User } from "./config";
 
 // PACKAGE IMPORTS
 import express from "express";
@@ -87,4 +87,42 @@ export let readyArray: string[] = [];
 
 export const emptyReadyArray = () => {
   readyArray = [];
+};
+
+// Winner ID
+export let thirdWinnerID: string = "";
+export let secondWinnerID: string = "";
+export let firstWinnerID: string = "";
+
+export const updateID = (id: string, placement: number) => {
+  switch (placement) {
+    case 1:
+      firstWinnerID = id;
+      break;
+
+    case 2:
+      secondWinnerID = id;
+      break;
+
+    case 3:
+      thirdWinnerID = id;
+      break;
+
+    default:
+      break;
+  }
+};
+
+// Winners Array
+export let winnersArray: User[] = [];
+
+export const updateWinnersArray = (newWinnersArray: User[]) => {
+  winnersArray = newWinnersArray;
+};
+
+// Losers Array
+export let losersArray: User[] = [];
+
+export const updateLosersArray = (newLosersArray: User[]) => {
+  losersArray = newLosersArray;
 };

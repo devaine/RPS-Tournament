@@ -1,6 +1,14 @@
 import { Socket } from "socket.io";
-import { io } from "./index";
+import {
+  currentLandingState,
+  firstWinnerID,
+  io,
+  secondWinnerID,
+  thirdWinnerID,
+  updateID,
+} from "./index";
 import { sendListsAnyway } from "./list";
+import type { User } from "./config";
 
 /* NOTE: This file:
  * Serves actual game functionality of Rock-Paper-Scissors
@@ -22,6 +30,8 @@ export function playRPS(socket: Socket) {
       // Determines winner and loser and socket movement to rooms
       await getPlayerIDs();
       await determine();
+
+      await winnerHandler();
 
       // Updates the lists.
       sendListsAnyway();
@@ -66,6 +76,10 @@ async function determine() {
       player1.emit("decisionResult", player1.data.status);
       player2.emit("decisionResult", player2.data.status);
 
+      // Update the state of the Lobby State just in case
+      player1.emit("updateLobbyState", "Waiting");
+      player2.emit("updateLobbyState", "Waiting");
+
       player1.join("contestant_room");
       player2.join("loser_room");
 
@@ -77,10 +91,58 @@ async function determine() {
       player1.emit("decisionResult", player1.data.status);
       player2.emit("decisionResult", player2.data.status);
 
+      player1.emit("updateLobbyState", "Waiting");
+      player2.emit("updateLobbyState", "Waiting");
+
       player1.join("loser_room");
       player2.join("contestant_room");
 
       io.socketsLeave("game_room");
     }
+  }
+}
+
+// TEST: I'm not sure how socket.io handles the ordering
+// of sockets in a room. So i'll just assume that its
+// considered in order.
+async function winnerHandler() {
+  const roomSize = io.sockets.adapter.rooms.get("contestant_room")?.size;
+  const getLoserSockets = await io.in("loser_room").fetchSockets();
+  const getWinnerSocket = await io.in("contestant_room").fetchSockets();
+
+  const getThirdPlace = getLoserSockets.map((value, index, arr) => {
+    if (index === arr.length - 1) {
+      return value.id;
+      //return value.data.name;
+    }
+  });
+
+  const getSecondPlace = getLoserSockets
+    .map((value, index, arr) => {
+      if (index === arr.length - 1) {
+        return value.id;
+      }
+    })
+    .join("");
+
+  const getFirstPlace = getWinnerSocket.map((value, index, arr) => {
+    if (index === arr.length - 1) {
+      return value.id;
+    }
+  });
+
+  if (roomSize === 2 && currentLandingState === "Game Started") {
+    updateID(String(getThirdPlace), 3);
+  } else if (roomSize === 1 && currentLandingState === "Game Started") {
+    updateID(String(getSecondPlace), 2);
+    updateID(String(getFirstPlace), 1);
+
+    io.to(firstWinnerID).socketsJoin("winner_room");
+    io.to(secondWinnerID).socketsJoin("winner_room");
+    io.to(thirdWinnerID).socketsJoin("winner_room");
+
+    console.log("WINNERS DECIDED");
+  } else {
+    return null;
   }
 }

@@ -1,5 +1,5 @@
 import { Socket } from "socket.io";
-import { io, readyArray } from "./index";
+import { currentLandingState, io, readyArray } from "./index";
 import { sendListsAnyway } from "./list";
 import { lobbyStateManger } from "./context";
 
@@ -33,15 +33,20 @@ function getRandomPlayers(array: string[]) {
 export function admin(socket: Socket) {
   // NOTE: Fetches sockets and moves them to "game_room" <--- NEEDS UPDATING
   socket.on("startRound", async () => {
-    const getSockets = await io.in("contestant_room").fetchSockets();
+    const getContestantSockets = await io.in("contestant_room").fetchSockets();
+    const getGameSockets = await io.in("game_room").fetchSockets();
     const listSockets: string[] = [];
 
-    for (const socket of getSockets) {
+    for (const socket of getContestantSockets) {
       listSockets.push(socket.id);
     }
 
     // Round starts if more than 1 player
-    if (listSockets.length > 1) {
+    if (
+      listSockets.length > 1 &&
+      currentLandingState === "Game Started" &&
+      getGameSockets.length === 0
+    ) {
       getRandomPlayers(listSockets);
       sendListsAnyway(); // Manually updates all lists.
     }
@@ -60,7 +65,6 @@ export function admin(socket: Socket) {
       listGameSockets[getGameSockets.length - 1],
     );
 
-    //if (getGameSockets.length > 0 && getReadySockets.includes(lastPlayer)) {
     io.to(lastPlayer).socketsLeave("game_room");
     io.to(lastPlayer).socketsJoin("contestant_room");
 
@@ -72,7 +76,6 @@ export function admin(socket: Socket) {
     if (readyArray.length > 0) readyArray.pop();
 
     sendListsAnyway();
-    //}
   });
 
   // NOTE: Removes any contestant in the game

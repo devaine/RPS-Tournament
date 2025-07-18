@@ -10,42 +10,37 @@ import type { User } from "@/types/gameAPI";
 import { socket } from "@/features/socketio/init";
 import About from "@/app/routes/app/about";
 
-// Needed for reconnecting
-
-// WARNING: Might not load on current players device,
-// fixed by adding emit("join_event") but that might cause the current player to be
-// contestant room
-
 const End = () => {
-  const [winners, setWinners] = useState<User[]>([]);
+	const [winners, setWinners] = useState<User[]>([]);
 
-  useEffect(() => {
-    const fetchWinners = () => {
-      socket.emit("contestantList", (contestants: User[]) => {
-        setWinners(contestants);
-      });
-    };
+	useEffect(() => {
+		const fetchWinners = () => {
+			socket.emit("winnerList", (winners: User[]) => {
+				setWinners(winners);
+			});
+		};
 
-    fetchWinners();
-  }, [setWinners]);
-  return (
-    <TextLayout>
-      <div className="flex flex-col items-center gap-4 p-4">
-        <div>
-          <Title text="WINNERS" />
-          <Divider />
-        </div>
-        <div className="flex flex-col gap-4">
-          {winners.length > 0 ? (
-            <PlayerList header="WINNERS" players={winners} />
-          ) : (
-            <Heading text="Loading Winner Data" />
-          )}
-        </div>
-        <About />
-      </div>
-    </TextLayout>
-  );
+		fetchWinners();
+	}, [setWinners]);
+
+	return (
+		<TextLayout>
+			<div className="flex flex-col items-center gap-4 p-4">
+				<div>
+					<Title text="WINNERS" />
+					<Divider />
+				</div>
+				<div className="flex flex-col gap-4">
+					{winners.length > 0 ? (
+						<PlayerList header="WINNERS" players={winners} />
+					) : (
+						<Heading text="Loading Winner Data" />
+					)}
+				</div>
+				<About />
+			</div>
+		</TextLayout>
+	);
 };
 
 export default End;

@@ -21,6 +21,7 @@ export function LobbyProvider({ children }: { children: React.ReactNode }) {
 
 	useEffect(() => {
 		const fetchNewState = (newState: LobbyScreen) => {
+			localStorage.setItem("queueStatus", newState)
 			setLobbyState(newState)
 		}
 
@@ -28,6 +29,15 @@ export function LobbyProvider({ children }: { children: React.ReactNode }) {
 
 		return () => {
 			socket.off("updateLobbyState", fetchNewState)
+		}
+	}, [])
+
+
+	// TODO: Make sure for backend that the queued player rejoins as a player!
+	useEffect(() => {
+		const queueStatus = localStorage.getItem("queueStatus")
+		if (queueStatus === "Queued" || queueStatus === "Waiting") {
+			setLobbyState(queueStatus)
 		}
 	}, [])
 
