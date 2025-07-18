@@ -1,6 +1,6 @@
 services:
   fullstack:
-    image: cicd-registry.devdoes.work/rps-developers/rps-tournament:dev
+    image: gitlab-registry.devdoes.work/rps-developers/rps-tournament:dev
 
     ports:
       - 3002:3002
