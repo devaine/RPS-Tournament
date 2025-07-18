@@ -37,7 +37,7 @@ export const io = new Server(httpServer, {
 app.use(express.static(join(__dirname, "../../frontend/dist")));
 app.get("/*", (req, res) => {
   // Handles the HTML file across the entire website
-  res.sendFile(__dirname + "../../frontend/dist/index.html");
+  res.sendFile("index.html", { root: "../frontend/dist" });
 });
 
 // SocketIO Main Initialization
