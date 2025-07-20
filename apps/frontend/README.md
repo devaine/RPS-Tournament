@@ -1,24 +1,5 @@
 # Front End
 
-## Project Structure
-
-- `app/` = application interface (includes [Routes](#routes))
-
-- `components/` = those are tools for `app/`
-  - components work independent of features, features rely on components to do things
-
-- `config/` = for easily referencing icons and global variables
-
-- `features/` = functionality, uses tools to serve a purpose for app/
-
-- `hooks/` = context states that are shared across the website
-  - normally used for react dom hooks but are just for contexts because we were dumbs
-
-- `styles/` = custom types for each part of the application
-  - components, more specifically
-
-- `types/` = for shared types used across the application
-
 ## Routes
 
 ### Root
@@ -48,6 +29,33 @@
   - "End" = displays winners and `/about` information
   - "Ready" = queue before player enters "Play" with other player
 - `/tv` = tv screen that shows both competing players and contestants in the bottom of the screen
+
+## Frontend Structure
+
+- `app/` = application interface (includes [Routes](#routes))
+
+- `components/` = those are tools for `app/`
+  - components work independent of features, features rely on components to do things
+
+- `config/` = for easily referencing icons and global variables
+
+- `features/` = functionality, uses tools to serve a purpose for app/
+
+- `hooks/` = context states that are shared across the website
+  - normally used for react dom hooks but are just for contexts because we were dumbs
+
+- `styles/` = custom types for each part of the application
+  - components, more specifically
+
+- `types/` = for shared types used across the application
+
+### Tech Stack
+
+- [Vite](https://vite.dev/) for creating production builds
+- [React](https://react.dev/) for the JS framework
+- [Motion](https://motion.dev/) for animations
+- [Tailwindcss](https://tailwindcss.com/) for styling
+- [Figma](https://www.figma.com/) for creating prototypes of the UI/UX
 
 ## Links
 

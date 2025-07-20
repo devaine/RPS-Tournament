@@ -9,19 +9,20 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 ## Table of Contents
 
 - [Features](#features)
-- [Setup](#setup)
-- [How to Play](#how-to-play)
-- [Tech Stack](#tech-stack)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Project Structure](#project-structure)
 - [Creators](#creators)
 
 ### [API](./apps/api/README.md)
 
+- [API Structure](./apps/api/README.md#api-structure)
 -
 
 ### [FrontEnd](./apps/frontend/README.md)
 
-- [Project Structure](./apps/frontend/README.md#project-structure)
 - [Routes](./apps/frontend/README.md#routes)
+- [Frontend Structure](./apps/frontend/README.md#frontend-structure)
 - [Links](./apps/frontend/README.md#links)
 
 ## Features
@@ -32,7 +33,7 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 - End Game screen to show top 3 players and credit to its creators
 - _More features are presented within the Frontend and API `README.md` files_
 
-## Setup
+## Installation
 
 ### Requirements
 
@@ -56,27 +57,21 @@ npm run dev # hosts both api and frontend using turbo
 
 _later_
 
-## How to Play
+## Usage
 
 _insert a Youtube tutorial for this_
 
-## Tech Stack
+## Project Structure
+
+Split between two apps:
+
+1. [API](./apps/api/README.md#api-structure)
+2. [Frontend](./apps/api/README.md#frontend-structure)
+
+### Tech Stack
 
 - [Typescript](https://www.typescriptlang.org/) as our primary language
 - [Turbo](https://turborepo.com/) for automating frontend and API production builds
-
-### API
-
-- [ExpressJS](https://expressjs.com/) for hosting backend
-- [SocketIO](https://socket.io/) for communications between Frontend and Backend
-
-### Frontend
-
-- [Vite](https://vite.dev/) for creating production builds
-- [React](https://react.dev/) for the JS framework
-- [Motion](https://motion.dev/) for animations
-- [Tailwindcss](https://tailwindcss.com/) for styling
-- [Figma](https://www.figma.com/) for creating prototypes of the UI/UX
 
 ## Creators
 
