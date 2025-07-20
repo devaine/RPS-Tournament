@@ -1,5 +1,24 @@
 # Front End
 
+## Project Structure
+
+- `app/` = application interface (includes [Routes](#routes))
+
+- `components/` = those are tools for `app/`
+  - components work independent of features, features rely on components to do things
+
+- `config/` = for easily referencing icons and global variables
+
+- `features/` = functionality, uses tools to serve a purpose for app/
+
+- `hooks/` = context states that are shared across the website
+  - normally used for react dom hooks but are just for contexts because we were dumbs
+
+- `styles/` = custom types for each part of the application
+  - components, more specifically
+
+- `types/` = for shared types used across the application
+
 ## Routes
 
 ### Root

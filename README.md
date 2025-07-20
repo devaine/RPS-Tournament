@@ -20,6 +20,7 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 
 ### [FrontEnd](./apps/frontend/README.md)
 
+- [Project Structure](./apps/frontend/README.md#project-structure)
 - [Routes](./apps/frontend/README.md#routes)
 - [Links](./apps/frontend/README.md#links)
 
