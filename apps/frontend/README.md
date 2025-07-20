@@ -1,7 +1,9 @@
-# RPS-Tournament
+# Front End
 
-Rock Paper Scissors Tournament - Hopefully Hosting on Cy-Fair Campus
+## Pages
 
-# Layout
+-
+
+## Layout
 
 Inspired by the [bulletproof-react](https://github.com/alan2207/bulletproof-react/blob/master/docs/project-structure.md) project structure.
