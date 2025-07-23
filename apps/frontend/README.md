@@ -57,6 +57,8 @@
 - [Tailwindcss](https://tailwindcss.com/) for styling
 - [Figma](https://www.figma.com/) for creating prototypes of the UI/UX
 
+## Configuration
+
 ## Links
 
 - [Figma Prototype](https://www.figma.com/design/Ixbz0pRqGYFAcqHvRV3AsA/RPS-Tournament?node-id=3002-482&t=R9qBQ1rETZqdCQ0C-1)
