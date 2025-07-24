@@ -96,4 +96,5 @@ Split between two apps:
 
 ### Artists
 
-- _Remind me to ask for consent_
+- **Taylor Wiedeman** who created our glorious rock, paper, and scissors icons along with the animated background!
+- **[Angel](https://github.com/AngelAJH)** who created our colorful cast of profile pictures!

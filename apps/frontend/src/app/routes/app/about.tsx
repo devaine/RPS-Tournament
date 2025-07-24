@@ -11,7 +11,7 @@ const About = () => {
         <TextBox text="Rafael Rojas" />
         <TextBox text="Lance Finke" />
         <Heading text="Icon Art by:" />
-        <TextBox text="Taylor Wiedeman " />
+        <TextBox text="Taylor Wiedeman" />
         <Heading text="Avatar Art by:" />
         <TextBox text="Angel Huerta " />
       </div>
