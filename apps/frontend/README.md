@@ -1,5 +1,7 @@
 # Front End
 
+A 8-bit inspired Front-End created in React and Tailwindcss to play and manage a Rock Paper Scissors Tournament.
+
 ## Routes
 
 ### Root
@@ -32,6 +34,8 @@
 
 ## Frontend Structure
 
+### Directories
+
 - `app/` = application interface (includes [Routes](#routes))
 
 - `components/` = those are tools for `app/`
@@ -56,8 +60,6 @@
 - [Motion](https://motion.dev/) for animations
 - [Tailwindcss](https://tailwindcss.com/) for styling
 - [Figma](https://www.figma.com/) for creating prototypes of the UI/UX
-
-## Configuration
 
 ## Links
 

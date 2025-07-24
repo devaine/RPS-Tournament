@@ -25,19 +25,16 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 - [Hosting](#hosting)
 - [Usage](#usage)
 - [Project Structure](#project-structure)
-- [Known Issues](#known-issues)
 - [Creators](#creators)
 
 ### [API](./apps/api/README.md)
 
 - [API Structure](./apps/api/README.md#api-structure)
-- [Configuration](./apps/api/README.md#configuration)
 
 ### [FrontEnd](./apps/frontend/README.md)
 
 - [Routes](./apps/frontend/README.md#routes)
 - [Frontend Structure](./apps/frontend/README.md#frontend-structure)
-- [Configuration](./apps/frontend/README.md#configuration)
 - [Links](./apps/frontend/README.md#links)
 
 ## Installation
@@ -90,8 +87,6 @@ Split between two apps:
 
 - [Typescript](https://www.typescriptlang.org/) as our primary language
 - [Turbo](https://turborepo.com/) for automating frontend and API production builds
-
-## Known Issues
 
 ## Creators
 

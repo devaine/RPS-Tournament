@@ -11,36 +11,36 @@ import { socket } from "@/features/socketio/init";
 import About from "@/app/routes/app/about";
 
 const End = () => {
-	const [winners, setWinners] = useState<User[]>([]);
+  const [winners, setWinners] = useState<User[]>([]);
 
-	useEffect(() => {
-		const fetchWinners = () => {
-			socket.emit("winnerList", (winners: User[]) => {
-				setWinners(winners);
-			});
-		};
+  useEffect(() => {
+    const fetchWinners = () => {
+      socket.emit("winnerList", (winners: User[]) => {
+        setWinners(winners);
+      });
+    };
 
-		fetchWinners();
-	}, [setWinners]);
+    fetchWinners();
+  }, [setWinners]);
 
-	return (
-		<TextLayout>
-			<div className="flex flex-col items-center gap-4 p-4">
-				<div>
-					<Title text="WINNERS" />
-					<Divider />
-				</div>
-				<div className="flex flex-col gap-4">
-					{winners.length > 0 ? (
-						<PlayerList header="WINNERS" players={winners} />
-					) : (
-						<Heading text="Loading Winner Data" />
-					)}
-				</div>
-				<About />
-			</div>
-		</TextLayout>
-	);
+  return (
+    <TextLayout>
+      <div className="flex flex-col items-center gap-4 p-4">
+        <div>
+          <Title text="WINNERS" />
+          <Divider />
+        </div>
+        <div className="flex flex-col gap-4">
+          {winners.length > 0 ? (
+            <PlayerList header="WINNERS" players={winners} />
+          ) : (
+            <Heading text="Loading Winner Data" />
+          )}
+        </div>
+        <About />
+      </div>
+    </TextLayout>
+  );
 };
 
 export default End;
