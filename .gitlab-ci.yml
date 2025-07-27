@@ -15,18 +15,24 @@ build-and-push:
     DOCKER_HOST: "unix:///runner/services/docker/docker.sock"
 
   before_script:
-    - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
+    - printf $PAT | docker login $registry_server -u $PAT_USER --password-stdin
+    - printf $GITHUB_PAT | docker login ghcr.io -u $GITHUB_PAT_USER --password-stdin
 
   script:
-    # NOTE: Add "--secret 'id=VARIABLE_NAME'" if you're using a variable from GitLab
+    # Builds and Pushes to GitLab
+    # NOTE: Add "--secret 'id=VARIABLE_NAME'" if you have docker secret (required)
     - docker buildx build --secret "id=DEV_URL" -t $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH .
     - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
 
+    # Builds and Pushes to GitHub
+    - docker buildx build --secret "id=DEV_URL" -t ghcr.io/$GITHUB_PAT_USER/RPS-Tournament:$CI_COMMIT_BRANCH .
+    - docker push ghcr.io/$GITHUB_PAT_USER/RPS-Tournament:$CI_COMMIT_BRANCH
+
   after_script:
     - docker logout $registry_server
+    - docker logout ghcr.io
     - rm -rf ~/.docker/config.json
     - rm -rf ~/.*history
-
 
 deploy:
   when: on_success
@@ -44,18 +50,19 @@ deploy:
     - printf "Host deploy\nPort $SSH_PORT\nHostname $SSH_HOST\nIdentityFile ~/.ssh/$SSH_USER\nUser $SSH_USER" > ~/.ssh/config
     - docker context create rps --docker "host=ssh://deploy"
     - docker context use rps
-    - printf $PAT | docker login $registry_server -u $PAT_user --password-stdin
-
+    - printf $PAT | docker login $registry_server -u $PAT_USER --password-stdin
 
   script:
     - docker pull $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
     - docker stack deploy --prune -c docker-stack.yml rps-dev --with-registry-auth
 
   after_script:
+    - docker logout $registry_server
     - docker context use default
     - docker context rm rps
     - rm -rf ~/.ssh
     - rm -rf ~/.*history
+    - rm -rf ~/.docker/config.json
 
 ### STAGES ###
 stages:
