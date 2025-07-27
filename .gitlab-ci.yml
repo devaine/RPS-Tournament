@@ -26,7 +26,7 @@ build-and-push:
 
     # Builds and Pushes to GitHub
     - docker buildx build --secret "id=DEV_URL" -t ghcr.io/$GITHUB_PAT_USER/RPS-Tournament:$CI_COMMIT_BRANCH .
-    - docker push ghcr.io/$GITHUB_PAT_USER/RPS-Tournament:$CI_COMMIT_BRANCH
+    - docker push ghcr.io/$GITHUB_PAT_USER/rps-tournament:$CI_COMMIT_BRANCH
 
   after_script:
     - docker logout $registry_server
