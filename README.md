@@ -90,11 +90,25 @@ Split between two apps:
 
 ## Creators
 
-### Developers
+<a href="https://github.com/devaine">
+<img src="https://github.com/devaine.png?size=50">
+</a>
+<a href="https://github.com/papatenko">
+<img src="https://github.com/papatenko.png?size=50">
+</a>
+<a href="https://github.com/lancefinke">
+<img src="https://github.com/lancefinke.png?size=50">
+</a>
+<a href="https://github.com/AngelAJH">
+<img src="https://github.com/AngelAJH.png?size=50">
+</a>
 
-- _Remind me to add these when this becomes a GH Repo_
+**[devaine](https://github.com/devaine)** = lead backend developer
 
-### Artists
+**[papatenko](https://github.com/papatenko)** = lead frontend developer
 
-- **Taylor Wiedeman** who created our glorious rock, paper, and scissors icons along with the animated background!
-- **[Angel](https://github.com/AngelAJH)** who created our colorful cast of profile pictures!
+**[lancefinke](https://github.com/papatenko)** = helped with backend
+
+**[AngelAJH](https://github.com/AngelAJH)** = created our colorful cast of profile pictures!
+
+**Taylor Wiedeman** = created our glorious rock, paper, and scissors icons along with the animated background!
