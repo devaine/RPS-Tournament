@@ -8,13 +8,15 @@ WORKDIR /rps-dev
 # If there is a docker secret under the name: DEV_URL
 RUN --mount=type=secret,id=DEV_URL \
 	if [ -f /run/secrets/DEV_URL ]; then \
-	echo DEV_URL=$(cat /run/secrets/DEV_URL) >> .env
+	echo DEV_URL=$(cat /run/secrets/DEV_URL) >> .env \
+	fi
 
 # FOR PRODUCTION SERVER:
 # If there is a docker secret under the name: PROD_URL
 #RUN --mount=type=secret,id=PROD_URL \
 #	if [ -f /run/secrets/PROD_URL ] \
-#	echo PROD_URL=$(cat /run/secrets/PROD_URL) >> .env
+#	echo PROD_URL=$(cat /run/secrets/PROD_URL) >> .env \
+# fi
 
 RUN npm i #--omit=dev <- use that arg for production
 
