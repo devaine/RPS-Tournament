@@ -142,7 +142,7 @@ Split between two apps:
   <tr>
     <td>lead backend developer</td>
     <td>lead frontend developer</td>
-    <td>helped with backend</td>
+    <td>helped start the project and backend</td>
     <td>created our colorful cast of profile pictures</td>
     <td>created the beautiful icons along with the animated background</td>
   </tr>
