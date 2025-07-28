@@ -105,7 +105,7 @@ Split between two apps:
 ## Creators
 
 <table>
-  <tr>
+  <tr style="text-align: center;">
     <td>
       <a href="https://github.com/devaine">
         <img src="https://github.com/devaine.png?size=100" width="100" alt="devaine">
