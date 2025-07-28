@@ -54,7 +54,7 @@ deploy:
 
   script:
     - docker pull $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
-    - docker stack deploy --prune -c docker-stack.yml rps --with-registry-auth
+    - docker stack deploy --prune -c docker-stack.yml rps-dev --with-registry-auth
 
   after_script:
     - docker logout $registry_server
