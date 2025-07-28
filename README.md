@@ -47,7 +47,7 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 Open your Terminal application and type:
 
 ```sh
-# add later
+git clone https://github.com/devaine/RPS-Tournament.git
 ```
 
 ### 3. Install dependencies:
@@ -70,9 +70,25 @@ npm run dev # hosts both api and frontend using turbo
 
 ### Option 2: Remote Host
 
+Create a secret called `PROD_URL`. `PROD_URL` will be the url of the website you're hosting this project on (make sure to add `https://`). Follow [this guide](https://www.youtube.com/watch?v=aK6sJDOn2Hc) to learn how to create a secret.
+
+Build the project, replace `your_tag_name` with your preferred tag:
+
+```sh
+docker buildx build --secret "id=PROD_URL" -t <your_image_name> . # builds project using your secret
+```
+
+Run your built image, (container port will always be `3003`)
+
+```sh
+docker run -p 3003:3003 <your_image_name> # runs the docker image
+```
+
+Make sure you port forwarded `3003` with your computer's IP and you should be good.
+
 ## Usage
 
-_insert a Youtube tutorial for this_
+[![Rock Paper Scissors(RPS) Tournament DEMO](./screenshots/thumbnail.png)](https://www.youtube.com/watch?v=pilOqmKyrKA)
 
 ## Project Structure
 
