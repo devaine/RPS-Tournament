@@ -10,7 +10,8 @@ import dotenv from "dotenv";
 dotenv.config({ path: ["../../.env"] });
 
 // NOTE: Hosting Variables
-export const PORT = 3002;
+export const PORT = process.env.PORT;
+
 export const URL =
   process.env.DEV_URL || process.env.PROD_URL || "http://localhost:5173";
 

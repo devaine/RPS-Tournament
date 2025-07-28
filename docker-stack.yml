@@ -1,9 +1,9 @@
 services:
   fullstack:
-    image: gitlab-registry.devdoes.work/rps-developers/rps-tournament:dev
+    image: gitlab-registry.devdoes.work/rps-developers/rps-tournament
 
     ports:
-      - 3002:3002
+      - 3003:3003
 
     deploy:
       update_config:
