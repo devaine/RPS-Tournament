@@ -7,7 +7,7 @@ RPS-Tournament is a webapp for hosting a tournament of the classic game of Rock 
 <img src="./screenshots/landing.png" width="200" alt="Landing Page"> <img src="./screenshots/play.png" width="200" alt="Play Page"> <img src="./screenshots/dashboard.png" width="200" alt="Dashboard Page">
 
 > [!IMPORTANT]
-> This project is no longer being worked on. Feel free to download, use it, fork it and do whatever you want to with the code. There will be no information regarding contributions unless this project receives enough attention to warrant continued support.
+> This project is no longer being worked on. Feel free to download, use it, fork it and do whatever you want to with the code under the GPL-2 license. There will be no information regarding contributions unless this project receives enough attention to warrant continued support.
 
 ### Features
 
@@ -95,7 +95,7 @@ Make sure you port forwarded `3003` with your computer's IP and you should be go
 Split between two apps:
 
 1. [API](./apps/api/README.md#api-structure)
-2. [Frontend](./apps/api/README.md#frontend-structure)
+2. [Frontend](./apps/frontend/README.md#frontend-structure)
 
 ### Tech Stack
 
@@ -104,25 +104,46 @@ Split between two apps:
 
 ## Creators
 
-<a href="https://github.com/devaine">
-<img src="https://github.com/devaine.png?size=50">
-</a>
-<a href="https://github.com/papatenko">
-<img src="https://github.com/papatenko.png?size=50">
-</a>
-<a href="https://github.com/lancefinke">
-<img src="https://github.com/lancefinke.png?size=50">
-</a>
-<a href="https://github.com/AngelAJH">
-<img src="https://github.com/AngelAJH.png?size=50">
-</a>
-
-**[devaine](https://github.com/devaine)** = lead backend developer
-
-**[papatenko](https://github.com/papatenko)** = lead frontend developer
-
-**[lancefinke](https://github.com/papatenko)** = helped with backend
-
-**[AngelAJH](https://github.com/AngelAJH)** = created our colorful cast of profile pictures!
-
-**Taylor Wiedeman** = created our glorious rock, paper, and scissors icons along with the animated background!
+<table>
+  <tr>
+    <td>
+      <a href="https://github.com/devaine">
+        <img src="https://github.com/devaine.png?size=100" width="100" alt="devaine">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/papatenko">
+        <img src="https://github.com/papatenko.png?size=100" width="100" alt="papatenko">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/lancefinke">
+        <img src="https://github.com/lancefinke.png?size=100" width="100" alt="lancefinke">
+      </a>
+    </td>
+    <td>
+      <a href="https://github.com/AngelAJH">
+        <img src="https://github.com/AngelAJH.png?size=100" width="100" alt="AngelAJH">
+      </a>
+    </td>
+    <td>
+      <a href="https://ko-fi.com/tokkistrinkets">
+        <img src="https://cdn.ko-fi.com/cdn/useruploads/9dbfe1fd-8b3b-485d-a202-12a9122bed24.png" width="100" alt="Taylor Wiedeman">
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th><a href="https://github.com/devaine">devaine</a></th>
+    <th><a href="https://github.com/papatenko">papatenko</a></th>
+    <th><a href="https://github.com/lancefinke">lancefinke</a></th>
+    <th><a href="https://github.com/AngelAJH">AngelAJH</a></th>
+    <th><a href="https://ko-fi.com/tokkistrinkets">Taylor Wiedeman</a></th>
+  </tr>
+  <tr>
+    <td>lead backend developer</td>
+    <td>lead frontend developer</td>
+    <td>helped with backend</td>
+    <td>created our colorful cast of profile pictures</td>
+    <td>created the beautiful icons along with the animated background</td>
+  </tr>
+</table>
