@@ -21,11 +21,11 @@ build-and-push:
   script:
     # Builds and Pushes to GitLab
     # NOTE: Add "--secret 'id=VARIABLE_NAME'" if you have docker secret (required)
-    - docker buildx build --secret "id=DEV_URL" -t $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH .
+    - docker buildx build --secret "id=PROD_URL" -t $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH .
     - docker push $registry_server/rps-developers/rps-tournament:$CI_COMMIT_BRANCH
 
     # Builds and Pushes to GitHub
-    - docker buildx build --secret "id=DEV_URL" -t ghcr.io/$GITHUB_PAT_USER/rps-tournament:$CI_COMMIT_BRANCH .
+    - docker buildx build --secret "id=PROD_URL" -t ghcr.io/$GITHUB_PAT_USER/rps-tournament:$CI_COMMIT_BRANCH .
     - docker push ghcr.io/$GITHUB_PAT_USER/rps-tournament:$CI_COMMIT_BRANCH
 
   after_script:
