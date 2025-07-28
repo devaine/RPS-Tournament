@@ -1,6 +1,6 @@
 services:
   fullstack:
-    image: gitlab-registry.devdoes.work/rps-developers/rps-tournament
+    image: gitlab-registry.devdoes.work/rps-developers/rps-tournament:main
 
     ports:
       - 3003:3003
