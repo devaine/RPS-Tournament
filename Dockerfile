@@ -14,7 +14,7 @@ RUN --mount=type=secret,id=DEV_URL \
 # FOR PRODUCTION SERVER:
 # If there is a docker secret under the name: PROD_URL
 #RUN --mount=type=secret,id=PROD_URL \
-#	if [ -f /run/secrets/PROD_URL ] \
+#	if [ -f /run/secrets/PROD_URL ]; then \
 #		echo "PROD_URL=$(cat /run/secrets/PROD_URL)" >> .env; \
 # fi 
 
