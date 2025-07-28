@@ -24,7 +24,7 @@ RUN npm i #--omit=dev <- use that arg for production
 
 # Port 3002 = dev website
 # Port 3003 = prod website
-EXPOSE 3003
+EXPOSE 3002
 
 RUN npm run format
 
